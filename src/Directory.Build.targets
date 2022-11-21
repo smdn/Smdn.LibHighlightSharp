@@ -22,6 +22,7 @@ SPDX-License-Identifier: MIT
   <ImportGroup Label="project assets">
     <Import Project="$(MSBuildThisFileDirectory)GenerateNoticeFile.targets" />
     <Import Project="$(SmdnProjectAssets_TargetsImports)" />
-    <Import Project="PackageProvidedAPI.targets" />
+    <Import Project="$(MSBuildThisFileDirectory)PackageProvidedAPI.targets" />
+    <Import Project="$(MSBuildThisFileDirectory)Highlight.Build.targets" />
   </ImportGroup>
 </Project>
