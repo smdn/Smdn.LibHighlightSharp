@@ -24,8 +24,8 @@ on:
   #   paths:
   #   - 'src/**/*.cs'
   #   - 'src/**/*.csproj'
-  # schedule:
-  #   - cron: '07 20 03,16 * *'
+  schedule:
+    - cron: '34 20 03,16 * *'
   workflow_dispatch:
 
 jobs:
