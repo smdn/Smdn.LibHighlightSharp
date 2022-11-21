@@ -3,11 +3,6 @@ SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 SPDX-License-Identifier: MIT
 -->
 <Project>
-  <PropertyGroup>
-    <!-- inject the mandatory target for the build on CI -->
-    <BuildDependsOn>Highlight_InstallCIBuildDependencies;$(BuildDependsOn)</BuildDependsOn>
-  </PropertyGroup>
-
   <Target
     Name="Highlight_InstallCIBuildDependencies"
     Condition=" '$(GITHUB_ACTIONS)' == 'true' "

@@ -6,6 +6,7 @@ SPDX-License-Identifier: MIT
   <Target
     Name="Bindings_Build"
     BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
+    DependsOnTargets="Highlight_InstallCIBuildDependencies"
   >
     <!-- generate swig bindings -->
     <Exec Command="make bindings -f bindings.mk" WorkingDirectory="$(Highlight_MakefileDirectory)" />

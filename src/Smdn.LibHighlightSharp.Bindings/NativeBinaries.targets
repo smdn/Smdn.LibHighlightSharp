@@ -7,14 +7,20 @@ SPDX-License-Identifier: MIT
     <BeforePack>$(BeforePack);NativeBinaries_PopulatePackItems</BeforePack>
   </PropertyGroup>
 
-  <Target Name="NativeBinaries_BuildForAllTargetEnvironments">
+  <Target
+    Name="NativeBinaries_BuildForAllTargetEnvironments"
+    DependsOnTargets="Highlight_InstallCIBuildDependencies"
+  >
     <Exec
       Command="make native-binaries -f native-binaries.mk"
       WorkingDirectory="$(Highlight_MakefileDirectory)"
     />
   </Target>
 
-  <Target Name="NativeBinaries_BuildForTargetOrHostEnvironment">
+  <Target
+    Name="NativeBinaries_BuildForTargetOrHostEnvironment"
+    DependsOnTargets="Highlight_InstallCIBuildDependencies"
+  >
     <CallTarget Targets="NativeBinaries_GetRuntimeIdentifierForTargetOrHostEnvironment">
       <Output TaskParameter="TargetOutputs" PropertyName="_TargetOrHostRid"/>
     </CallTarget>
