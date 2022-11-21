@@ -1,0 +1,22 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks Condition=" '$(EnableTargetFrameworkDotNet)' == 'true' ">net6.0</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(EnableTargetFrameworkNetCoreApp)' == 'true' ">$(TargetFrameworks);netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(EnableTargetFrameworkNetFx)' == 'true' ">$(TargetFrameworks)</TargetFrameworks>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference
+      Update="$(SmdnTestTargetProjectFullPath)"
+      ReferenceOutputAssembly="false"
+      AdditionalProperties="IsBuildDueToProjectReference=true"
+    />
+  </ItemGroup>
+
+</Project>

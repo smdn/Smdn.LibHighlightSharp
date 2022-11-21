@@ -1,0 +1,110 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\ProjectSettings.ContentOnlyPackage.props" />
+
+  <PropertyGroup>
+    <FileTypesConfDeploymentRelativePath>$(Highlight_DataDeploymentBasePath)</FileTypesConfDeploymentRelativePath>
+    <FileTypesConfPackagePath>contentFiles\any\any\$(FileTypesConfDeploymentRelativePath)filetypes.conf</FileTypesConfPackagePath>
+    <FileTypesConfContentFilesPath>$(MSBuildThisFileDirectory)$(FileTypesConfPackagePath)</FileTypesConfContentFilesPath>
+
+    <LangDefsDeploymentRelativePath>$(Highlight_DataDeploymentBasePath)langDefs\</LangDefsDeploymentRelativePath>
+    <LangDefsPackagePath>contentFiles\any\any\$(LangDefsDeploymentRelativePath)</LangDefsPackagePath>
+    <LangDefsContentFilesDirectory>$(MSBuildThisFileDirectory)$(LangDefsPackagePath)</LangDefsContentFilesDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup Label="assembly attributes">
+    <Description>Provides syntax files (aka langdef files, `*.lang`) from [$(Highlight_DisplayNameWithVersion)]($(Highlight_ProjectUrl)). This package also provides `filetypes.conf`.</Description>
+    <CopyrightYear>2022</CopyrightYear>
+  </PropertyGroup>
+
+  <PropertyGroup Label="package properties">
+    <PackageTags>$(PackageTags);highlight-langdefs;highlight-syntax-files</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Label="notice and readme">
+    <PackageReadmeFileContentPostamble><![CDATA[## Usage
+By adding this package to the <PackageReference>, the syntax files will be copied to the output folder (`%24(OutputPath)\$(LangDefsDeploymentRelativePath)`) at build time.
+`filetypes.conf` will also be copied to `%24(OutputPath)\$(FileTypesConfDeploymentRelativePath)`.
+]]></PackageReadmeFileContentPostamble>
+    <LicenseNoticeMarkdownText><![CDATA[
+# NOTICE
+$(LicenseNoticeMarkdownText_Highlight_Bundle)
+]]></LicenseNoticeMarkdownText>
+  </PropertyGroup>
+
+  <Target Name="LangDefs_Build" BeforeTargets="Build">
+    <!-- clone highlight source -->
+    <Exec Command="make highlight-src -f libhighlight.mk" WorkingDirectory="$(Highlight_MakefileDirectory)" />
+
+    <Copy
+      SourceFiles="$(Highlight_SourceFileTypesConfFile)"
+      DestinationFiles="$(FileTypesConfContentFilesPath)"
+    />
+
+    <ItemGroup>
+      <_SourceLangDefFile Include="$(Highlight_SourceLangDefsDirectory)*.lang" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(_SourceLangDefFile)"
+      DestinationFolder="$(LangDefsContentFilesDirectory)"
+    />
+  </Target>
+
+  <Target
+    Name="LangDefs_PopulatePackItems"
+    BeforeTargets="Build;Pack"
+    DependsOnTargets="LangDefs_Build"
+    Condition=" '$(IsBuildDueToProjectReference)' != 'true' "
+  >
+    <ItemGroup>
+      <Content
+        Include="$(LangDefsContentFilesDirectory)*.lang"
+        Pack="true"
+        PackagePath="$(LangDefsPackagePath)"
+        PackageCopyToOutput="true"
+      />
+      <Content
+        Include="$(FileTypesConfContentFilesPath)"
+        Pack="true"
+        PackagePath="$(FileTypesConfPackagePath)"
+        PackageCopyToOutput="true"
+      />
+    </ItemGroup>
+  </Target>
+
+  <!--
+    This target only works if built by ProjectReference (if IsBuildDueToProjectReference is set to 'true'), and copies *.lang files
+    to the output directory of the referrer project.
+  -->
+  <Target
+    Name="LangDefs_AddCopyToOutputDirectoryItems"
+    BeforeTargets="GetCopyToOutputDirectoryItems;GetCopyToPublishDirectoryItems"
+    DependsOnTargets="LangDefs_Build"
+    Condition=" '$(IsBuildDueToProjectReference)' == 'true' "
+  >
+    <ItemGroup>
+      <_FileTypesConfFile Include="$(FileTypesConfContentFilesPath)" DeploymentRelativePath="$(FileTypesConfDeploymentRelativePath)" />
+      <_LangDefFile Include="$(LangDefsContentFilesDirectory)*.lang" DeploymentRelativePath="$(LangDefsDeploymentRelativePath)" />
+
+      <_OutputFile Include="@(_LangDefFile);@(_FileTypesConfFile)">
+        <TargetPath>%(DeploymentRelativePath)%(FileName)%(Extension)</TargetPath>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </_OutputFile>
+
+      <AllItemsFullPathWithTargetPath Include="@(_OutputFile)" />
+      <AllPublishItemsFullPathWithTargetPath Include="@(_OutputFile)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="LangDefs_Clean" AfterTargets="Clean">
+    <ItemGroup>
+      <_LangFilesToDelete Include="$(FileTypesConfContentFilesPath)" />
+      <_LangFilesToDelete Include="$(LangDefsContentFilesDirectory)*.lang" />
+    </ItemGroup>
+    <Delete Files="@(_LangFilesToDelete)" />
+  </Target>
+</Project>

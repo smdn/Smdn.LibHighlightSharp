@@ -1,0 +1,152 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project>
+  <PropertyGroup>
+    <BeforePack>$(BeforePack);NativeBinaries_PopulatePackItems</BeforePack>
+  </PropertyGroup>
+
+  <Target Name="NativeBinaries_BuildForAllTargetEnvironments">
+    <Exec
+      Command="make native-binaries -f native-binaries.mk"
+      WorkingDirectory="$(Highlight_MakefileDirectory)"
+    />
+  </Target>
+
+  <Target Name="NativeBinaries_BuildForTargetOrHostEnvironment">
+    <CallTarget Targets="NativeBinaries_GetRuntimeIdentifierForTargetOrHostEnvironment">
+      <Output TaskParameter="TargetOutputs" PropertyName="_TargetOrHostRid"/>
+    </CallTarget>
+
+    <Exec
+      Command="make native-binary-$(_TargetOrHostRid) -f native-binaries.mk"
+      WorkingDirectory="$(Highlight_MakefileDirectory)"
+    />
+  </Target>
+
+  <Target
+    Name="NativeBinaries_GetNativeBinaryFilesForTargetOrHostEnvironment"
+    Returns="@(_NativeBinaryFile)"
+  >
+    <CallTarget Targets="NativeBinaries_GetRuntimeIdentifierForTargetOrHostEnvironment">
+      <Output TaskParameter="TargetOutputs" PropertyName="_TargetOrHostRid"/>
+    </CallTarget>
+    <CallTarget Targets="NativeBinaries_GetSharedLibraryFileExtensionForTargetOrHostEnvironment">
+      <Output TaskParameter="TargetOutputs" PropertyName="_TargetOrHostSharedLibraryFileExtension"/>
+    </CallTarget>
+
+    <ItemGroup Condition=" '$(_TargetOrHostRid)' != '' ">
+      <_NativeBinaryFile
+        Include="$(Highlight_NativeBinariesBaseDirectory)$(_TargetOrHostRid)\native\*$(Highlight_BindingsDllImportName).$(_TargetOrHostSharedLibraryFileExtension)"
+      />
+      <_NativeBinaryFile
+        Include="$(Highlight_NativeBinariesBaseDirectory)$(_TargetOrHostRid)\native\$(Lua_DllFileName)"
+        Condition="$(_TargetOrHostRid.StartsWith('win-'))"
+      />
+    </ItemGroup>
+  </Target>
+
+  <Target
+    Name="NativeBinaries_PopulateBuildItems"
+    BeforeTargets="BeforeBuild"
+    DependsOnTargets="NativeBinaries_BuildForTargetOrHostEnvironment"
+    Condition=" '$(TargetFramework)' != '' "
+  >
+    <CallTarget Targets="NativeBinaries_GetNativeBinaryFilesForTargetOrHostEnvironment">
+      <Output TaskParameter="TargetOutputs" ItemName="_NativeBinaryFile"/>
+    </CallTarget>
+
+    <ItemGroup>
+      <Content
+        Include="@(_NativeBinaryFile)"
+        TargetPath="%(FileName)%(Extension)"
+        CopyToOutputDirectory="PreserveNewest"
+        Pack="false"
+      />
+    </ItemGroup>
+  </Target>
+
+  <Target
+    Name="NativeBinaries_PopulatePackItems"
+    DependsOnTargets="NativeBinaries_BuildForAllTargetEnvironments"
+  >
+    <ItemGroup>
+      <None Pack="true" Include="$(Highlight_NativeBinariesBaseDirectory)**\native\*$(Highlight_BindingsDllImportName).*" PackagePath="runtimes" />
+      <None Pack="true" Include="$(Highlight_NativeBinariesBaseDirectory)win-*\native\$(Lua_DllFileName)" PackagePath="runtimes" />
+    </ItemGroup>
+  </Target>
+
+  <!--
+    This target only works if built by ProjectReference (if IsBuildDueToProjectReference is set to 'true'), and copies
+    a native binary file to the output directory of the referrer project.
+  -->
+  <Target
+    Name="NativeBinaries_AddCopyToOutputDirectoryItems"
+    BeforeTargets="GetCopyToOutputDirectoryItems;GetCopyToPublishDirectoryItems"
+    DependsOnTargets="NativeBinaries_BuildForTargetOrHostEnvironment"
+    Condition=" '$(IsBuildDueToProjectReference)' == 'true' "
+  >
+    <CallTarget Targets="NativeBinaries_GetNativeBinaryFilesForTargetOrHostEnvironment">
+      <Output TaskParameter="TargetOutputs" ItemName="_NativeBinaryFile"/>
+    </CallTarget>
+
+    <ItemGroup>
+      <_OutputFile Include="@(_NativeBinaryFile)">
+        <TargetPath>%(FileName)%(Extension)</TargetPath>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </_OutputFile>
+
+      <AllItemsFullPathWithTargetPath Include="@(_OutputFile)" />
+      <AllPublishItemsFullPathWithTargetPath Include="@(_OutputFile)" />
+    </ItemGroup>
+  </Target>
+
+  <Target
+    Name="NativeBinaries_GetRuntimeIdentifierForTargetOrHostEnvironment"
+    Returns="$(_TargetOrHostRuntimeIdentifier)"
+  >
+    <PropertyGroup Condition=" '$(RuntimeIdentifier)' == '' ">
+      <_HostPlatform Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux</_HostPlatform>
+      <_HostPlatform Condition="$([MSBuild]::IsOSPlatform('OSX'))">osx</_HostPlatform>
+      <_HostPlatform Condition="$([MSBuild]::IsOSPlatform('Windows'))">win</_HostPlatform>
+
+      <_HostArchitecture>$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture.ToString().ToLowerInvariant())</_HostArchitecture>
+      <_HostArchitecture Condition=" '$(_HostArchitecture)' == 'arm' " >arm32</_HostArchitecture>
+      <_HostArchitecture Condition=" '$(_HostArchitecture)' == 'arm64' " >arm64</_HostArchitecture>
+      <_HostArchitecture Condition=" '$(_HostArchitecture)' == 'x86' " >x86</_HostArchitecture>
+      <_HostArchitecture Condition=" '$(_HostArchitecture)' == 'x64' " >x64</_HostArchitecture>
+
+      <_HostRuntimeIdentifier>$(_HostPlatform)-$(_HostArchitecture)</_HostRuntimeIdentifier>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <_TargetOrHostRuntimeIdentifier>$(RuntimeIdentifier)</_TargetOrHostRuntimeIdentifier>
+      <_TargetOrHostRuntimeIdentifier Condition=" '$(_TargetOrHostRuntimeIdentifier)' == '' ">$(_HostRuntimeIdentifier)</_TargetOrHostRuntimeIdentifier>
+    </PropertyGroup>
+  </Target>
+
+  <Target
+    Name="NativeBinaries_GetSharedLibraryFileExtensionForTargetOrHostEnvironment"
+    Returns="$(_TargetOrHostSharedLibraryFileExtension)"
+  >
+    <PropertyGroup Condition=" '$(RuntimeIdentifier)' != '' ">
+      <_TargetOrHostSharedLibraryFileExtension Condition="$(RuntimeIdentifier.StartsWith('linux-'))">so</_TargetOrHostSharedLibraryFileExtension>
+      <_TargetOrHostSharedLibraryFileExtension Condition="$(RuntimeIdentifier.StartsWith('osx-'))">dylib</_TargetOrHostSharedLibraryFileExtension>
+      <_TargetOrHostSharedLibraryFileExtension Condition="$(RuntimeIdentifier.StartsWith('win-'))">dll</_TargetOrHostSharedLibraryFileExtension>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(_TargetOrHostSharedLibraryFileExtension)' == '' ">
+      <_TargetOrHostSharedLibraryFileExtension Condition="$([MSBuild]::IsOSPlatform('Linux'))">so</_TargetOrHostSharedLibraryFileExtension>
+      <_TargetOrHostSharedLibraryFileExtension Condition="$([MSBuild]::IsOSPlatform('OSX'))">dylib</_TargetOrHostSharedLibraryFileExtension>
+      <_TargetOrHostSharedLibraryFileExtension Condition="$([MSBuild]::IsOSPlatform('Windows'))">dll</_TargetOrHostSharedLibraryFileExtension>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="NativeBinaries_Clean" AfterTargets="Clean">
+    <ItemGroup>
+      <NativeBinaryFiles Include="$(Highlight_NativeBinariesBaseDirectory)**\native\*.*" />
+    </ItemGroup>
+    <Delete Files="@(NativeBinaryFiles)" />
+  </Target>
+</Project>

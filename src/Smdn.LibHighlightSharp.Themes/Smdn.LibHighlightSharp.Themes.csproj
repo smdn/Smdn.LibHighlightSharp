@@ -1,0 +1,92 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\ProjectSettings.ContentOnlyPackage.props" />
+
+  <PropertyGroup Label="metadata">
+    <ThemesDeploymentRelativePath>$(Highlight_DataDeploymentBasePath)themes\</ThemesDeploymentRelativePath>
+    <ThemesPackagePath>contentFiles\any\any\$(ThemesDeploymentRelativePath)</ThemesPackagePath>
+    <ThemesContentFilesDirectory>$(MSBuildThisFileDirectory)$(ThemesPackagePath)</ThemesContentFilesDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup Label="assembly attributes">
+    <Description>Provides theme files (`*.theme`) from [$(Highlight_DisplayNameWithVersion)]($(Highlight_ProjectUrl)).</Description>
+    <CopyrightYear>2022</CopyrightYear>
+  </PropertyGroup>
+
+  <PropertyGroup Label="package properties">
+    <PackageTags>$(PackageTags);highlight-themes</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Label="notice and readme">
+    <PackageReadmeFileContentPostamble><![CDATA[## Usage
+By adding this package to the <PackageReference>, the theme files will be copied to the output folder (`%24(OutputPath)\$(ThemesDeploymentRelativePath)`) at build time.
+]]></PackageReadmeFileContentPostamble>
+    <LicenseNoticeMarkdownText><![CDATA[
+# NOTICE
+$(LicenseNoticeMarkdownText_Highlight_Bundle)
+]]></LicenseNoticeMarkdownText>
+  </PropertyGroup>
+
+  <Target Name="Themes_Build" BeforeTargets="Build">
+    <!-- clone highlight source -->
+    <Exec Command="make highlight-src -f libhighlight.mk" WorkingDirectory="$(Highlight_MakefileDirectory)" />
+
+    <ItemGroup>
+      <SourceThemeFile Include="$(Highlight_SourceThemesDirectory)**\*.theme" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(SourceThemeFile)"
+      DestinationFolder="$(ThemesContentFilesDirectory)\%(RecursiveDir)"
+    />
+  </Target>
+
+  <Target
+    Name="Themes_PopulatePackItems"
+    BeforeTargets="Build;Pack"
+    DependsOnTargets="Themes_Build"
+    Condition=" '$(IsBuildDueToProjectReference)' != 'true' "
+  >
+    <ItemGroup>
+      <Content
+        Include="$(ThemesContentFilesDirectory)**\*.theme"
+        Pack="true"
+        PackagePath="$(ThemesPackagePath)"
+        PackageCopyToOutput="true"
+      />
+    </ItemGroup>
+  </Target>
+
+  <!--
+    This target only works if built by ProjectReference (if IsBuildDueToProjectReference is set to 'true'), and copies *.theme files
+    to the output directory of the referrer project.
+  -->
+  <Target
+    Name="Themes_AddCopyToOutputDirectoryItems"
+    BeforeTargets="GetCopyToOutputDirectoryItems;GetCopyToPublishDirectoryItems"
+    DependsOnTargets="Themes_Build"
+    Condition=" '$(IsBuildDueToProjectReference)' == 'true' "
+  >
+    <ItemGroup>
+      <_ThemeFile Include="$(ThemesContentFilesDirectory)**\*.theme" />
+
+      <_OutputFile Include="@(_ThemeFile)">
+        <TargetPath>$(ThemesDeploymentRelativePath)%(RecursiveDir)%(FileName)%(Extension)</TargetPath>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </_OutputFile>
+
+      <AllItemsFullPathWithTargetPath Include="@(_OutputFile)" />
+      <AllPublishItemsFullPathWithTargetPath Include="@(_OutputFile)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="Themes_Clean" AfterTargets="Clean">
+    <ItemGroup>
+      <_ThemeFilesToDelete Include="$(ThemesContentFilesDirectory)**\*.theme" />
+    </ItemGroup>
+    <Delete Files="@(_ThemeFilesToDelete)" />
+  </Target>
+</Project>

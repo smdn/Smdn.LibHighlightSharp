@@ -1,0 +1,8 @@
+.config.mk
+highlight-*/
+highlight.cpp
+highlight.rc
+highlight*.res
+*.o
+*-stamp
+mingw/

@@ -1,9 +1,27 @@
 <!--
-SPDX-FileCopyrightText: 2021 smdn <smdn@smdn.jp>
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 SPDX-License-Identifier: MIT
 -->
 <Project>
+  <PropertyGroup Condition=" '$(ExcludeBuildOutputAssemblyWhenBuilding)' == 'true' ">
+    <CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ExcludeBuildOutputAssemblyWhenPacking)' == 'true' ">
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <!--
+      supress warning NU5128
+      https://docs.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu5128#scenario-2
+    -->
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+  </PropertyGroup>
+
   <ImportGroup Label="project assets">
+    <Import Project="$(MSBuildThisFileDirectory)GenerateNoticeFile.targets" />
     <Import Project="$(SmdnProjectAssets_TargetsImports)" />
+    <Import Project="PackageProvidedAPI.targets" />
   </ImportGroup>
 </Project>

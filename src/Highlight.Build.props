@@ -1,0 +1,169 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project InitialTargets="ErrorIfHighlightUnsupportedVersion">
+  <PropertyGroup Label="Dependencies version properties">
+    <Highlight_MinimumSupportedVersionInclusive>3.36.0</Highlight_MinimumSupportedVersionInclusive>
+    <Highlight_MaximumSupportedVersionExclusive>5.0.0</Highlight_MaximumSupportedVersionExclusive>
+
+    <Highlight_SourceVersionMajorMinor>3.36</Highlight_SourceVersionMajorMinor>
+    <Lua_VersionMajorMinor>5.3</Lua_VersionMajorMinor>
+    <Lua_VersionMajorMinorPatch>5.3.6</Lua_VersionMajorMinorPatch>
+  </PropertyGroup>
+
+  <PropertyGroup Label="The properties for the name, path, configurations and various constants for the dependencies">
+    <Lua_DllFileName>lua$(Lua_VersionMajorMinor.Replace('.', '')).dll</Lua_DllFileName>
+
+    <Highlight_MakefileDirectory>$(MSBuildThisFileDirectory)highlight\</Highlight_MakefileDirectory>
+    <Highlight_NameWithVersion>highlight-$(Highlight_SourceVersionMajorMinor)</Highlight_NameWithVersion>
+    <Highlight_DisplayNameWithVersion>Highlight v$(Highlight_SourceVersionMajorMinor)</Highlight_DisplayNameWithVersion>
+    <Highlight_DllFileVersion>$(Highlight_SourceVersionMajorMinor).0.0</Highlight_DllFileVersion>
+    <Highlight_ProjectUrl>http://andre-simon.de/doku/highlight/en/highlight.php</Highlight_ProjectUrl>
+    <Highlight_SourceRepoUrl>https://gitlab.com/saalen/highlight.git</Highlight_SourceRepoUrl>
+    <Highlight_SourceRootDirectory>$(Highlight_MakefileDirectory)$(Highlight_NameWithVersion)\</Highlight_SourceRootDirectory>
+    <Highlight_SourceLangDefsDirectory>$(Highlight_SourceRootDirectory)langDefs\</Highlight_SourceLangDefsDirectory>
+    <Highlight_SourceThemesDirectory>$(Highlight_SourceRootDirectory)themes\</Highlight_SourceThemesDirectory>
+    <Highlight_SourceFileTypesConfFile>$(Highlight_SourceRootDirectory)filetypes.conf</Highlight_SourceFileTypesConfFile>
+
+    <Highlight_BindingsDllImportName>highlight-v$(Highlight_DllFileVersion.Replace('.', '_'))</Highlight_BindingsDllImportName>
+    <Highlight_BindingsNamespace>Smdn.LibHighlightSharp.Bindings</Highlight_BindingsNamespace>
+    <Highlight_BindingsSourceDirectory>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\$(Highlight_BindingsNamespace)\$(Highlight_NameWithVersion)\</Highlight_BindingsSourceDirectory>
+
+    <Highlight_NativeBinariesSupportedRuntimeIdentifiers>linux-x64;osx-x64;win-x64</Highlight_NativeBinariesSupportedRuntimeIdentifiers>
+    <Highlight_NativeBinariesBaseDirectory>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\runtimes\</Highlight_NativeBinariesBaseDirectory>
+
+    <Highlight_DataDeploymentBasePath>highlight\</Highlight_DataDeploymentBasePath>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Dependencies license notice">
+    <LicenseNoticeMarkdownText_Highlight_Bundle><![CDATA[## Highlight
+The bundled file copyied or generated from [Highlight]($(Highlight_ProjectUrl)) is licensed under the GNU General Public License v3.0 (see COPYING.txt).
+
+- Source: $(Highlight_SourceRepoUrl)
+- Version: $(Highlight_SourceVersionMajorMinor)
+]]></LicenseNoticeMarkdownText_Highlight_Bundle>
+    <LicenseNoticeMarkdownText_Lua_Notice><![CDATA[```
+Copyright © 1994–2021 Lua.org, PUC-Rio.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
+- Source: https://sourceforge.net/projects/luabinaries/
+- Version: $(Lua_VersionMajorMinorPatch)
+]]></LicenseNoticeMarkdownText_Lua_Notice>
+    <LicenseNoticeMarkdownText_Lua_Bundle><![CDATA[## Lua
+The bundled [Lua](https://www.lua.org/) Windows DLL is licensed under the MIT License:
+
+$(LicenseNoticeMarkdownText_Lua_Notice)
+]]></LicenseNoticeMarkdownText_Lua_Bundle>
+  </PropertyGroup>
+
+  <Target Name="ErrorIfHighlightUnsupportedVersion">
+    <Error
+      Text="The minimum supported version of Highlight is &gt;=v$(Highlight_MinimumSupportedVersionInclusive). Fix property value of Highlight_SourceVersionMajorMinor"
+      Condition="$([MSBuild]::VersionLessThan('$(Highlight_SourceVersionMajorMinor)', '$(Highlight_MinimumSupportedVersionInclusive)'))"
+    />
+    <Error
+      Text="The maximum supported version of Highlight is &lt;v$(Highlight_MaximumSupportedVersionExclusive). Fix property value of Highlight_SourceVersionMajorMinor"
+      Condition="$([MSBuild]::VersionGreaterThanOrEquals('$(Highlight_SourceVersionMajorMinor)', '$(Highlight_MaximumSupportedVersionExclusive)'))"
+    />
+  </Target>
+
+  <Target Name="Highlight_PrintBuildProperty">
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'LUA_VERSION' "
+      Text="$(Lua_VersionMajorMinor)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'LUA_VERSION_WINDOWS' "
+      Text="$(Lua_VersionMajorMinorPatch)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'MINGW_LUA_DLL_FILENAME' "
+      Text="$(Lua_DllFileName)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'HIGHLIGHT_SOURCE_ROOT_DIR' "
+      Text="$(Highlight_SourceRootDirectory)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'HIGHLIGHT_SOURCE_REPO' "
+      Text="$(Highlight_SourceRepoUrl)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'HIGHLIGHT_SOURCE_VERSION' "
+      Text="$(Highlight_SourceVersionMajorMinor)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'HIGHLIGHT_DLL_FILEVERSION' "
+      Text="$(Highlight_DllFileVersion)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'HIGHLIGHT_DLL_PRODUCTNAME' "
+      Text="$(Highlight_DisplayNameWithVersion)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'BINDINGS_OUTPUT_DIR' "
+      Text="$(Highlight_BindingsSourceDirectory)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'BINDINGS_DLLIMPORTNAME' "
+      Text="$(Highlight_BindingsDllImportName)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'BINDINGS_NAMESPACE' "
+      Text="$(Highlight_BindingsNamespace)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'NATIVE_BINARY_OUTPUT_BASEDIR' "
+      Text="$(Highlight_NativeBinariesBaseDirectory)"
+      Importance="high"
+    />
+  </Target>
+
+  <Target
+    Name="Highlight_PrepareHighlightBuildConfigurationsFile"
+    Outputs="$(_HighlightBuildConfigurationsFilePath)"
+    Condition=" '$(TargetFramework)' != '' "
+  >
+    <PropertyGroup>
+      <_HighlightBuildConfigurationsFilePath>$(BaseIntermediateOutputPath)HighlightConfigurations.g.cs</_HighlightBuildConfigurationsFilePath>
+      <_HighlightConfigurationsContent><![CDATA[
+// This file was automatically generated by $(MSBuildProjectFile).
+// Do not edit this file by hand.
+namespace $(Highlight_BindingsNamespace)%3B
+internal static class HighlightConfigurations {
+  public const string DllImportName = "$(Highlight_BindingsDllImportName)"%3B
+  public const string DataDirRelativePath = "$(Highlight_DataDeploymentBasePath)"%3B
+}
+      ]]></_HighlightConfigurationsContent>
+    </PropertyGroup>
+
+    <WriteLinesToFile
+      File="$(_HighlightBuildConfigurationsFilePath)"
+      Lines="$(_HighlightConfigurationsContent)"
+      Overwrite="true"
+    />
+
+    <!-- include generated files into the compile target -->
+    <ItemGroup>
+      <Compile Include="$(_HighlightBuildConfigurationsFilePath)" Visible="false" AutoGen="true" />
+    </ItemGroup>
+  </Target>
+</Project>

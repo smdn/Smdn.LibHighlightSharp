@@ -1,0 +1,29 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project>
+  <PropertyGroup>
+    <GenerateNupkgReadmeFileDependsOnTargets>$(GenerateNupkgReadmeFileDependsOnTargets);GenerateNoticeFile</GenerateNupkgReadmeFileDependsOnTargets>
+    <LicenseNoticeFilName>NOTICE.md</LicenseNoticeFilName>
+    <LicenseNoticeFileOutputPath>$(OutputPath)$(LicenseNoticeFilName)</LicenseNoticeFileOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(LicenseNoticeFileOutputPath)" Pack="true" PackagePath="$(LicenseNoticeFilName)" />
+  </ItemGroup>
+
+  <Target Name="GenerateNoticeFile">
+    <Message Text="$(Product)" Importance="high" />
+    <!-- append licence notice to package readme -->
+    <PropertyGroup>
+      <PackageReadmeFileContentPostamble>$(PackageReadmeFileContentPostamble)$(LicenseNoticeMarkdownText)</PackageReadmeFileContentPostamble>
+    </PropertyGroup>
+
+    <WriteLinesToFile
+      File="$(LicenseNoticeFileOutputPath)"
+      Lines="$(LicenseNoticeMarkdownText)"
+      Overwrite="true"
+    />
+  </Target>
+</Project>

@@ -1,0 +1,45 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project>
+  <!-- updates version and condition of package references -->
+  <Choose>
+    <When Condition="
+      $(TargetFramework.StartsWith('net45')) or
+      $(TargetFramework.StartsWith('net46')) or
+      '$(TargetFramework)' == 'net47'
+    ">
+      <ItemGroup><PackageReference Update="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" /></ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup><PackageReference Remove="System.Runtime.InteropServices.RuntimeInformation" /></ItemGroup>
+    </Otherwise>
+  </Choose>
+
+  <Choose>
+    <When Condition="
+      $(TargetFramework.StartsWith('net45')) or
+      $(TargetFramework.StartsWith('net46')) or
+      $(TargetFramework.StartsWith('netstandard1')) or
+      $(TargetFramework.StartsWith('netcoreapp1'))
+    ">
+      <ItemGroup><PackageReference Update="System.ValueTuple" Version="4.5.0" /></ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup><PackageReference Remove="System.ValueTuple" /></ItemGroup>
+    </Otherwise>
+  </Choose>
+
+  <Choose>
+    <When Condition="
+      $(TargetFramework.StartsWith('netstandard')) or
+      $(TargetFramework.StartsWith('net4'))
+    ">
+      <ItemGroup><PackageReference Update="Microsoft.CSharp" Version="4.7.0" /></ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup><PackageReference Remove="Microsoft.CSharp" /></ItemGroup>
+    </Otherwise>
+  </Choose>
+</Project>

@@ -1,0 +1,67 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;netstandard2.1;netstandard2.0</TargetFrameworks><!-- System.Runtime.InteropServices.HandleRef is available in .NET Standard 2.0 or over -->
+    <RuntimeIdentifiers>$(Highlight_NativeBinariesSupportedRuntimeIdentifiers)</RuntimeIdentifiers>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionSuffix>$(PackagePreviewSuffix.Replace('-',''))</VersionSuffix>
+    <!--<PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion>-->
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyCLSCompliant>false</AssemblyCLSCompliant>
+    <BuildInParallel>false</BuildInParallel> <!-- disable parallel builds to avoid running simultaneous native binary build -->
+  </PropertyGroup>
+
+  <PropertyGroup Label="assembly attributes">
+    <Description>Provides wrapper classes for using various versions of [André Simon's Highlight]($(Highlight_ProjectUrl)) on .NET.</Description>
+    <CopyrightYear>2022</CopyrightYear>
+  </PropertyGroup>
+
+  <PropertyGroup Label="package properties">
+    <PackageTags>$(PackageTags);wrapper</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Label="notice and readme">
+    <LicenseNoticeMarkdownText><![CDATA[# NOTICE
+This package uses the following components via the package `Smdn.LibHighlightSharp.Bindings`:
+
+## Highlight
+The dependent package `Smdn.LibHighlightSharp.Bindings` uses [Highlight]($(Highlight_ProjectUrl)), and is licensed under the GNU General Public License v3.0 (see COPYING.txt).
+
+- Source: $(Highlight_SourceRepoUrl)
+- Version: $(Highlight_SourceVersionMajorMinor)
+
+## Lua (Windows only)
+For Windows, the dependent package `Smdn.LibHighlightSharp.Bindings` bundles [Lua](https://www.lua.org/) Windows DLL which Highlight depends, and is licensed under the MIT License:
+
+$(LicenseNoticeMarkdownText_Lua_Notice)
+]]></LicenseNoticeMarkdownText>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference
+      VersionRange="[$(Highlight_MinimumSupportedVersionInclusive),$(Highlight_MaximumSupportedVersionExclusive))"
+      Include="$(MSBuildThisFileDirectory)..\Smdn.LibHighlightSharp.Bindings\Smdn.LibHighlightSharp.Bindings.csproj"
+    />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ValueTuple" />
+    <PackageReference Include="Microsoft.CSharp" />
+    <PackageReference
+      Include="Smdn.MSBuild.DefineConstants.NETSdkApi"
+      Version="[1.3.6]"
+      PrivateAssets="all"
+      IncludeAssets="build"
+    />
+  </ItemGroup>
+
+  <Target
+    Name="BuildConfigurations_Generate"
+    BeforeTargets="BeforeBuild"
+    DependsOnTargets="Highlight_PrepareHighlightBuildConfigurationsFile"
+  />
+</Project>

@@ -1,0 +1,21 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project>
+  <Target
+    Name="Bindings_Build"
+    BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
+  >
+    <!-- generate swig bindings -->
+    <Exec Command="make bindings -f bindings.mk" WorkingDirectory="$(Highlight_MakefileDirectory)" />
+  </Target>
+
+  <Target
+    Name="BindingSource_Clean"
+    AfterTargets="Clean"
+  >
+    <!-- clean swig bindings -->
+    <Exec Command="make clean-bindings -f bindings.mk" WorkingDirectory="$(Highlight_MakefileDirectory)" />
+  </Target>
+</Project>

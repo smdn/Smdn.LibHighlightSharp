@@ -1,0 +1,40 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project InitialTargets="ReplaceSmdnLibHighlightSharpPackageReferencesToProjectReferences">
+  <!-- Replace PackageReference to ProjectReference of the local project -->
+  <Target
+    Name="ReplaceSmdnLibHighlightSharpPackageReferencesToProjectReferences"
+    Condition=" '$(UseLocalProjectInsteadOfPublishedPackage)' == 'true' "
+  >
+    <ItemGroup>
+      <_SmdnLibHighlightSharpReference
+        Include="@(PackageReference)"
+        Condition="$([System.String]::new('%(Identity)').StartsWith('Smdn.LibHighlightSharp'))"
+        ProjectPath="$(MSBuildThisFileDirectory)..\src\%(Identity)\%(Identity).csproj"
+      />
+    </ItemGroup>
+
+    <ItemGroup>
+      <!-- Remove package references to Smdn.LibHighlightSharp.* -->
+      <PackageReference Remove="@(_SmdnLibHighlightSharpReference)" />
+
+      <!-- Include project reference to Smdn.LibHighlightSharp -->
+      <ProjectReference
+        Include="%(_SmdnLibHighlightSharpReference.ProjectPath)"
+        ReferenceOutputAssembly="true"
+        AdditionalProperties="IsBuildDueToProjectReference=true"
+        Condition=" '%(_SmdnLibHighlightSharpReference.Identity)' == 'Smdn.LibHighlightSharp' "
+      />
+
+      <!-- Include project reference to Smdn.LibHighlightSharp.*, but not include the output assembly from asset-only project -->
+      <ProjectReference
+        Include="%(_SmdnLibHighlightSharpReference.ProjectPath)"
+        ReferenceOutputAssembly="false"
+        AdditionalProperties="IsBuildDueToProjectReference=true"
+        Condition=" '%(_SmdnLibHighlightSharpReference.Identity)' != 'Smdn.LibHighlightSharp' "
+      />
+    </ItemGroup>
+  </Target>
+</Project>

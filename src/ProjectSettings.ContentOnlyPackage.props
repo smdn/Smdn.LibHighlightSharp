@@ -1,0 +1,40 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project>
+  <PropertyGroup>
+    <ContentOnlyPackageRevision>0</ContentOnlyPackageRevision>
+
+    <!-- use the major and minor version of Highlight as it is as the package version, and add package revision as a patch version -->
+    <Version>$(Highlight_SourceVersionMajorMinor).$(ContentOnlyPackageRevision)$(PackagePreviewSuffix)</Version>
+    <InformationalVersion>$(Version) ($(Highlight_DisplayNameWithVersion))</InformationalVersion>
+
+    <!-- excludes build output when building and packing -->
+    <ExcludeBuildOutputAssemblyWhenBuilding>true</ExcludeBuildOutputAssemblyWhenBuilding>
+    <ExcludeBuildOutputAssemblyWhenPacking>true</ExcludeBuildOutputAssemblyWhenPacking>
+
+    <!-- TargetFramework does not make sense, but it is needed to be set -->
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <!-- package must be a development-only dependency -->
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <!-- suppress generating API list -->
+    <APIListEnableGenerating>false</APIListEnableGenerating>
+    <!--
+      disable package validation since version numbers that include build metadata will result in an error
+      ref: https://github.com/dotnet/sdk/issues/28786
+    -->
+    <EnablePackageValidation>false</EnablePackageValidation>
+    <!-- disable assembly info auto-generation since version numbers that include build metadata will result in an error -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- disable code analysis since the target source file does not exist -->
+    <AnalysisMode>None</AnalysisMode>
+    <!-- disable warning CS2008 since the target source file does not exist -->
+    <NoWarn>CS2008</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- disable code analysis -->
+    <PackageReference Remove="StyleCop.Analyzers" />
+  </ItemGroup>
+</Project>
