@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 
 namespace Smdn.LibHighlightSharp;
 
-public class VersionInformations {
+public static class VersionInformations {
   public static Version BindingsVersion => Assembly.GetExecutingAssembly().GetName().Version ?? new Version();
 
   [DllImport(
