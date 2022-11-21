@@ -35,11 +35,4 @@ SPDX-License-Identifier: MIT
       IncludeAssets="build"
     />
   </ItemGroup>
-
-  <ItemGroup Label="add test target project reference">
-    <ProjectReference
-      Condition=" '$(SmdnTestTargetProjectFullPath)' != '' and Exists('$(SmdnTestTargetProjectFullPath)') "
-      Include="$(SmdnTestTargetProjectFullPath)"
-    />
-  </ItemGroup>
 </Project>
