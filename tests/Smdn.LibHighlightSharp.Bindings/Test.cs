@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 #if SYSTEM_RUNTIME_INTEROPSERVICES_NATIVELIBRARY
 using System.Runtime.InteropServices;
@@ -13,12 +14,30 @@ public class SwigBindingTests {
   [Test]
   public void TestNativeLibrary()
   {
-    var nativeLibraryFilePath = Path.Combine(
+    string nativeLibraryFilePath;
+
+    var nativeLibraryFilePathProjectReference = Path.Combine(
       TestContext.CurrentContext.TestDirectory,
-      Smdn.LibHighlightSharp.VersionInformations.NativeLibraryFileName
+      VersionInformations.NativeLibraryFileName
     );
 
-    FileAssert.Exists(nativeLibraryFilePath);
+    if (File.Exists(nativeLibraryFilePathProjectReference)) {
+      nativeLibraryFilePath = nativeLibraryFilePathProjectReference;
+    }
+    else {
+      var nativeLibraryFilePathPackageReference = Directory.EnumerateFiles(
+        Path.Combine(TestContext.CurrentContext.TestDirectory, "runtimes"),
+        VersionInformations.NativeLibraryFileName,
+        SearchOption.AllDirectories
+      ).FirstOrDefault();
+
+      if (nativeLibraryFilePathPackageReference is null) {
+        Assert.Fail($"Expected native library file not found ({VersionInformations.NativeLibraryFileName})");
+        return;
+      }
+
+      nativeLibraryFilePath = nativeLibraryFilePathPackageReference;
+    }
 
 #if SYSTEM_RUNTIME_INTEROPSERVICES_NATIVELIBRARY
     var nativeLibraryHandle = IntPtr.Zero;
