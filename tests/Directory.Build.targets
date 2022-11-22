@@ -39,4 +39,9 @@ SPDX-License-Identifier: MIT
   >
     <Warning Text="cannot test with released package"/>
   </Target>
+
+  <Import
+    Condition=" '$(IsTestProject)' == 'true' "
+    Project="$(MSBuildThisFileDirectory)RuntimeDependencies.targets"
+  />
 </Project>

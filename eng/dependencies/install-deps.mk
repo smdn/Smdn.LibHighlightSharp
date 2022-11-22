@@ -20,4 +20,12 @@ install-buildtime-deps-ubuntu.22.04.stamp:
 
 install-buildtime-deps-ubuntu.22.04: install-buildtime-deps-ubuntu.22.04.stamp
 
+install-runtime-deps-ubuntu.20.04.stamp:
+	sudo apt-get install -y \
+	  liblua5.3
+	touch $@
+
+install-runtime-deps-ubuntu.20.04: install-runtime-deps-ubuntu.20.04.stamp
+
 .PHONY: install-buildtime-deps-ubuntu.22.04
+.PHONY: install-runtime-deps-ubuntu.20.04
