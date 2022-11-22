@@ -8,7 +8,7 @@
 #
 # SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 # SPDX-License-Identifier: MIT
-ubuntu.22.04.stamp:
+install-buildtime-deps-ubuntu.22.04.stamp:
 	sudo apt-get install -y \
 	  autotools-dev \
 	  libboost-dev \
@@ -16,9 +16,8 @@ ubuntu.22.04.stamp:
 	  liblua5.3-dev \
 	  g++-mingw-w64-x86-64 \
 	  g++-multilib
-
 	touch $@
 
-install-ubuntu.22.04: ubuntu.22.04.stamp
+install-buildtime-deps-ubuntu.22.04: install-buildtime-deps-ubuntu.22.04.stamp
 
-.PHONY: install-ubuntu22.04
+.PHONY: install-buildtime-deps-ubuntu.22.04

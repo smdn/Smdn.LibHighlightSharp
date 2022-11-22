@@ -8,7 +8,7 @@ SPDX-License-Identifier: MIT
     Condition=" '$(GITHUB_ACTIONS)' == 'true' "
   >
     <Exec
-      Command="make install-ubuntu.22.04 -f install.mk"
+      Command="make install-buildtime-deps-ubuntu.22.04 -f install-deps.mk"
       WorkingDirectory="$(MSBuildThisFileDirectory)..\eng\dependencies\"
       Condition="$([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.22.04'))"
     />
