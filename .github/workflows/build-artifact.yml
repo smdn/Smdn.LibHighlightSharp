@@ -106,7 +106,9 @@ jobs:
       id: artifact
       shell: pwsh
       run: |
-        make artifact -f src/highlight/artifact.mk
+        cd src/highlight/
+
+        make artifact -f artifact.mk
 
         # The makefile above switches current branch to the new branch where the artifacts to be commited.
         $artifact_branch = $(git rev-parse --abbrev-ref HEAD)
