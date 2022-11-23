@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: "2022 smdn <smdn@smdn.jp>"
+
+name: Build artifact of libhighlight
+
+on:
+  workflow_dispatch:
+    inputs:
+      os:
+        description: "The OS label which run the build on. (ex: ubuntu-22.04, ubuntu-20.04, macos-11)"
+        required: false
+        type: string
+      verbose:
+        description: "If true, enables verbose output."
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  setup:
+    name: Set up
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Do nothing
+      shell: pwsh
+      run: |
+        "null"
