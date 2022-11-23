@@ -92,15 +92,15 @@ jobs:
           "::notice::target RID: ${target_rid}"
         }
 
-    - name: Install build dependencies
-      shell: pwsh
-      run: |
-        make install-buildtime-deps-${{ steps.target-rid.outputs.rid }} -f eng/dependencies/install-deps.mk
-
     - name: Checkout repository
       uses: actions/checkout@v3.1.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install build dependencies
+      shell: pwsh
+      run: |
+        make install-buildtime-deps-${{ steps.target-rid.outputs.rid }} -f eng/dependencies/install-deps.mk
 
     - name: Build artifact
       id: artifact
