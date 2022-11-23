@@ -86,7 +86,7 @@ jobs:
           $target_rid = 'macos'
         }
 
-        "rid=${rid}" >> $Env:GITHUB_OUTPUT
+        "rid=${target_rid}" >> $Env:GITHUB_OUTPUT
 
         if ( $verbose ) {
           "::notice::target RID: ${target_rid}"
