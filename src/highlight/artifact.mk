@@ -9,7 +9,12 @@ artifact:
 	@cat .config.mk
 	@echo "================================================================================"
 
-	$(MAKE) native-binaries -f native-binaries.mk
+#	$(MAKE) native-binaries -f native-binaries.mk
+	@for artifact_output in $(ARTIFACT_OUTPUTS); do\
+	  artifact_output_dir=`dirname $$artifact_output`;\
+	  mkdir -p $$artifact_output_dir;\
+	  echo $$artifact_output >> $$artifact_output;\
+	done
 
 	git switch -c $(ARTIFACT_BRANCH_NAME)
 	git add $(ARTIFACT_OUTPUTS)
