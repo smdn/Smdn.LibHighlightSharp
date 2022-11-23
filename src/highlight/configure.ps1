@@ -64,7 +64,8 @@ function Build-ConfigMk {
   $MINGW_LUA_DLL_FILENAME = Get-HighlightBuildProps MINGW_LUA_DLL_FILENAME
 
   $lines += "NATIVE_BINARY_OUTPUT_BASEDIR := ${NATIVE_BINARY_OUTPUT_BASEDIR}"
-  $lines += "NATIVE_BINARY_OUTPUT_PATH_LINUX_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}linux-x64/native/lib${BINDINGS_DLLIMPORTNAME}.so"
+  $lines += "NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}ubuntu.22.04-x64/native/lib${BINDINGS_DLLIMPORTNAME}.so"
+  $lines += "NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}ubuntu.20.04-x64/native/lib${BINDINGS_DLLIMPORTNAME}.so"
   $lines += "NATIVE_BINARY_OUTPUT_PATH_MACOS_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}osx-x64/native/lib${BINDINGS_DLLIMPORTNAME}.dylib"
   $lines += "NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}win-x64/native/${BINDINGS_DLLIMPORTNAME}.dll"
   $lines += "NATIVE_BINARY_OUTPUT_PATH_LUA_WINDOWS_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}win-x64/native/${MINGW_LUA_DLL_FILENAME}"
@@ -73,14 +74,19 @@ function Build-ConfigMk {
   # Determine build targets for current environment
   #
   if ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.22.04-x64')) {
-    # Target 'linux-x64' and 'win-x64'(+lua.dll)
+    # Target 'ubuntu.22.04-x64' and 'win-x64'(+lua.dll)
     $lines += "NATIVE_BINARIES :=" +
-      " `$(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64)" +
+      " `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64)" +
       " `$(NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64)" +
       " `$(NATIVE_BINARY_OUTPUT_PATH_LUA_WINDOWS_X64)"
     $lines += "ARTIFACT_OUTPUTS := " +
       " `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64)" +
       " `$(NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64)"
+  }
+  elseif ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.20.04-x64')) {
+    # Target 'ubuntu.20.04-x64'
+    $lines += "NATIVE_BINARIES := `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64)"
+    $lines += "ARTIFACT_OUTPUTS := `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64)"
   }
   elseif ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('osx-x64')) {
     # Target 'osx-x64'

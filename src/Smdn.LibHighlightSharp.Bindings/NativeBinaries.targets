@@ -117,6 +117,14 @@ SPDX-License-Identifier: MIT
       <_HostPlatform Condition="$([MSBuild]::IsOSPlatform('OSX'))">osx</_HostPlatform>
       <_HostPlatform Condition="$([MSBuild]::IsOSPlatform('Windows'))">win</_HostPlatform>
 
+      <!-- set more specific RID -->
+      <_HostPlatform
+        Condition=" '$(_HostPlatform)' == 'linux' and $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.22.04'))"
+      >ubuntu.22.04</_HostPlatform>
+      <_HostPlatform
+        Condition=" '$(_HostPlatform)' == 'linux' and $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.20.04'))"
+      >ubuntu.20.04</_HostPlatform>
+
       <_HostArchitecture>$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture.ToString().ToLowerInvariant())</_HostArchitecture>
       <_HostArchitecture Condition=" '$(_HostArchitecture)' == 'arm' " >arm32</_HostArchitecture>
       <_HostArchitecture Condition=" '$(_HostArchitecture)' == 'arm64' " >arm64</_HostArchitecture>

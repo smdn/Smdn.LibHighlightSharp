@@ -44,12 +44,25 @@ library-native:
 
 	$(CXX) $(LDFLAGS) -s $(WRAPPER_OBJS) $(OBJS_EXTRA) -L$(HIGHLIGHT_SRC_DIR) -lhighlight $(LUA_LIBS) -o $(NATIVE_BINARY_OUTPUT_PATH)
 
-native-binary-linux-x64: ${NATIVE_BINARY_OUTPUT_PATH_LINUX_X64}
+native-binary-ubuntu.22.04-x64: ${NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64}
 
-$(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64): CXX := g++
-$(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64): CFLAGS := $(CFLAGS_COMMON) -m64
-$(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64): LDFLAGS := -shared
-$(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64):
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64): CXX := g++
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64): CFLAGS := $(CFLAGS_COMMON) -m64
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64): LDFLAGS := -shared
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64):
+	$(MAKE) -f $(THIS_FILE) \
+	  CXX="$(CXX)" \
+	  CFLAGS="$(CFLAGS)" \
+	  LDFLAGS="$(LDFLAGS)" \
+	  NATIVE_BINARY_OUTPUT_PATH="$@" \
+	  library-native
+
+native-binary-ubuntu.20.04-x64: ${NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64}
+
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64): CXX := g++
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64): CFLAGS := $(CFLAGS_COMMON) -m64
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64): LDFLAGS := -shared
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64):
 	$(MAKE) -f $(THIS_FILE) \
 	  CXX="$(CXX)" \
 	  CFLAGS="$(CFLAGS)" \
@@ -106,7 +119,8 @@ clean-native-binaries: clean-win-resource
 .PHONY: libhighlight-native
 .PHONY: library-native
 .PHONY: native-binaries
-.PHONY: native-binary-linux-x64
+.PHONY: native-binary-ubuntu.22.04-x64
+.PHONY: native-binary-ubuntu.20.04-x64
 .PHONY: native-binary-osx-x64
 .PHONY: native-binary-win-x64
 .PHONY: clean-native-binaries
