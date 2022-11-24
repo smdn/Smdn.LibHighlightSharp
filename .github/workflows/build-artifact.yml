@@ -83,7 +83,7 @@ jobs:
           $target_rid = 'ubuntu.20.04'
         }
         elseif ('${{ matrix.os }}' -eq 'macos-11') {
-          $target_rid = 'macos'
+          $target_rid = 'osx'
         }
 
         "rid=${target_rid}" >> $Env:GITHUB_OUTPUT
