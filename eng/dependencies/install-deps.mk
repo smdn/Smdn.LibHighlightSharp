@@ -20,6 +20,31 @@ install-buildtime-deps-ubuntu.22.04.stamp:
 
 install-buildtime-deps-ubuntu.22.04: install-buildtime-deps-ubuntu.22.04.stamp
 
+install-buildtime-deps-ubuntu.20.04.stamp
+	sudo apt-get install -y \
+	  autotools-dev \
+	  libboost-dev \
+	  liblua5.3 \
+	  liblua5.3-dev \
+	  g++-mingw-w64-x86-64 \
+	  g++-multilib
+	touch $@
+
+install-buildtime-deps-ubuntu.20.04: install-buildtime-deps-ubuntu.20.04.stamp
+
+install-buildtime-deps-osx.stamp:
+	brew install \
+	  autoconf \
+	  automake \
+	  libtool \
+	  boost \
+	  lua@5.3 \
+	  powershell \
+	  swig@4
+	touch $@
+
+install-buildtime-deps-osx: install-buildtime-deps-osx.stamp
+
 install-runtime-deps-ubuntu.20.04.stamp:
 	sudo apt-get install -y \
 	  liblua5.3
@@ -28,4 +53,6 @@ install-runtime-deps-ubuntu.20.04.stamp:
 install-runtime-deps-ubuntu.20.04: install-runtime-deps-ubuntu.20.04.stamp
 
 .PHONY: install-buildtime-deps-ubuntu.22.04
+.PHONY: install-buildtime-deps-ubuntu.20.04
+.PHONY: install-buildtime-deps-osx
 .PHONY: install-runtime-deps-ubuntu.20.04
