@@ -97,6 +97,12 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Configure git identity
+      shell: pwsh
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+
     - name: Install build dependencies
       shell: pwsh
       run: |
