@@ -25,8 +25,20 @@ function Build-ConfigMk {
   $LUA_VERSION = Get-HighlightBuildProps LUA_VERSION
 
   $lines += "LUA_VERSION := ${LUA_VERSION}"
-  $lines += "LUA_CFLAGS := $(pkg-config --cflags lua${LUA_VERSION})"
-  $lines += "LUA_LIBS := $(pkg-config --libs lua${LUA_VERSION})"
+
+  if ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('osx.')) {
+    # Instructions suggested by homebrew:
+    #   For compilers to find lua@5.3 you may need to set:
+    #     export LDFLAGS="-L/usr/local/opt/lua@5.3/lib"
+    #     export CPPFLAGS="-I/usr/local/opt/lua@5.3/include"
+    $lines += "LUA_LIBS := -L/usr/local/opt/lua@${LUA_VERSION}/lib"
+    $lines += "LUA_CFLAGS := -I/usr/local/opt/lua@${LUA_VERSION}/include"
+  }
+  else {
+    $lines += "LUA_LIBS := $(pkg-config --libs lua${LUA_VERSION})"
+    $lines += "LUA_CFLAGS := $(pkg-config --cflags lua${LUA_VERSION})"
+  }
+
   $lines += "LUA_VERSION_WINDOWS := $(Get-HighlightBuildProps LUA_VERSION_WINDOWS)"
 
   $HIGHLIGHT_SOURCE_VERSION = Get-HighlightBuildProps HIGHLIGHT_SOURCE_VERSION
@@ -90,7 +102,7 @@ function Build-ConfigMk {
     $lines += "NATIVE_BINARIES := `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64)"
     $lines += "ARTIFACT_OUTPUTS := `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64)"
   }
-  elseif ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('osx-x64')) {
+  elseif ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('osx.11.0-x64')) {
     # Target 'osx-x64'
     $artifact_rid = "osx-x64"
     $lines += "NATIVE_BINARIES := `$(NATIVE_BINARY_OUTPUT_PATH_MACOS_X64)"
