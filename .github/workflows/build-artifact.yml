@@ -123,6 +123,11 @@ jobs:
 
         make artifact -f artifact.mk | Tee-Object -FilePath $log_file
 
+        if ( -not $? ) {
+          Write-Error "failed to 'make artifact'"
+          exit(1)
+        }
+
         # The makefile above switches current branch to the new branch where the artifacts to be commited.
         $artifact_branch = $(git rev-parse --abbrev-ref HEAD)
 
