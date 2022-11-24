@@ -131,6 +131,8 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        $verbose = '${{ inputs.verbose }}' -ieq 'true'
+
         $pr_title = "Add '${{ steps.target-rid.outputs.rid }}'-targeted artifact built on ${{ matrix.os }}"
 
         $pr_body = New-Object System.Text.StringBuilder -ArgumentList 2048
@@ -191,4 +193,6 @@ jobs:
         Remove-Item -Path $changes_file
 
         # show uncommit changes
-        git status
+        if ( $verbose ) {
+          git status
+        }
