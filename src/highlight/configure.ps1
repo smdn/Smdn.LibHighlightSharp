@@ -31,13 +31,13 @@ function Build-ConfigMk {
     #   For compilers to find lua@5.3 you may need to set:
     #     export LDFLAGS="-L/usr/local/opt/lua@5.3/lib"
     #     export CPPFLAGS="-I/usr/local/opt/lua@5.3/include"
-    $lines += "LUA_LIBS := -L/usr/local/opt/lua@${LUA_VERSION}/lib"
-    $lines += "LUA_CFLAGS := -I/usr/local/opt/lua@${LUA_VERSION}/include"
+    #   For pkg-config to find lua@5.3 you may need to set:
+    #     export PKG_CONFIG_PATH="/usr/local/opt/lua@5.3/lib/pkgconfig"
+    $Env:PKG_CONFIG_PATH = "/usr/local/opt/lua@5.3/lib/pkgconfig"
   }
-  else {
-    $lines += "LUA_LIBS := $(pkg-config --libs lua${LUA_VERSION})"
-    $lines += "LUA_CFLAGS := $(pkg-config --cflags lua${LUA_VERSION})"
-  }
+
+  $lines += "LUA_LIBS := $(pkg-config --libs lua${LUA_VERSION})"
+  $lines += "LUA_CFLAGS := $(pkg-config --cflags lua${LUA_VERSION})"
 
   $lines += "LUA_VERSION_WINDOWS := $(Get-HighlightBuildProps LUA_VERSION_WINDOWS)"
 
