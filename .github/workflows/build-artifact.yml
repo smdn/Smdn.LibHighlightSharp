@@ -16,6 +16,11 @@ on:
         type: boolean
         default: false
 
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+
 jobs:
   setup:
     name: Set up
