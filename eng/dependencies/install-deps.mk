@@ -37,7 +37,6 @@ install-buildtime-deps-osx.stamp:
 	  automake \
 	  boost \
 	  lua@5.3
-	ls -l /usr/local/opt/lua@5.3/include
 	touch $@
 
 install-buildtime-deps-osx: install-buildtime-deps-osx.stamp
