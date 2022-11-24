@@ -121,7 +121,7 @@ jobs:
 
         cd src/highlight/
 
-        make artifact -f artifact.mk | Tee-Object -FilePath $log_file
+        make artifact -f artifact.mk *>&1 | Tee-Object -FilePath $log_file
 
         if ( -not $? ) {
           Write-Error "failed to 'make artifact'"
