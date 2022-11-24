@@ -112,9 +112,11 @@ jobs:
       id: artifact
       shell: pwsh
       run: |
+        $log_file = [System.IO.Path]::GetFullPath('artifact.log')
+
         cd src/highlight/
 
-        make artifact -f artifact.mk
+        make artifact -f artifact.mk | Tee-Object -FilePath $log_file
 
         # The makefile above switches current branch to the new branch where the artifacts to be commited.
         $artifact_branch = $(git rev-parse --abbrev-ref HEAD)
@@ -122,6 +124,7 @@ jobs:
         git push origin $artifact_branch
 
         "artifact-branch=${artifact_branch}" >> $Env:GITHUB_OUTPUT
+        "artifact-log-file=${log_file}" >> $Env:GITHUB_OUTPUT
 
     - name: Create pull request
       shell: pwsh
@@ -140,11 +143,31 @@ jobs:
         ).AppendLine()
         [void]$pr_body.AppendLine()
 
-        [void]$pr_body.AppendLine('# Changes')
-        [void]$pr_body.AppendLine('```diff')
-        [void]$pr_body.AppendLine($(git show))
+        #
+        # artifact build log
+        #
+        $artifact_build_log_file = '${{ steps.artifact.outputs.artifact-log-file }}'
+
+        [void]$pr_body.AppendLine('# Build logs')
+        [void]$pr_body.AppendLine('```')
+        [void]$pr_body.AppendLine($(Get-Content -Path $artifact_build_log_file) -join "`n")
         [void]$pr_body.AppendLine('```')
 
+        #
+        # files changed
+        #
+        $changes_file = [System.IO.Path]::GetFullPath('changes.diff')
+
+        git show > $changes_file
+
+        [void]$pr_body.AppendLine('# Changes')
+        [void]$pr_body.AppendLine('```diff')
+        [void]$pr_body.AppendLine($(Get-Content -Path $changes_file) -join "`n")
+        [void]$pr_body.AppendLine('```')
+
+        #
+        # create PR
+        #
         $pr_body_file = [System.IO.Path]::GetFullPath('pr-body.md')
 
         Out-File -FilePath $pr_body_file -Encoding utf8 -InputObject $pr_body.ToString()
@@ -161,3 +184,11 @@ jobs:
         $pr_url = $(gh pr create $pr_create_options)
 
         "::notice::Created pull request for ${pr_title}: ${pr_url}"
+
+        # remove temporary working files
+        Remove-Item -Path $pr_body_file
+        Remove-Item -Path $artifact_build_log_file
+        Remove-Item -Path $changes_file
+
+        # show uncommit changes
+        git status
