@@ -34,13 +34,9 @@ install-buildtime-deps-ubuntu.20.04: install-buildtime-deps-ubuntu.20.04.stamp
 
 install-buildtime-deps-osx.stamp:
 	brew install \
-	  autoconf \
 	  automake \
-	  libtool \
 	  boost \
-	  lua@5.3 \
-	  powershell \
-	  swig@4
+	  lua@5.3
 	touch $@
 
 install-buildtime-deps-osx: install-buildtime-deps-osx.stamp
