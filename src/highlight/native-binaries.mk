@@ -97,7 +97,7 @@ ${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: highlight-x64.res
 	  library-native
 
 native-binaries: $(NATIVE_BINARIES)
-	sha1sum -b $(NATIVE_BINARIES)
+	pwsh -Command "& { Get-FileHash ('$(NATIVE_BINARIES)' -split ' ') -Algorithm SHA1 }"
 
 clean-win-resource:
 	rm -f highlight.rc
