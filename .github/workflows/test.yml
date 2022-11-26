@@ -4,21 +4,21 @@
 name: Run tests
 
 on:
-  # push:
-  #   branches: [ main ]
-  #   paths:
-  #   - 'src/**/*.cs'
-  #   - 'src/**/*.csproj'
-  #   - 'tests/**/*.cs'
-  #   - 'tests/**/*.csproj'
-  #
-  # pull_request:
-  #   branches: [ main ]
-  #   paths:
-  #   - 'src/**/*.cs'
-  #   - 'src/**/*.csproj'
-  #   - 'tests/**/*.cs'
-  #   - 'tests/**/*.csproj'
+  push:
+    branches: [ main ]
+    paths:
+    - 'src/**/*.cs'
+    - 'src/**/*.csproj'
+    - 'tests/**/*.cs'
+    - 'tests/**/*.csproj'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+    - 'src/**/*.cs'
+    - 'src/**/*.csproj'
+    - 'tests/**/*.cs'
+    - 'tests/**/*.csproj'
 
   workflow_dispatch:
     inputs:
