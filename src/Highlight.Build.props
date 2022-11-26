@@ -30,11 +30,21 @@ SPDX-License-Identifier: MIT
     <Highlight_BindingsNamespace>Smdn.LibHighlightSharp.Bindings</Highlight_BindingsNamespace>
     <Highlight_BindingsSourceDirectory>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\$(Highlight_BindingsNamespace)\$(Highlight_NameWithVersion)\</Highlight_BindingsSourceDirectory>
 
-    <Highlight_NativeBinariesSupportedRuntimeIdentifiers>linux-x64;osx-x64;win-x64</Highlight_NativeBinariesSupportedRuntimeIdentifiers>
+    <Highlight_NativeBinariesSupportedRuntimeIdentifiers>ubuntu.22.04-x64;ubuntu.20.04-x64;osx-x64;win-x64</Highlight_NativeBinariesSupportedRuntimeIdentifiers>
     <Highlight_NativeBinariesBaseDirectory>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\runtimes\</Highlight_NativeBinariesBaseDirectory>
+    <Highlight_NativeBinariesSHA1SumFile>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\libhighlight\$(Highlight_BindingsDllImportName).SHA1SUMS.txt</Highlight_NativeBinariesSHA1SumFile>
 
     <Highlight_DataDeploymentBasePath>highlight\</Highlight_DataDeploymentBasePath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Note: Must be synchronized with the RID of the property Highlight_NativeBinariesSupportedRuntimeIdentifiers -->
+    <Highlight_NativeBinaryFileRelativePath Include="ubuntu.22.04-x64\native\lib$(Highlight_BindingsDllImportName).so" />
+    <Highlight_NativeBinaryFileRelativePath Include="ubuntu.20.04-x64\native\lib$(Highlight_BindingsDllImportName).so" />
+    <Highlight_NativeBinaryFileRelativePath Include="osx-x64\native\lib$(Highlight_BindingsDllImportName).dylib" />
+    <Highlight_NativeBinaryFileRelativePath Include="win-x64\native\$(Highlight_BindingsDllImportName).dll" />
+    <Highlight_NativeBinaryFileRelativePath Include="win-x64\native\$(Lua_DllFileName)" />
+  </ItemGroup>
 
   <PropertyGroup Label="Dependencies license notice">
     <LicenseNoticeMarkdownText_Highlight_Bundle><![CDATA[## Highlight
@@ -133,6 +143,11 @@ $(LicenseNoticeMarkdownText_Lua_Notice)
     <Message
       Condition=" '$(Highlight_QueryPropertyName)' == 'NATIVE_BINARY_OUTPUT_BASEDIR' "
       Text="$(Highlight_NativeBinariesBaseDirectory)"
+      Importance="high"
+    />
+    <Message
+      Condition=" '$(Highlight_QueryPropertyName)' == 'NATIVE_BINARY_SHA1SUM_FILE' "
+      Text="$(Highlight_NativeBinariesSHA1SumFile)"
       Importance="high"
     />
   </Target>

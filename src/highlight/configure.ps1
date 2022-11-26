@@ -24,9 +24,35 @@ function Build-ConfigMk {
 
   $LUA_VERSION = Get-HighlightBuildProps LUA_VERSION
 
+  if ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('osx.')) {
+    # Instructions suggested by homebrew:
+    #   For compilers to find lua@5.3 you may need to set:
+    #     export LDFLAGS="-L/usr/local/opt/lua@5.3/lib"
+    #     export CPPFLAGS="-I/usr/local/opt/lua@5.3/include"
+    #   For pkg-config to find lua@5.3 you may need to set:
+    #     export PKG_CONFIG_PATH="/usr/local/opt/lua@5.3/lib/pkgconfig"
+    $Env:PKG_CONFIG_PATH = "/usr/local/opt/lua@5.3/lib/pkgconfig"
+  }
+
+  Get-Command -ErrorAction:SilentlyContinue pkg-config | Out-Null
+
+  if ($?) {
+    $LUA_LIBS = $(pkg-config --libs lua${LUA_VERSION})
+    $LUA_LIBS = $? ? $LUA_LIBS : $null
+
+    $LUA_CFLAGS = $(pkg-config --cflags lua${LUA_VERSION})
+    $LUA_CFLAGS = $? ? $LUA_CFLAGS : $null
+  }
+  else {
+    $LUA_LIBS = $null
+    $LUA_CFLAGS = $null
+
+    Write-Warning "pkg-config not found"
+  }
+
   $lines += "LUA_VERSION := ${LUA_VERSION}"
-  $lines += "LUA_CFLAGS := $(pkg-config --cflags lua${LUA_VERSION})"
-  $lines += "LUA_LIBS := $(pkg-config --libs lua${LUA_VERSION})"
+  $lines += "LUA_LIBS := ${LUA_LIBS}"
+  $lines += "LUA_CFLAGS := ${LUA_CFLAGS}"
   $lines += "LUA_VERSION_WINDOWS := $(Get-HighlightBuildProps LUA_VERSION_WINDOWS)"
 
   $HIGHLIGHT_SOURCE_VERSION = Get-HighlightBuildProps HIGHLIGHT_SOURCE_VERSION
@@ -60,19 +86,49 @@ function Build-ConfigMk {
   $lines += "BINDINGS_DLLIMPORTNAME := ${BINDINGS_DLLIMPORTNAME}"
   $lines += "BINDINGS_NAMESPACE := $(Get-HighlightBuildProps BINDINGS_NAMESPACE)"
 
+  $lines += "NATIVE_BINARY_SHA1SUM_FILE := $(Get-HighlightBuildProps NATIVE_BINARY_SHA1SUM_FILE)"
+
   $NATIVE_BINARY_OUTPUT_BASEDIR = Get-HighlightBuildProps NATIVE_BINARY_OUTPUT_BASEDIR
   $MINGW_LUA_DLL_FILENAME = Get-HighlightBuildProps MINGW_LUA_DLL_FILENAME
 
   $lines += "NATIVE_BINARY_OUTPUT_BASEDIR := ${NATIVE_BINARY_OUTPUT_BASEDIR}"
-  $lines += "NATIVE_BINARY_OUTPUT_PATH_LINUX_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}linux-x64/native/lib${BINDINGS_DLLIMPORTNAME}.so"
+  $lines += "NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}ubuntu.22.04-x64/native/lib${BINDINGS_DLLIMPORTNAME}.so"
+  $lines += "NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}ubuntu.20.04-x64/native/lib${BINDINGS_DLLIMPORTNAME}.so"
   $lines += "NATIVE_BINARY_OUTPUT_PATH_MACOS_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}osx-x64/native/lib${BINDINGS_DLLIMPORTNAME}.dylib"
   $lines += "NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}win-x64/native/${BINDINGS_DLLIMPORTNAME}.dll"
   $lines += "NATIVE_BINARY_OUTPUT_PATH_LUA_WINDOWS_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}win-x64/native/${MINGW_LUA_DLL_FILENAME}"
-  $lines += "NATIVE_BINARIES :=" +
-    " `$(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64)" +
-    " `$(NATIVE_BINARY_OUTPUT_PATH_MACOS_X64)" +
-    " `$(NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64)" +
-    " `$(NATIVE_BINARY_OUTPUT_PATH_LUA_WINDOWS_X64)"
+
+  #
+  # Determine build targets for current environment
+  #
+  if ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.22.04-x64')) {
+    # Target 'ubuntu.22.04-x64' and 'win-x64'(+lua.dll)
+    $artifact_rid = "ubuntu.22.04-x64"
+    $lines += "NATIVE_BINARIES :=" +
+      " `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64)" +
+      " `$(NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64)" +
+      " `$(NATIVE_BINARY_OUTPUT_PATH_LUA_WINDOWS_X64)"
+    $lines += "ARTIFACT_OUTPUTS := " +
+      " `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64)" +
+      " `$(NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64)"
+  }
+  elseif ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.20.04-x64')) {
+    # Target 'ubuntu.20.04-x64'
+    $artifact_rid = "ubuntu.20.04-x64"
+    $lines += "NATIVE_BINARIES := `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64)"
+    $lines += "ARTIFACT_OUTPUTS := `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64)"
+  }
+  elseif ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('osx.11.0-x64')) {
+    # Target 'osx-x64'
+    $artifact_rid = "osx-x64"
+    $lines += "NATIVE_BINARIES := `$(NATIVE_BINARY_OUTPUT_PATH_MACOS_X64)"
+    $lines += "ARTIFACT_OUTPUTS := `$(NATIVE_BINARY_OUTPUT_PATH_MACOS_X64)"
+  }
+  else {
+    Write-Warning "unsupported build environment: $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier)"
+  }
+
+  $lines += "ARTIFACT_BRANCH_NAME := artifact-${BINDINGS_DLLIMPORTNAME}-${artifact_rid}"
 
   $WRAPPER_OUTPUT_DIR = './'
 

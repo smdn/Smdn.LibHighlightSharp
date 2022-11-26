@@ -7,48 +7,40 @@ SPDX-License-Identifier: MIT
     <BeforePack>$(BeforePack);NativeBinaries_PopulatePackItems</BeforePack>
   </PropertyGroup>
 
-  <Target
-    Name="NativeBinaries_BuildForAllTargetEnvironments"
-    DependsOnTargets="Highlight_InstallCIBuildDependencies"
-  >
+  <Target Name="NativeBinaries_PrepareBuildForAllTargetEnvironments">
     <Exec
-      Command="make native-binaries -f native-binaries.mk"
+      Command="make copy-runtime-deps -f deps.mk"
       WorkingDirectory="$(Highlight_MakefileDirectory)"
     />
   </Target>
 
-  <Target
-    Name="NativeBinaries_BuildForTargetOrHostEnvironment"
-    DependsOnTargets="Highlight_InstallCIBuildDependencies"
-  >
+  <Target Name="NativeBinaries_PrepareBuildForTargetOrHostEnvironment">
     <CallTarget Targets="NativeBinaries_GetRuntimeIdentifierForTargetOrHostEnvironment">
       <Output TaskParameter="TargetOutputs" PropertyName="_TargetOrHostRid"/>
     </CallTarget>
 
     <Exec
-      Command="make native-binary-$(_TargetOrHostRid) -f native-binaries.mk"
+      Command="make copy-runtime-deps-$(_TargetOrHostRid) -f deps.mk"
       WorkingDirectory="$(Highlight_MakefileDirectory)"
+      Condition="$(_TargetOrHostRid.StartsWith('win-'))"
     />
   </Target>
 
   <Target
     Name="NativeBinaries_GetNativeBinaryFilesForTargetOrHostEnvironment"
-    Returns="@(_NativeBinaryFile)"
+    Returns="@(_NativeBinaryFileForTargetOrHostEnvironment)"
   >
     <CallTarget Targets="NativeBinaries_GetRuntimeIdentifierForTargetOrHostEnvironment">
       <Output TaskParameter="TargetOutputs" PropertyName="_TargetOrHostRid"/>
     </CallTarget>
-    <CallTarget Targets="NativeBinaries_GetSharedLibraryFileExtensionForTargetOrHostEnvironment">
-      <Output TaskParameter="TargetOutputs" PropertyName="_TargetOrHostSharedLibraryFileExtension"/>
-    </CallTarget>
 
     <ItemGroup Condition=" '$(_TargetOrHostRid)' != '' ">
-      <_NativeBinaryFile
-        Include="$(Highlight_NativeBinariesBaseDirectory)$(_TargetOrHostRid)\native\*$(Highlight_BindingsDllImportName).$(_TargetOrHostSharedLibraryFileExtension)"
+      <_NativeBinaryFileForTargetOrHostEnvironmentInRelativePath
+        Include="%(Highlight_NativeBinaryFileRelativePath.Identity)"
+        Condition=" $([System.String]::new(%(Highlight_NativeBinaryFileRelativePath.Identity)).StartsWith('$(_TargetOrHostRid)')) "
       />
-      <_NativeBinaryFile
-        Include="$(Highlight_NativeBinariesBaseDirectory)$(_TargetOrHostRid)\native\$(Lua_DllFileName)"
-        Condition="$(_TargetOrHostRid.StartsWith('win-'))"
+      <_NativeBinaryFileForTargetOrHostEnvironment
+        Include="$(Highlight_NativeBinariesBaseDirectory)%(_NativeBinaryFileForTargetOrHostEnvironmentInRelativePath.Identity)"
       />
     </ItemGroup>
   </Target>
@@ -56,7 +48,7 @@ SPDX-License-Identifier: MIT
   <Target
     Name="NativeBinaries_PopulateBuildItems"
     BeforeTargets="BeforeBuild"
-    DependsOnTargets="NativeBinaries_BuildForTargetOrHostEnvironment"
+    DependsOnTargets="NativeBinaries_PrepareBuildForTargetOrHostEnvironment"
     Condition=" '$(TargetFramework)' != '' "
   >
     <CallTarget Targets="NativeBinaries_GetNativeBinaryFilesForTargetOrHostEnvironment">
@@ -75,11 +67,19 @@ SPDX-License-Identifier: MIT
 
   <Target
     Name="NativeBinaries_PopulatePackItems"
-    DependsOnTargets="NativeBinaries_BuildForAllTargetEnvironments"
+    DependsOnTargets="NativeBinaries_PrepareBuildForAllTargetEnvironments"
   >
     <ItemGroup>
-      <None Pack="true" Include="$(Highlight_NativeBinariesBaseDirectory)**\native\*$(Highlight_BindingsDllImportName).*" PackagePath="runtimes" />
-      <None Pack="true" Include="$(Highlight_NativeBinariesBaseDirectory)win-*\native\$(Lua_DllFileName)" PackagePath="runtimes" />
+      <_NativeBinaryPackFile
+        Include="$(Highlight_NativeBinariesBaseDirectory)%(Highlight_NativeBinaryFileRelativePath.Identity)"
+        PackagePath="runtimes\%(Highlight_NativeBinaryFileRelativePath.Identity)"
+      />
+
+      <None
+        Include="%(_NativeBinaryPackFile.Identity)"
+        Pack="true"
+        PackagePath="%(_NativeBinaryPackFile.PackagePath)"
+      />
     </ItemGroup>
   </Target>
 
@@ -90,7 +90,7 @@ SPDX-License-Identifier: MIT
   <Target
     Name="NativeBinaries_AddCopyToOutputDirectoryItems"
     BeforeTargets="GetCopyToOutputDirectoryItems;GetCopyToPublishDirectoryItems"
-    DependsOnTargets="NativeBinaries_BuildForTargetOrHostEnvironment"
+    DependsOnTargets="NativeBinaries_PrepareBuildForTargetOrHostEnvironment"
     Condition=" '$(IsBuildDueToProjectReference)' == 'true' "
   >
     <CallTarget Targets="NativeBinaries_GetNativeBinaryFilesForTargetOrHostEnvironment">
@@ -117,6 +117,14 @@ SPDX-License-Identifier: MIT
       <_HostPlatform Condition="$([MSBuild]::IsOSPlatform('OSX'))">osx</_HostPlatform>
       <_HostPlatform Condition="$([MSBuild]::IsOSPlatform('Windows'))">win</_HostPlatform>
 
+      <!-- set more specific RID -->
+      <_HostPlatform
+        Condition=" '$(_HostPlatform)' == 'linux' and $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.22.04'))"
+      >ubuntu.22.04</_HostPlatform>
+      <_HostPlatform
+        Condition=" '$(_HostPlatform)' == 'linux' and $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.20.04'))"
+      >ubuntu.20.04</_HostPlatform>
+
       <_HostArchitecture>$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture.ToString().ToLowerInvariant())</_HostArchitecture>
       <_HostArchitecture Condition=" '$(_HostArchitecture)' == 'arm' " >arm32</_HostArchitecture>
       <_HostArchitecture Condition=" '$(_HostArchitecture)' == 'arm64' " >arm64</_HostArchitecture>
@@ -130,29 +138,5 @@ SPDX-License-Identifier: MIT
       <_TargetOrHostRuntimeIdentifier>$(RuntimeIdentifier)</_TargetOrHostRuntimeIdentifier>
       <_TargetOrHostRuntimeIdentifier Condition=" '$(_TargetOrHostRuntimeIdentifier)' == '' ">$(_HostRuntimeIdentifier)</_TargetOrHostRuntimeIdentifier>
     </PropertyGroup>
-  </Target>
-
-  <Target
-    Name="NativeBinaries_GetSharedLibraryFileExtensionForTargetOrHostEnvironment"
-    Returns="$(_TargetOrHostSharedLibraryFileExtension)"
-  >
-    <PropertyGroup Condition=" '$(RuntimeIdentifier)' != '' ">
-      <_TargetOrHostSharedLibraryFileExtension Condition="$(RuntimeIdentifier.StartsWith('linux-'))">so</_TargetOrHostSharedLibraryFileExtension>
-      <_TargetOrHostSharedLibraryFileExtension Condition="$(RuntimeIdentifier.StartsWith('osx-'))">dylib</_TargetOrHostSharedLibraryFileExtension>
-      <_TargetOrHostSharedLibraryFileExtension Condition="$(RuntimeIdentifier.StartsWith('win-'))">dll</_TargetOrHostSharedLibraryFileExtension>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(_TargetOrHostSharedLibraryFileExtension)' == '' ">
-      <_TargetOrHostSharedLibraryFileExtension Condition="$([MSBuild]::IsOSPlatform('Linux'))">so</_TargetOrHostSharedLibraryFileExtension>
-      <_TargetOrHostSharedLibraryFileExtension Condition="$([MSBuild]::IsOSPlatform('OSX'))">dylib</_TargetOrHostSharedLibraryFileExtension>
-      <_TargetOrHostSharedLibraryFileExtension Condition="$([MSBuild]::IsOSPlatform('Windows'))">dll</_TargetOrHostSharedLibraryFileExtension>
-    </PropertyGroup>
-  </Target>
-
-  <Target Name="NativeBinaries_Clean" AfterTargets="Clean">
-    <ItemGroup>
-      <NativeBinaryFiles Include="$(Highlight_NativeBinariesBaseDirectory)**\native\*.*" />
-    </ItemGroup>
-    <Delete Files="@(NativeBinaryFiles)" />
   </Target>
 </Project>

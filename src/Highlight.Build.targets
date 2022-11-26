@@ -4,17 +4,6 @@ SPDX-License-Identifier: MIT
 -->
 <Project>
   <Target
-    Name="Highlight_InstallCIBuildDependencies"
-    Condition=" '$(GITHUB_ACTIONS)' == 'true' "
-  >
-    <Exec
-      Command="make install-buildtime-deps-ubuntu.22.04 -f install-deps.mk"
-      WorkingDirectory="$(MSBuildThisFileDirectory)..\eng\dependencies\"
-      Condition="$([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.22.04'))"
-    />
-  </Target>
-
-  <Target
     Name="Highlight_PrepareHighlightBuildConfigurationsFile"
     Outputs="$(_HighlightBuildConfigurationsFilePath)"
     Condition=" '$(TargetFramework)' != '' "
@@ -27,7 +16,7 @@ SPDX-License-Identifier: MIT
 namespace $(Highlight_BindingsNamespace)%3B
 internal static class HighlightConfigurations {
   public const string DllImportName = "$(Highlight_BindingsDllImportName)"%3B
-  public const string DataDirRelativePath = "$(Highlight_DataDeploymentBasePath)"%3B
+  public const string DataDirRelativePath = "$(Highlight_DataDeploymentBasePath.Replace('\', '/'))"%3B
 }
       ]]></_HighlightConfigurationsContent>
     </PropertyGroup>

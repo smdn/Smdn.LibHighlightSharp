@@ -26,6 +26,12 @@ SPDX-License-Identifier: MIT
     <Compile Include="Smdn.LibHighlightSharp\*.cs" />
     <!-- Include *.cs files from directly under the directory for the bindings generated from specific Highlight version. -->
     <Compile Include="$(Highlight_BindingsSourceDirectory)\*.cs" />
+
+    <None
+      Include="$(Highlight_NativeBinariesSHA1SumFile)"
+      Pack="true"
+      PackagePath="libhighlight\SHA1SUMS.txt"
+    />
   </ItemGroup>
 
   <ItemGroup>

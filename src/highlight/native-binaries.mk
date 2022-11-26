@@ -44,12 +44,10 @@ library-native:
 
 	$(CXX) $(LDFLAGS) -s $(WRAPPER_OBJS) $(OBJS_EXTRA) -L$(HIGHLIGHT_SRC_DIR) -lhighlight $(LUA_LIBS) -o $(NATIVE_BINARY_OUTPUT_PATH)
 
-native-binary-linux-x64: ${NATIVE_BINARY_OUTPUT_PATH_LINUX_X64}
-
-$(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64): CXX := g++
-$(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64): CFLAGS := $(CFLAGS_COMMON) -m64
-$(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64): LDFLAGS := -shared
-$(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64):
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64): CXX := g++
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64): CFLAGS := $(CFLAGS_COMMON) -m64
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64): LDFLAGS := -shared
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64):
 	$(MAKE) -f $(THIS_FILE) \
 	  CXX="$(CXX)" \
 	  CFLAGS="$(CFLAGS)" \
@@ -57,7 +55,16 @@ $(NATIVE_BINARY_OUTPUT_PATH_LINUX_X64):
 	  NATIVE_BINARY_OUTPUT_PATH="$@" \
 	  library-native
 
-native-binary-osx-x64: ${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64): CXX := g++
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64): CFLAGS := $(CFLAGS_COMMON) -m64
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64): LDFLAGS := -shared
+$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64):
+	$(MAKE) -f $(THIS_FILE) \
+	  CXX="$(CXX)" \
+	  CFLAGS="$(CFLAGS)" \
+	  LDFLAGS="$(LDFLAGS)" \
+	  NATIVE_BINARY_OUTPUT_PATH="$@" \
+	  library-native
 
 ${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}: CXX := g++
 ${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}: CFLAGS := $(CFLAGS_COMMON) -m64
@@ -69,11 +76,6 @@ ${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}:
 	  LDFLAGS="$(LDFLAGS)" \
 	  NATIVE_BINARY_OUTPUT_PATH="$@" \
 	  library-native
-
-native-binary-win-x64: ${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64} ${NATIVE_BINARY_OUTPUT_PATH_LUA_WINDOWS_X64}
-
-${NATIVE_BINARY_OUTPUT_PATH_LUA_WINDOWS_X64}:
-	cp -f $(MINGW_LUA_DLL_DIR_WINDOWS_X64)*.dll $@
 
 highlight-x64.res: highlight.rc
 	x86_64-w64-mingw32-windres --input=$< --input-format=rc --output=$@ --output-format=coff
@@ -95,6 +97,7 @@ ${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: highlight-x64.res
 	  library-native
 
 native-binaries: $(NATIVE_BINARIES)
+	sha1sum -b $(NATIVE_BINARIES)
 
 clean-win-resource:
 	rm -f highlight.rc
@@ -106,9 +109,6 @@ clean-native-binaries: clean-win-resource
 .PHONY: libhighlight-native
 .PHONY: library-native
 .PHONY: native-binaries
-.PHONY: native-binary-linux-x64
-.PHONY: native-binary-osx-x64
-.PHONY: native-binary-win-x64
 .PHONY: clean-native-binaries
 .PHONY: wrapper
 .PHONY: clean-wrapper

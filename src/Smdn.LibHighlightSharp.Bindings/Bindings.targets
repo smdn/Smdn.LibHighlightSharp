@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
   <Target
     Name="Bindings_Build"
     BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
-    DependsOnTargets="Highlight_InstallCIBuildDependencies"
+    Condition=" '$(GITHUB_ACTIONS)' != 'true' "
   >
     <!-- generate swig bindings -->
     <Exec Command="make bindings -f bindings.mk" WorkingDirectory="$(Highlight_MakefileDirectory)" />
@@ -15,6 +15,7 @@ SPDX-License-Identifier: MIT
   <Target
     Name="BindingSource_Clean"
     AfterTargets="Clean"
+    Condition=" '$(GITHUB_ACTIONS)' != 'true' "
   >
     <!-- clean swig bindings -->
     <Exec Command="make clean-bindings -f bindings.mk" WorkingDirectory="$(Highlight_MakefileDirectory)" />
