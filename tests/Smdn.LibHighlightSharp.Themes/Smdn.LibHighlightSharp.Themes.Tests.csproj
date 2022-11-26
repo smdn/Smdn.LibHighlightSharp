@@ -9,11 +9,12 @@ SPDX-License-Identifier: MIT
     <TargetFrameworks Condition=" '$(EnableTargetFrameworkNetCoreApp)' == 'true' ">$(TargetFrameworks);netcoreapp3.1</TargetFrameworks>
     <TargetFrameworks Condition=" '$(EnableTargetFrameworkNetFx)' == 'true' ">$(TargetFrameworks)</TargetFrameworks>
     <Nullable>enable</Nullable>
+    <SmdnTestTargetProjectReferenceManuallyIncluded>true</SmdnTestTargetProjectReferenceManuallyIncluded>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference
-      Update="$(SmdnTestTargetProjectFullPath)"
+      Include="$(SmdnTestTargetProjectFullPath)"
       ReferenceOutputAssembly="false"
       AdditionalProperties="IsBuildDueToProjectReference=true"
     />
