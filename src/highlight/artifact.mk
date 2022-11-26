@@ -29,7 +29,7 @@ artifact:
 	  } \
 	  \$$sha1sum_list_merged = \$$sha1sum_list_artifact + \$$sha1sum_list_stored ;\
 	  \$$sha1sum_list_distinct_ordered = \$$sha1sum_list_merged | Sort-Object { (\$$_ -split ' ')[1] } -Unique ;\
-	  \$$sha1sum_list_distinct_ordered > '$(NATIVE_BINARY_SHA1SUM_FILE)' ;\
+	  \$$sha1sum_list_distinct_ordered -join \"\`n\" > '$(NATIVE_BINARY_SHA1SUM_FILE)' ;\
 	}"
 
 	git switch -c $(ARTIFACT_BRANCH_NAME)
