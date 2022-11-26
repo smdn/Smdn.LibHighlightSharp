@@ -10,7 +10,7 @@ artifact:
 	@echo "================================================================================"
 
 	$(MAKE) native-binaries -f native-binaries.mk
-#	@for artifact_output in $(ARTIFACT_OUTPUTS); do\
+#	@for artifact_output in $(NATIVE_BINARIES); do\
 #	  artifact_output_dir=`dirname $$artifact_output`;\
 #	  mkdir -p $$artifact_output_dir;\
 #	  echo $$artifact_output >> $$artifact_output;\
@@ -19,7 +19,7 @@ artifact:
 	mkdir -p $(dir $(NATIVE_BINARY_SHA1SUM_FILE))
 
 	pwsh -Command "& { \
-	  \$$hash_list = Get-FileHash ('$(ARTIFACT_OUTPUTS)' -split ' ') -Algorithm SHA1;\
+	  \$$hash_list = Get-FileHash ('$(NATIVE_BINARIES)' -split ' ') -Algorithm SHA1;\
 	  \$$sha1sum_list = \$$hash_list | Select-Object \
 	    @{ Name='Path'; Expression={[System.IO.Path]::GetRelativePath('$(dir $(NATIVE_BINARY_SHA1SUM_FILE))', \$$_.Path)} }, \
 	    @{ Name='Hash'; Expression={\$$_.Hash} }; \
@@ -33,8 +33,8 @@ artifact:
 	}"
 
 	git switch -c $(ARTIFACT_BRANCH_NAME)
-	git add $(ARTIFACT_OUTPUTS)
+	git add $(NATIVE_BINARIES)
 	git add $(NATIVE_BINARY_SHA1SUM_FILE)
-	git commit -m 'add artifact $(notdir $(ARTIFACT_OUTPUTS)) ($(ARTIFACT_BRANCH_NAME))'
+	git commit -m 'add artifact $(notdir $(NATIVE_BINARIES)) ($(ARTIFACT_BRANCH_NAME))'
 
 .PHONY: artifact

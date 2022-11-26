@@ -106,23 +106,17 @@ function Build-ConfigMk {
     $artifact_rid = "ubuntu.22.04-x64"
     $lines += "NATIVE_BINARIES :=" +
       " `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64)" +
-      " `$(NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64)" +
-      " `$(NATIVE_BINARY_OUTPUT_PATH_LUA_WINDOWS_X64)"
-    $lines += "ARTIFACT_OUTPUTS := " +
-      " `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64)" +
       " `$(NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64)"
   }
   elseif ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.20.04-x64')) {
     # Target 'ubuntu.20.04-x64'
     $artifact_rid = "ubuntu.20.04-x64"
     $lines += "NATIVE_BINARIES := `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64)"
-    $lines += "ARTIFACT_OUTPUTS := `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64)"
   }
   elseif ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('osx.11.0-x64')) {
     # Target 'osx-x64'
     $artifact_rid = "osx-x64"
     $lines += "NATIVE_BINARIES := `$(NATIVE_BINARY_OUTPUT_PATH_MACOS_X64)"
-    $lines += "ARTIFACT_OUTPUTS := `$(NATIVE_BINARY_OUTPUT_PATH_MACOS_X64)"
   }
   else {
     Write-Warning "unsupported build environment: $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier)"
