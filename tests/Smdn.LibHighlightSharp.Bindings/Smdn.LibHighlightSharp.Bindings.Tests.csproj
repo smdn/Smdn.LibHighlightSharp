@@ -9,6 +9,7 @@ SPDX-License-Identifier: MIT
     <TargetFrameworks Condition=" '$(EnableTargetFrameworkNetCoreApp)' == 'true' ">$(TargetFrameworks);netcoreapp3.1</TargetFrameworks>
     <TargetFrameworks Condition=" '$(EnableTargetFrameworkNetFx)' == 'true' ">$(TargetFrameworks)</TargetFrameworks>
     <Nullable>enable</Nullable>
+    <RequireToInstallCIRuntimeDependencies>true</RequireToInstallCIRuntimeDependencies>
   </PropertyGroup>
 
 </Project>
