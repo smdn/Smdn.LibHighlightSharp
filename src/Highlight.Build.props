@@ -97,12 +97,12 @@ $(LicenseNoticeMarkdownText_Lua_Notice)
     />
     <Message
       Condition=" '$(Highlight_QueryPropertyName)' == 'MINGW_LUA_DLL_FILENAME' "
-      Text="$(Lua_DllFileName)"
+      Text="$(Lua_DllFileName.Replace('\', '/'))"
       Importance="high"
     />
     <Message
       Condition=" '$(Highlight_QueryPropertyName)' == 'HIGHLIGHT_SOURCE_ROOT_DIR' "
-      Text="$(Highlight_SourceRootDirectory)"
+      Text="$(Highlight_SourceRootDirectory.Replace('\', '/'))"
       Importance="high"
     />
     <Message
@@ -127,7 +127,7 @@ $(LicenseNoticeMarkdownText_Lua_Notice)
     />
     <Message
       Condition=" '$(Highlight_QueryPropertyName)' == 'BINDINGS_OUTPUT_DIR' "
-      Text="$(Highlight_BindingsSourceDirectory)"
+      Text="$(Highlight_BindingsSourceDirectory.Replace('\', '/'))"
       Importance="high"
     />
     <Message
@@ -142,12 +142,12 @@ $(LicenseNoticeMarkdownText_Lua_Notice)
     />
     <Message
       Condition=" '$(Highlight_QueryPropertyName)' == 'NATIVE_BINARY_OUTPUT_BASEDIR' "
-      Text="$(Highlight_NativeBinariesBaseDirectory)"
+      Text="$(Highlight_NativeBinariesBaseDirectory.Replace('\', '/'))"
       Importance="high"
     />
     <Message
       Condition=" '$(Highlight_QueryPropertyName)' == 'NATIVE_BINARY_SHA1SUM_FILE' "
-      Text="$(Highlight_NativeBinariesSHA1SumFile)"
+      Text="$(Highlight_NativeBinariesSHA1SumFile.Replace('\', '/'))"
       Importance="high"
     />
   </Target>
