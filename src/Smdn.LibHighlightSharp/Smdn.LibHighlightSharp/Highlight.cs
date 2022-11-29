@@ -18,9 +18,11 @@ public partial class Highlight : IDisposable {
 
   private Bindings.DataDir? dataDirForSyntaxes;
   private Bindings.DataDir DataDirForSyntaxes => dataDirForSyntaxes ?? throw new ObjectDisposedException(GetType().FullName);
+  private string? UserDefinedDataDirPathForSyntaxes { get; }
 
   private Bindings.DataDir? dataDirForThemes;
   private Bindings.DataDir DataDirForThemes => dataDirForThemes ?? throw new ObjectDisposedException(GetType().FullName);
+  private string? UserDefinedDataDirPathForThemes { get; }
 
   private Bindings.DataDir DataDir => dataDirForThemes ?? dataDirForSyntaxes ?? throw new ObjectDisposedException(GetType().FullName);
 
@@ -58,10 +60,13 @@ public partial class Highlight : IDisposable {
 
     return path.Length == 0
       ? null
-      : CreateDataDirFromPath(path, nameof(path));
+      : CreateDataDirFromPath(path, nameof(path)).DataDir;
   }
 
-  private static Bindings.DataDir CreateDataDirFromPath(string path, string paramName)
+  private static (
+    Bindings.DataDir DataDir,
+    string? UserDefinedDirPath
+  ) CreateDataDirFromPath(string path, string paramName)
   {
     if (path is null)
       throw new ArgumentNullException(paramName);
@@ -84,7 +89,16 @@ public partial class Highlight : IDisposable {
 
     dataDir.initSearchDirectories(path); // here, userDefinedDir can be empty
 
-    return dataDir;
+    return (
+      DataDir: dataDir,
+      // highlight (< 3.40) does not support HIGHLIGHT_DATADIR on Windows.
+      // Retain the specified path to support path resolution using user-defined data dir.
+      // ref: https://github.com/andre-simon/highlight/issues/24
+      UserDefinedDirPath:
+        RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && 0 < path.Length
+          ? path
+          : null
+    );
   }
 
   public Highlight(GeneratorOutputType outputType = DefaultGeneratorOutputType)
@@ -103,8 +117,14 @@ public partial class Highlight : IDisposable {
     bool shouldDisposeDataDir = false
   )
     : this(
-      dataDirForSyntaxes: dataDir ?? throw new ArgumentNullException(nameof(dataDir)),
-      dataDirForThemes: dataDir,
+      dataDirForSyntaxes: (
+        dataDir ?? throw new ArgumentNullException(nameof(dataDir)),
+        UserDefinedDirPath: null
+      ),
+      dataDirForThemes: (
+        dataDir,
+        UserDefinedDirPath: null
+      ),
       outputType,
       shouldDisposeDataDir: shouldDisposeDataDir
     )
@@ -131,19 +151,60 @@ public partial class Highlight : IDisposable {
     GeneratorOutputType outputType = DefaultGeneratorOutputType,
     bool shouldDisposeDataDir = false
   )
+    : this(
+      dataDirForSyntaxes:
+        (dataDirForSyntaxes ?? throw new ArgumentNullException(nameof(dataDirForSyntaxes)),
+        UserDefinedDirPath: null
+      ),
+      dataDirForThemes: (
+        dataDirForThemes ?? throw new ArgumentNullException(nameof(dataDirForThemes)),
+        UserDefinedDirPath: null
+      ),
+      outputType: outputType,
+      shouldDisposeDataDir: shouldDisposeDataDir
+    )
   {
-    codeGenerator = Bindings.CodeGenerator.getInstance(TranslateOutputType(outputType));
-    this.dataDirForSyntaxes = dataDirForSyntaxes ?? throw new ArgumentNullException(nameof(dataDirForSyntaxes));
-    this.dataDirForThemes = dataDirForThemes ?? throw new ArgumentNullException(nameof(dataDirForThemes));
+  }
+
+  private Highlight(
+    (Bindings.DataDir DataDir, string? UserDefinedDirPath) dataDir,
+    GeneratorOutputType outputType = DefaultGeneratorOutputType,
+    bool shouldDisposeDataDir = false
+  )
+    : this(
+      dataDirForSyntaxes: dataDir,
+      dataDirForThemes: dataDir,
+      outputType: outputType,
+      shouldDisposeDataDir: shouldDisposeDataDir
+    )
+  {
+  }
+
+  private Highlight(
+    (Bindings.DataDir DataDir, string? UserDefinedDirPath) dataDirForSyntaxes,
+    (Bindings.DataDir DataDir, string? UserDefinedDirPath) dataDirForThemes,
+    GeneratorOutputType outputType = DefaultGeneratorOutputType,
+    bool shouldDisposeDataDir = false
+  )
+  {
+    this.dataDirForSyntaxes = dataDirForSyntaxes.DataDir ?? throw new ArgumentNullException(nameof(dataDirForSyntaxes));
+    this.UserDefinedDataDirPathForSyntaxes = dataDirForSyntaxes.UserDefinedDirPath;
+
+    this.dataDirForThemes = dataDirForThemes.DataDir ?? throw new ArgumentNullException(nameof(dataDirForThemes));
+    this.UserDefinedDataDirPathForThemes = dataDirForThemes.UserDefinedDirPath;
+
     OutputType = outputType;
+
     this.shouldDisposeDataDir = shouldDisposeDataDir;
+
+    codeGenerator = Bindings.CodeGenerator.getInstance(TranslateOutputType(outputType));
   }
 
   /// <summary>create a new instance with DataDir inherited.</summary>
   private Highlight Create(GeneratorOutputType outputType)
     => new(
-      dataDirForSyntaxes: DataDirForSyntaxes,
-      dataDirForThemes: DataDirForThemes,
+      dataDirForSyntaxes: (DataDirForSyntaxes, UserDefinedDataDirPathForSyntaxes),
+      dataDirForThemes: (DataDirForThemes, UserDefinedDataDirPathForThemes),
       outputType: outputType,
       shouldDisposeDataDir: false // do not dispose data dirs since this method creates a new instance with data dir of this instance.
     );

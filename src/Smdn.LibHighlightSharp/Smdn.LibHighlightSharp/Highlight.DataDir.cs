@@ -96,9 +96,28 @@ partial class Highlight {
   private const string SyntaxFileExtension = ".lang";
 
   private string GetSyntaxFilePathFromName(string name, string paramName)
-    => DataDirForSyntaxes.getLangPath(
-      file: (name ?? throw new ArgumentNullException(paramName)) + SyntaxFileExtension
-    );
+  {
+    var syntaxFileName = (name ?? throw new ArgumentNullException(paramName)) + SyntaxFileExtension;
+    var syntaxFilePath = DataDirForSyntaxes.getLangPath(file: syntaxFileName);
+
+    if (
+      UserDefinedDataDirPathForSyntaxes is not null &&
+      !(Path.IsPathRooted(syntaxFilePath) && File.Exists(syntaxFilePath))
+    ) {
+      // Fallback path
+      //   highlight (< 3.40) does not support HIGHLIGHT_DATADIR on Windows.
+      //   ref: https://github.com/andre-simon/highlight/issues/24
+      var syntaxFilePathUnderUserDefinedDataDir = Path.Combine(
+        UserDefinedDataDirPathForSyntaxes,
+        DataDirForSyntaxes.getLangPath(file: syntaxFileName)
+      );
+
+      if (File.Exists(syntaxFilePathUnderUserDefinedDataDir))
+        syntaxFilePath = syntaxFilePathUnderUserDefinedDataDir;
+    }
+
+    return syntaxFilePath;
+  }
 
   public bool TryFindSyntaxFile(
     string name,
@@ -125,7 +144,7 @@ partial class Highlight {
 
   private string GetThemeFilePathFromName(string name, bool base16, string paramName)
   {
-    var file = (name ?? throw new ArgumentNullException(paramName)) + ThemeFileExtension;
+    var themeFileName = (name ?? throw new ArgumentNullException(paramName)) + ThemeFileExtension;
 
     ThrowIfDisposed();
 
@@ -137,10 +156,28 @@ partial class Highlight {
 
       dynamic dataDir = DataDirForThemes;
 
-      return dataDir.getThemePath(file: file, base16: true);
+      return dataDir.getThemePath(file: themeFileName, base16: true);
     }
 
-    return DataDirForThemes.getThemePath(file: file);
+    var themeFilePath = DataDirForThemes.getThemePath(file: themeFileName);
+
+    if (
+      UserDefinedDataDirPathForThemes is not null &&
+      !(Path.IsPathRooted(themeFilePath) && File.Exists(themeFilePath))
+    ) {
+      // Fallback path
+      //   highlight (< 3.40) does not support HIGHLIGHT_DATADIR on Windows.
+      //   ref: https://github.com/andre-simon/highlight/issues/24
+      var themeFilePathUnderUserDefinedDataDir = Path.Combine(
+        UserDefinedDataDirPathForThemes,
+        DataDirForThemes.getThemePath(file: themeFileName)
+      );
+
+      if (File.Exists(themeFilePathUnderUserDefinedDataDir))
+        themeFilePath = themeFilePathUnderUserDefinedDataDir;
+    }
+
+    return themeFilePath;
   }
 
   public bool TryFindThemeFile(
