@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.36.0-preview1)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.36.0-preview2)
 //   Name: Smdn.LibHighlightSharp.Bindings
 //   AssemblyVersion: 3.36.0.0
-//   InformationalVersion: 3.36.0-preview1+eaee3323c282f20fa805a2dbdfc216bacd885f7b
+//   InformationalVersion: 3.36.0-preview2+79d5574e4e939dc08a8d6bf4d35fe595c45e5b4e
 //   TargetFramework: .NETCoreApp,Version=v6.0
 //   Configuration: Release
 
@@ -9,13 +9,11 @@ using System;
 using Smdn.LibHighlightSharp.Bindings;
 
 namespace Smdn.LibHighlightSharp {
-  public class VersionInformations {
+  public static class VersionInformations {
     public static Version BindingsVersion { get; }
     public static string NativeLibraryFileName { get; }
     public static string NativeLibraryName { get; }
     public static Version NativeLibraryVersion { get; }
-
-    public VersionInformations() {}
   }
 }
 
