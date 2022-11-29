@@ -30,10 +30,11 @@ $(LicenseNoticeMarkdownText_Highlight_Bundle)
 ]]></LicenseNoticeMarkdownText>
   </PropertyGroup>
 
-  <Target Name="Themes_Build" BeforeTargets="Build">
-    <!-- clone highlight source -->
-    <Exec Command="make highlight-src -f libhighlight.mk" WorkingDirectory="$(Highlight_MakefileDirectory)" />
-
+  <Target
+    Name="Themes_Build"
+    DependsOnTargets="Highlight_CheckoutHighlightSource"
+    BeforeTargets="Build"
+  >
     <ItemGroup>
       <SourceThemeFile Include="$(Highlight_SourceThemesDirectory)**\*.theme" />
     </ItemGroup>

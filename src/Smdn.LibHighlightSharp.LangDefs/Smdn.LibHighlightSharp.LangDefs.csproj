@@ -35,10 +35,11 @@ $(LicenseNoticeMarkdownText_Highlight_Bundle)
 ]]></LicenseNoticeMarkdownText>
   </PropertyGroup>
 
-  <Target Name="LangDefs_Build" BeforeTargets="Build">
-    <!-- clone highlight source -->
-    <Exec Command="make highlight-src -f libhighlight.mk" WorkingDirectory="$(Highlight_MakefileDirectory)" />
-
+  <Target
+    Name="LangDefs_Build"
+    DependsOnTargets="Highlight_CheckoutHighlightSource"
+    BeforeTargets="Build"
+  >
     <Copy
       SourceFiles="$(Highlight_SourceFileTypesConfFile)"
       DestinationFiles="$(FileTypesConfContentFilesPath)"

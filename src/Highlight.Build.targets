@@ -4,6 +4,48 @@ SPDX-License-Identifier: MIT
 -->
 <Project>
   <Target
+    Name="Highlight_CheckoutHighlightSource"
+    Condition="!Exists($(Highlight_SourceRootDirectory))"
+  >
+    <Exec
+      Command="make highlight-src -f libhighlight.mk"
+      IgnoreExitCode="true"
+      WorkingDirectory="$(Highlight_MakefileDirectory)"
+    >
+      <Output TaskParameter="ExitCode" PropertyName="_MakeHighlightSrcExitCode"/>
+    </Exec>
+
+    <PropertyGroup>
+      <_MakeHighlightSrcResult>false</_MakeHighlightSrcResult>
+      <_MakeHighlightSrcResult Condition=" '$(_MakeHighlightSrcExitCode)' == '' ">true</_MakeHighlightSrcResult>
+      <_MakeHighlightSrcResult Condition=" '$(_MakeHighlightSrcExitCode)' == '0' ">true</_MakeHighlightSrcResult>
+      <_MakeHighlightSrcResult Condition=" '$(_MakeHighlightSrcExitCode)' == '-1' ">true</_MakeHighlightSrcResult>
+    </PropertyGroup>
+
+    <!-- fallback: checkout source without `make` command -->
+    <PropertyGroup Condition=" '$(_MakeHighlightSrcResult)' != 'true' ">
+      <_CheckoutCommandLine><![CDATA[
+        git clone '$(Highlight_SourceRepoUrl)' -b v$(Highlight_SourceVersionMajorMinor) --depth 1 '$(Highlight_SourceRootDirectory)' ||
+        git clone '$(Highlight_SourceRepoUrl)' -b  $(Highlight_SourceVersionMajorMinor) --depth 1 '$(Highlight_SourceRootDirectory)'
+      ]]></_CheckoutCommandLine>
+      <!-- collapse CR and LF, spaces and trim -->
+      <_CheckoutCommandLine>$([System.Text.RegularExpressions.Regex]::Replace('$(_CheckoutCommandLine)', '[\r\n]', ''))</_CheckoutCommandLine>
+      <_CheckoutCommandLine>$([System.Text.RegularExpressions.Regex]::Replace('$(_CheckoutCommandLine)', '\s{2,}', ' '))</_CheckoutCommandLine>
+      <_CheckoutCommandLine>$(_CheckoutCommandLine.Trim())</_CheckoutCommandLine>
+
+      <_FallbackCheckoutCommandLine>$(_CheckoutCommandLine)</_FallbackCheckoutCommandLine>
+      <_FallbackCheckoutCommandLine
+        Condition="$([MSBuild]::IsOSPlatform('Windows'))"
+      >"$(ProgramFiles)\Git\bin\sh.exe" --login -i -c "$(_CheckoutCommandLine)"</_FallbackCheckoutCommandLine>
+    </PropertyGroup>
+
+    <Exec
+      Command="$(_FallbackCheckoutCommandLine)"
+      Condition=" '$(_MakeHighlightSrcResult)' != 'true' "
+    />
+  </Target>
+
+  <Target
     Name="Highlight_PrepareHighlightBuildConfigurationsFile"
     Outputs="$(_HighlightBuildConfigurationsFilePath)"
     Condition=" '$(TargetFramework)' != '' "
