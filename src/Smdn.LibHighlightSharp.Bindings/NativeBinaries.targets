@@ -19,10 +19,29 @@ SPDX-License-Identifier: MIT
       <Output TaskParameter="TargetOutputs" PropertyName="_TargetOrHostRid"/>
     </CallTarget>
 
+    <PropertyGroup>
+      <Lua_DllFilePath>$(Highlight_NativeBinariesBaseDirectory)$(_TargetOrHostRid)\native\$(Lua_DllFileName)</Lua_DllFilePath>
+    </PropertyGroup>
+
     <Exec
       Command="make copy-runtime-deps-$(_TargetOrHostRid) -f deps.mk"
       WorkingDirectory="$(Highlight_MakefileDirectory)"
+      IgnoreExitCode="true"
       Condition="$(_TargetOrHostRid.StartsWith('win-'))"
+    >
+      <Output TaskParameter="ExitCode" PropertyName="_MakeCopyRuntimeDepsExitCode"/>
+    </Exec>
+
+    <PropertyGroup>
+      <_MakeCopyRuntimeDepsResult>false</_MakeCopyRuntimeDepsResult>
+      <_MakeCopyRuntimeDepsResult Condition=" '$(_MakeCopyRuntimeDepsExitCode)' == '' ">true</_MakeCopyRuntimeDepsResult>
+      <_MakeCopyRuntimeDepsResult Condition=" '$(_MakeCopyRuntimeDepsExitCode)' == '0' ">true</_MakeCopyRuntimeDepsResult>
+      <_MakeCopyRuntimeDepsResult Condition=" '$(_MakeCopyRuntimeDepsExitCode)' == '-1' ">true</_MakeCopyRuntimeDepsResult>
+    </PropertyGroup>
+
+    <Warning
+      Text="Please extract and deploy the depending files manually since it could not be extracted or deployed automatically."
+      Condition=" '$(_MakeCopyRuntimeDepsResult)' != 'true' and !Exists($(Lua_DllFilePath)) "
     />
   </Target>
 

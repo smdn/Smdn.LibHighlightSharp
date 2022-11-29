@@ -9,7 +9,25 @@ SPDX-License-Identifier: MIT
     Condition=" '$(GITHUB_ACTIONS)' != 'true' "
   >
     <!-- generate swig bindings -->
-    <Exec Command="make bindings -f bindings.mk" WorkingDirectory="$(Highlight_MakefileDirectory)" />
+    <Exec
+      Command="make bindings -f bindings.mk"
+      WorkingDirectory="$(Highlight_MakefileDirectory)"
+      IgnoreExitCode="true"
+    >
+      <Output TaskParameter="ExitCode" PropertyName="_MakeBindingsExitCode"/>
+    </Exec>
+
+    <PropertyGroup>
+      <_MakeBindingsResult>false</_MakeBindingsResult>
+      <_MakeBindingsResult Condition=" '$(_MakeBindingsExitCode)' == '' ">true</_MakeBindingsResult>
+      <_MakeBindingsResult Condition=" '$(_MakeBindingsExitCode)' == '0' ">true</_MakeBindingsResult>
+      <_MakeBindingsResult Condition=" '$(_MakeBindingsExitCode)' == '-1' ">true</_MakeBindingsResult>
+    </PropertyGroup>
+
+    <Warning
+      Text="Failed to generate or update SWIG bindings."
+      Condition=" '$(_MakeBindingsResult)' != 'true' "
+    />
   </Target>
 
   <Target
