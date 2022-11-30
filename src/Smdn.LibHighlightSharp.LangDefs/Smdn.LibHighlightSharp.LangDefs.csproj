@@ -6,6 +6,10 @@ SPDX-License-Identifier: MIT
   <Import Project="$(MSBuildThisFileDirectory)..\ProjectSettings.ContentOnlyPackage.props" />
 
   <PropertyGroup>
+    <BeforePack>LangDefs_PopulatePackItems;$(BeforePack)</BeforePack>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <FileTypesConfDeploymentRelativePath>$(Highlight_DataDeploymentBasePath)</FileTypesConfDeploymentRelativePath>
     <FileTypesConfPackagePath>contentFiles\any\any\$(FileTypesConfDeploymentRelativePath)filetypes.conf</FileTypesConfPackagePath>
     <FileTypesConfContentFilesPath>$(MSBuildThisFileDirectory)$(FileTypesConfPackagePath)</FileTypesConfContentFilesPath>
@@ -57,7 +61,6 @@ $(LicenseNoticeMarkdownText_Highlight_Bundle)
 
   <Target
     Name="LangDefs_PopulatePackItems"
-    BeforeTargets="Build;Pack"
     DependsOnTargets="LangDefs_Build"
     Condition=" '$(IsBuildDueToProjectReference)' != 'true' "
   >

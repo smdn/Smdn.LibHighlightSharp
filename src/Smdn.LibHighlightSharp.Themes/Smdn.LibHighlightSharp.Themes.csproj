@@ -5,6 +5,10 @@ SPDX-License-Identifier: MIT
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\ProjectSettings.ContentOnlyPackage.props" />
 
+  <PropertyGroup>
+    <BeforePack>Themes_PopulatePackItems;$(BeforePack)</BeforePack>
+  </PropertyGroup>
+
   <PropertyGroup Label="metadata">
     <ThemesDeploymentRelativePath>$(Highlight_DataDeploymentBasePath)themes\</ThemesDeploymentRelativePath>
     <ThemesPackagePath>contentFiles\any\any\$(ThemesDeploymentRelativePath)</ThemesPackagePath>
@@ -47,7 +51,6 @@ $(LicenseNoticeMarkdownText_Highlight_Bundle)
 
   <Target
     Name="Themes_PopulatePackItems"
-    BeforeTargets="Build;Pack"
     DependsOnTargets="Themes_Build"
     Condition=" '$(IsBuildDueToProjectReference)' != 'true' "
   >
