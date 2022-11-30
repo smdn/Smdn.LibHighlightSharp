@@ -30,8 +30,8 @@ SPDX-License-Identifier: MIT
 
   <PropertyGroup Label="notice and readme">
     <PackageReadmeFileContentPostamble><![CDATA[## Usage
-By adding this package to the <PackageReference>, the syntax files will be copied to the output folder (`%24(OutputPath)\$(LangDefsDeploymentRelativePath)`) at build time.
-`filetypes.conf` will also be copied to `%24(OutputPath)\$(FileTypesConfDeploymentRelativePath)`.
+By adding this package to the `<PackageReference>`, the `*.lang` files will be deployed to under `%24(OutputPath)$(LangDefsDeploymentRelativePath)` in the output folder at build time.
+`filetypes.conf` will also be deployed to under `%24(OutputPath)$(FileTypesConfDeploymentRelativePath)`.
 ]]></PackageReadmeFileContentPostamble>
     <LicenseNoticeMarkdownText><![CDATA[
 # NOTICE

@@ -26,7 +26,8 @@ SPDX-License-Identifier: MIT
 
   <PropertyGroup Label="notice and readme">
     <PackageReadmeFileContentPostamble><![CDATA[## Usage
-By adding this package to the <PackageReference>, the theme files will be copied to the output folder (`%24(OutputPath)\$(ThemesDeploymentRelativePath)`) at build time.
+By adding this package to the `<PackageReference>`, the `*.theme` files will be deployed to under `%24(OutputPath)$(ThemesDeploymentRelativePath)` in the output folder at build time.
+
 ]]></PackageReadmeFileContentPostamble>
     <LicenseNoticeMarkdownText><![CDATA[
 # NOTICE
