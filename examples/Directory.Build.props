@@ -8,6 +8,6 @@ SPDX-License-Identifier: MIT
       Set this property to `true` if you want to build and run the examples using the local projects
       instead of published NuGet packages.
     -->
-    <UseLocalProjectInsteadOfPublishedPackage>true</UseLocalProjectInsteadOfPublishedPackage>
+    <UseLocalProjectInsteadOfPublishedPackage>false</UseLocalProjectInsteadOfPublishedPackage>
   </PropertyGroup>
 </Project>
