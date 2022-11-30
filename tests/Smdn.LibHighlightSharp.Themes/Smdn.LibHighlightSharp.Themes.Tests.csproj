@@ -17,6 +17,7 @@ SPDX-License-Identifier: MIT
       Include="$(SmdnTestTargetProjectFullPath)"
       ReferenceOutputAssembly="false"
       AdditionalProperties="IsBuildDueToProjectReference=true"
+      Condition=" '$(TestReleasedPackage)' != 'true' "
     />
   </ItemGroup>
 
