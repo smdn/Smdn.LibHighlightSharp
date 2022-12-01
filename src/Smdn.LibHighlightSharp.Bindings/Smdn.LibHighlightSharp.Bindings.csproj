@@ -12,7 +12,7 @@ SPDX-License-Identifier: MIT
     <RuntimeIdentifiers>$(Highlight_NativeBinariesSupportedRuntimeIdentifiers)</RuntimeIdentifiers>
     <VersionPrefix>$(Highlight_SourceVersionMajorMinor).$(_PackageVersionPatch)</VersionPrefix>
     <VersionSuffix></VersionSuffix>
-    <!--<PackageValidationBaselineVersion>$(Highlight_MinimumSupportedVersionInclusive)</PackageValidationBaselineVersion>-->
+    <PackageValidationBaselineVersion>3.36.0</PackageValidationBaselineVersion>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems> <!-- explicitly specify the items to be included to @Compile -->
     <Nullable>warnings</Nullable> <!-- The nullability annotations have to be enabled separately in each file since SWIG bindings does not have nullability annotations -->
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
