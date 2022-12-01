@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
     <ContentOnlyPackageRevision>0</ContentOnlyPackageRevision>
 
     <!-- use the major and minor version of Highlight as it is as the package version, and add package revision as a patch version -->
-    <Version>$(Highlight_SourceVersionMajorMinor).$(ContentOnlyPackageRevision)$(PackagePreviewSuffix)</Version>
+    <Version>$(Highlight_SourceVersionMajorMinor).$(ContentOnlyPackageRevision)</Version>
     <InformationalVersion>$(Version) ($(Highlight_DisplayNameWithVersion))</InformationalVersion>
 
     <!-- excludes build output when building and packing -->
