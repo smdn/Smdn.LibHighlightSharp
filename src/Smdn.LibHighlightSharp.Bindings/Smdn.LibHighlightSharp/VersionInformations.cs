@@ -36,20 +36,19 @@ public static class VersionInformations {
 
   private static unsafe int GetHighlightVersion(VersionPart part)
   {
-    const int length = 8;
-
     static bool TryGetHighlightVersionPart(VersionPart part, out int version)
     {
       version = 0;
 
       try {
-        var buffer = stackalloc sbyte[length];
-        var len = smdn_libhighlightsharp_get_highlight_version((int)part, buffer, length);
+        const int bufferLength = 4; // "nnn\0".Length
+        var buffer = stackalloc sbyte[bufferLength];
+        var len = smdn_libhighlightsharp_get_highlight_version((int)part, buffer, bufferLength);
 
         if (len <= 0)
           return false;
 
-        var versionString = new string(buffer, 0, Math.Min(len, length));
+        var versionString = new string(buffer, 0, Math.Min(len, bufferLength));
 
         return int.TryParse(versionString, out version);
       }
@@ -63,9 +62,10 @@ public static class VersionInformations {
       version = default;
 
       try {
-        var buffer = stackalloc sbyte[length];
-        var len = smdn_libhighlightsharp_get_highlight_version((int)VersionPart.Full, buffer, length);
-        var versionString = new string(buffer, 0, Math.Min(len, length));
+        const int bufferLength = 7; // "xx.xxx\0".Length
+        var buffer = stackalloc sbyte[bufferLength];
+        var len = smdn_libhighlightsharp_get_highlight_version((int)VersionPart.Full, buffer, bufferLength);
+        var versionString = new string(buffer, 0, Math.Min(len, bufferLength));
 
         return Version.TryParse(versionString, out version);
       }
