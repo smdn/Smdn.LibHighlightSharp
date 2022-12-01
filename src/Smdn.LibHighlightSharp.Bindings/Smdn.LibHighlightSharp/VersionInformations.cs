@@ -23,15 +23,23 @@ public static class VersionInformations {
   );
 #pragma warning restore SA1300, SA1305
 
-  private static int GetHighlightVersionMajor() => GetHighlightVersion(0);
-  private static int GetHighlightVersionMinor() => GetHighlightVersion(1);
+  /// <summary>The version part to retrieve.</summary>
+  /// <remarks>
+  /// The value should be synchronized with the value required by nVersionPart parameter of <see cref="smdn_libhighlightsharp_get_highlight_version"/>.
+  /// See <see href="../../highlight/highlight-version.cpp">../../highlight/highlight-version.cpp</see> for detail.
+  /// </remarks>
+  private enum VersionPart : int {
+    Full = -1,
+    Major = 0,
+    Minor = 1,
+  }
 
-  private static unsafe int GetHighlightVersion(int part)
+  private static unsafe int GetHighlightVersion(VersionPart part)
   {
     const int length = 8;
     var buffer = stackalloc sbyte[length];
 
-    var len = smdn_libhighlightsharp_get_highlight_version(part, buffer, length);
+    var len = smdn_libhighlightsharp_get_highlight_version((int)part, buffer, length);
 
     if (0 < len) {
       var versionString = new string(buffer, 0, Math.Min(len, length));
@@ -41,14 +49,14 @@ public static class VersionInformations {
     }
     else {
       // try to get full version string instead
-      len = smdn_libhighlightsharp_get_highlight_version(-1, buffer, length);
+      len = smdn_libhighlightsharp_get_highlight_version((int)VersionPart.Full, buffer, length);
 
       var versionString = new string(buffer, 0, Math.Min(len, length));
 
       if (Version.TryParse(versionString, out var version)) {
         return part switch {
-          0 => version.Major,
-          1 => version.Minor,
+          VersionPart.Major => version.Major,
+          VersionPart.Minor => version.Minor,
           _ => 0,
         };
       }
@@ -59,8 +67,8 @@ public static class VersionInformations {
 
   private static readonly Lazy<Version> nativeLibraryVersion = new(
     () => new Version(
-      major: GetHighlightVersionMajor(),
-      minor: GetHighlightVersionMinor()
+      major: GetHighlightVersion(VersionPart.Major),
+      minor: GetHighlightVersion(VersionPart.Minor)
     )
   );
 
