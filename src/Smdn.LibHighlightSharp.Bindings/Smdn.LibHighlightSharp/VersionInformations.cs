@@ -65,6 +65,10 @@ public static class VersionInformations {
         const int bufferLength = 7; // "xx.xxx\0".Length
         var buffer = stackalloc sbyte[bufferLength];
         var len = smdn_libhighlightsharp_get_highlight_version((int)VersionPart.Full, buffer, bufferLength);
+
+        if (len <= 0)
+          return false;
+
         var versionString = new string(buffer, 0, Math.Min(len, bufferLength));
 
         return Version.TryParse(versionString, out version);
