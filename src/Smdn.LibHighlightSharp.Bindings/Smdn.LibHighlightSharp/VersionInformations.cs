@@ -37,32 +37,57 @@ public static class VersionInformations {
   private static unsafe int GetHighlightVersion(VersionPart part)
   {
     const int length = 8;
-    var buffer = stackalloc sbyte[length];
 
-    var len = smdn_libhighlightsharp_get_highlight_version((int)part, buffer, length);
+    static bool TryGetHighlightVersionPart(VersionPart part, out int version)
+    {
+      version = 0;
 
-    if (0 < len) {
-      var versionString = new string(buffer, 0, Math.Min(len, length));
+      try {
+        var buffer = stackalloc sbyte[length];
+        var len = smdn_libhighlightsharp_get_highlight_version((int)part, buffer, length);
 
-      if (int.TryParse(versionString, out var version))
-        return version;
-    }
-    else {
-      // try to get full version string instead
-      len = smdn_libhighlightsharp_get_highlight_version((int)VersionPart.Full, buffer, length);
+        if (len <= 0)
+          return false;
 
-      var versionString = new string(buffer, 0, Math.Min(len, length));
+        var versionString = new string(buffer, 0, Math.Min(len, length));
 
-      if (Version.TryParse(versionString, out var version)) {
-        return part switch {
-          VersionPart.Major => version.Major,
-          VersionPart.Minor => version.Minor,
-          _ => 0,
-        };
+        return int.TryParse(versionString, out version);
+      }
+      catch (EntryPointNotFoundException) {
+        return false; // just ignore exception
       }
     }
 
-    return 0;
+    static bool TryGetHighlightFullVersion(out Version? version)
+    {
+      version = default;
+
+      try {
+        var buffer = stackalloc sbyte[length];
+        var len = smdn_libhighlightsharp_get_highlight_version((int)VersionPart.Full, buffer, length);
+        var versionString = new string(buffer, 0, Math.Min(len, length));
+
+        return Version.TryParse(versionString, out version);
+      }
+      catch (EntryPointNotFoundException) {
+        return false; // just ignore exception
+      }
+    }
+
+    // get major/minor part of version string
+    if (TryGetHighlightVersionPart(part, out var versionPart))
+      return versionPart;
+
+    // fallback: try to get full version string instead and split into major/minor part
+    if (TryGetHighlightFullVersion(out var version) && version is not null) {
+      return part switch {
+        VersionPart.Major => version.Major,
+        VersionPart.Minor => version.Minor,
+        _ => 0,
+      };
+    }
+
+    return 0; // failed
   }
 
   private static readonly Lazy<Version> nativeLibraryVersion = new(
