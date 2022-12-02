@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.36.1)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.43.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 3.36.1.0
-//   InformationalVersion: 3.36.1+0134c18aa46629fc4db0254325795857c949fe3c
+//   AssemblyVersion: 3.43.0.0
+//   InformationalVersion: 3.43.0+27feade9b3db0ec462b0ae3c38f7275d031cfcdc
 //   TargetFramework: .NETStandard,Version=v2.0
 //   Configuration: Release
 
@@ -31,7 +31,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     ESC_TRUECOLOR = 12,
     ESC_XTERM256 = 6,
     HTML = 0,
-    HTML32 = 7,
+    HTML32_UNUSED = 7,
     LATEX = 3,
     ODTFLAT = 11,
     PANGO = 10,
@@ -109,6 +109,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public bool getKeepInjections() {}
     public int getLineNumberWidth() {}
     public bool getNumberWrappedLines() {}
+    public bool getOmitVersionComment() {}
     public string getPluginScriptError() {}
     public bool getPrintLineNumbers() {}
     public bool getPrintZeroes() {}
@@ -132,6 +133,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public void setBaseFont(string fontName) {}
     public void setBaseFontSize(string fontSize) {}
     public void setEOLDelimiter(char delim) {}
+    public virtual void setESCCanvasPadding(uint arg0) {}
     public virtual void setESCTrueColor(bool arg0) {}
     public void setEncoding(string encodingName) {}
     public void setFragmentCode(bool flag) {}
@@ -143,14 +145,17 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public virtual void setHTMLOrderedList(bool arg0) {}
     public virtual void setHTMLUseNonBreakingSpace(bool arg0) {}
     public void setIncludeStyle(bool flag) {}
+    public void setIndentationOptions(SWIGTYPE_p_std__vectorT_std__string_t options) {}
     public void setKeepInjections(bool flag) {}
     public void setKeyWordCase(SWIGTYPE_p_StringTools__KeywordCase keyCase) {}
+    public virtual void setLATEXBeamerMode(bool arg0) {}
     public virtual void setLATEXNoShorthands(bool arg0) {}
     public virtual void setLATEXPrettySymbols(bool arg0) {}
     public virtual void setLATEXReplaceQuotes(bool arg0) {}
     public void setLineNumberWidth(int w) {}
     public void setMaxInputLineCnt(uint cnt) {}
     public void setNumberWrappedLines(bool flag) {}
+    public void setOmitVersionComment(bool flag) {}
     public void setPluginParameter(string param) {}
     public void setPreformatting(WrapMode lineWrappingStyle, uint lineLength, int numberSpaces) {}
     public void setPrintLineNumbers(bool flag) {}
@@ -160,6 +165,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public virtual void setRTFPageColor(bool arg0) {}
     public virtual void setRTFPageSize(string arg0) {}
     public virtual void setSVGSize(string arg0, string arg1) {}
+    public void setStartingInputLine(uint begin) {}
     public void setStartingNestedLang(string langName) {}
     public void setStyleInputPath(string path) {}
     public void setStyleOutputPath(string path) {}
