@@ -4,7 +4,7 @@ SPDX-License-Identifier: MIT
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <_PackageVersionPatch>1</_PackageVersionPatch>
+    <_PackageVersionPatch>0</_PackageVersionPatch>
   </PropertyGroup>
 
   <PropertyGroup>
