@@ -359,6 +359,11 @@ partial class HighlightTests {
     hl.SetTheme("github");
     hl.SetSyntax("csharp");
 
+    if (VersionInformations.NativeLibraryVersion == new Version(3, 43)) {
+      Assert.Ignore("Disabled test case: see https://github.com/smdn/Smdn.LibHighlightSharp/issues/26 for detail.");
+      return;
+    }
+
     string? generated = null;
 
     Assert.DoesNotThrow(() => generated = hl.Generate(input: "using System;"));
