@@ -6,7 +6,7 @@ include config.mk
 
 .DEFAULT_GOAL := native-binaries
 
-CFLAGS_COMMON = -g -O2 -fPIC
+CFLAGS_COMMON = -std=c++11 -g -O2 -fPIC
 
 libhighlight-native:
 	$(MAKE) clean-libhighlight -f libhighlight.mk
@@ -67,7 +67,7 @@ $(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64):
 	  library-native
 
 ${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}: CXX := g++
-${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}: CFLAGS := $(CFLAGS_COMMON) -std=c++11 -m64
+${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}: CFLAGS := $(CFLAGS_COMMON) -m64
 ${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}: LDFLAGS := -shared -dynamiclib
 ${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}:
 	$(MAKE) -f $(THIS_FILE) \
