@@ -45,6 +45,12 @@ $(LicenseNoticeMarkdownText_Lua_Notice)
     <ProjectReference
       VersionRange="[$(Highlight_MinimumSupportedVersionInclusive),$(Highlight_MaximumSupportedVersionExclusive))"
       Include="$(MSBuildThisFileDirectory)..\Smdn.LibHighlightSharp.Bindings\Smdn.LibHighlightSharp.Bindings.csproj"
+      Condition=" '$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)' == '' "
+    />
+    <PackageReference
+      Include="Smdn.LibHighlightSharp.Bindings"
+      Version="$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)"
+      Condition=" '$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)' != '' "
     />
   </ItemGroup>
 

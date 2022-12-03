@@ -6,6 +6,19 @@ name: Run tests for Smdn.LibHighlightSharp with various versions of Smdn.LibHigh
 on:
   workflow_dispatch:
     inputs:
+      os:
+        description: "The OS label which run the test on. (ex: ubuntu-22.04, ubuntu-20.04, windows-latest, macos-latest)"
+        required: false
+        type: string
+      bindings-versions:
+        description: "One or more package versions of Smdn.LibHighlightSharp.Bindings to combine with Smdn.LibHighlightSharp. (ex: 3.36, 3.43) "
+        required: false
+        type: string
+      run-with-released-package:
+        description: "Runs tests with released package or not."
+        required: true
+        type: boolean
+        default: true
       verbose:
         description: "If true, enables verbose output."
         required: false
@@ -16,13 +29,61 @@ jobs:
   prerequisites:
     runs-on: ubuntu-latest
     outputs:
+      os: ${{ steps.input-prerequisites.outputs.os }}
+      bindings-versions: ${{ steps.input-prerequisites.outputs.bindings-versions }}
       verbose: ${{ steps.input-prerequisites.outputs.verbose }}
+    env:
+      RUNS_ON_OS_LIST_DEFAULT: 'ubuntu-22.04, ubuntu-20.04, windows-latest, macos-latest'
+      BINDINGS_VERSION_LIST_DEFAULT: "['3.36', '3.43']"
     steps:
     - name: Determine prerequisites
       id: input-prerequisites
+      shell: pwsh
       run: |
-        if [ '${{ github.event.inputs.verbose }}' = 'true' ]; then
-          echo 'verbose=true' >> $GITHUB_OUTPUT
-        else
-          echo 'verbose=false' >> $GITHUB_OUTPUT
-        fi
+        $runs_on_os_list = $Env:RUNS_ON_OS_LIST_DEFAULT
+
+        if ('${{ github.event.inputs.os }}') {
+          $runs_on_os_list = '${{ github.event.inputs.os }}'
+        }
+
+        "os=${runs_on_os_list}"
+        "os=${runs_on_os_list}" >> $Env:GITHUB_OUTPUT
+
+        $bindings_version_list = $Env:BINDINGS_VERSION_LIST_DEFAULT | ConvertFrom-Json
+
+        if ('${{ inputs.bindings-versions }}') {
+          $bindings_version_list = @(
+            "${{ inputs.bindings-versions }}".Split(",", [System.StringSplitOptions]::TrimEntries -bor [System.StringSplitOptions]::RemoveEmptyEntries)
+          )
+        }
+
+        "bindings-versions=${bindings_version_list}"
+
+        if ($bindings_version_list.Count -eq 1) {
+          "bindings-versions=[$($bindings_version_list | ConvertTo-Json -Compress)]" >> $Env:GITHUB_OUTPUT
+        }
+        else {
+          "bindings-versions=$($bindings_version_list | ConvertTo-Json -Compress)" >> $Env:GITHUB_OUTPUT
+        }
+
+        $verbose = ('${{ github.event.inputs.verbose }}' -ieq 'true')
+
+        "verbose=${$verbose}"
+        "verbose=$($verbose | ConvertTo-Json -Compress)" >> $Env:GITHUB_OUTPUT
+
+  run-test:
+    uses: smdn/Smdn.Fundamentals/.github/workflows/test.yml@workflows/test-v1.1.2
+    needs: prerequisites
+    strategy:
+      matrix:
+        bindings-version: ${{ fromJSON(needs.prerequisites.outputs.bindings-versions) }}
+    with:
+      project:              'Smdn.LibHighlightSharp'
+      os:                   ${{ needs.prerequisites.outputs.os }}
+      extra_options_common: '/p:SmdnLibHighlightSharpBindingsPackageReferenceVersion=${{ matrix.bindings-version }} /p:TestReleasedPackage=${{ github.event.inputs.run-with-released-package }}'
+      verbose:              ${{ fromJSON(needs.prerequisites.outputs.verbose) }}
+      dotnet_sdk_version:   '6.0.200'
+      timeout_hang:               "[ {'OS':'windows','Timeout':'6min'}, {'OS':'macos','Timeout':'3min'}, {'OS':'','Timeout':'1min'} ]"
+      timeout_vstest_connection:  "[ {'OS':'windows','Timeout':360}, {'OS':'macos','Timeout':180}, {'OS':'','Timeout':60} ]"
+    secrets:
+      token_repo: ${{ secrets.GITHUB_TOKEN }}
