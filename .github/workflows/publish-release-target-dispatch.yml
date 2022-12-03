@@ -13,7 +13,7 @@ on:
 
 jobs:
   run-publish-release-target:
-    uses: smdn/Smdn.Fundamentals/.github/workflows/publish-release-target.yml@workflows/release-target-v1.5.3
+    uses: smdn/Smdn.Fundamentals/.github/workflows/publish-release-target.yml@workflows/release-target-v1.5.5
     with:
       pr_number_request_for_release: ${{ fromJson(github.event.inputs.pr_number_request_for_release) }}
       pr_label_request_for_release:  'release-target'
