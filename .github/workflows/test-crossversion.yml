@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: "2022 smdn <smdn@smdn.jp>"
+
+name: Run tests for Smdn.LibHighlightSharp with various versions of Smdn.LibHighlightSharp.Bindings
+
+on:
+  workflow_dispatch:
+    inputs:
+      verbose:
+        description: "If true, enables verbose output."
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  prerequisites:
+    runs-on: ubuntu-latest
+    outputs:
+      verbose: ${{ steps.input-prerequisites.outputs.verbose }}
+    steps:
+    - name: Determine prerequisites
+      id: input-prerequisites
+      run: |
+        if [ '${{ github.event.inputs.verbose }}' = 'true' ]; then
+          echo 'verbose=true' >> $GITHUB_OUTPUT
+        else
+          echo 'verbose=false' >> $GITHUB_OUTPUT
+        fi
