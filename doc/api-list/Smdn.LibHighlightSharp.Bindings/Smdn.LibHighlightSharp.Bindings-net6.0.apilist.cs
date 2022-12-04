@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.44.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.51.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 3.44.0.0
-//   InformationalVersion: 3.44.0+2fcddbba47f5bc00ce2cd97aa767d946130f67cb
+//   AssemblyVersion: 3.51.0.0
+//   InformationalVersion: 3.51.0+e16b6978304ea97cceb7b86f67e2a0e541516e53
 //   TargetFramework: .NETCoreApp,Version=v6.0
 //   Configuration: Release
 
@@ -78,6 +78,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     _EOF = 103,
     _EOL = 102,
     _REJECT = 101,
+    _TESTPOS = 105,
     _UNKNOWN = 100,
     _WS = 104,
   }
@@ -106,20 +107,24 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getBaseFont() {}
     public string getBaseFontSize() {}
     public bool getFragmentCode() {}
+    public bool getIsolateTags() {}
     public bool getKeepInjections() {}
     public int getLineNumberWidth() {}
     public bool getNumberWrappedLines() {}
     public bool getOmitVersionComment() {}
     public string getPluginScriptError() {}
+    public SWIGTYPE_p_std__vectorT_std__string_t getPosTestErrors() {}
     public bool getPrintLineNumbers() {}
     public bool getPrintZeroes() {}
     public string getStyleInputPath() {}
     public string getStyleName() {}
     public string getStyleOutputPath() {}
+    public string getSyntaxCatDescription() {}
     public string getSyntaxDescription() {}
     public string getSyntaxLuaError() {}
     public SyntaxReader getSyntaxReader() {}
     public string getSyntaxRegexError() {}
+    public string getThemeCatDescription() {}
     public string getThemeDescription() {}
     public string getThemeInitError() {}
     public string getTitle() {}
@@ -137,6 +142,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public virtual void setESCCanvasPadding(uint arg0) {}
     public virtual void setESCTrueColor(bool arg0) {}
     public void setEncoding(string encodingName) {}
+    public void setFilesCnt(uint cnt) {}
     public void setFragmentCode(bool flag) {}
     public virtual void setHTMLAnchorPrefix(string arg0) {}
     public virtual void setHTMLAttachAnchors(bool arg0) {}
@@ -147,6 +153,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public virtual void setHTMLUseNonBreakingSpace(bool arg0) {}
     public void setIncludeStyle(bool flag) {}
     public void setIndentationOptions(SWIGTYPE_p_std__vectorT_std__string_t options) {}
+    public void setIsolateTags(bool flag) {}
     public void setKeepInjections(bool flag) {}
     public void setKeyWordCase(SWIGTYPE_p_StringTools__KeywordCase keyCase) {}
     public virtual void setLATEXBeamerMode(bool arg0) {}
@@ -184,12 +191,18 @@ namespace Smdn.LibHighlightSharp.Bindings {
 
     public DataDir() {}
 
+    public SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t assocByExtension { get; set; }
+    public SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t assocByFilename { get; set; }
+    public SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t assocByShebang { get; set; }
+
     protected virtual void Dispose(bool disposing) {}
     public void Dispose() {}
     ~DataDir() {}
     public string getDocDir() {}
     public string getExtDir() {}
-    public string getFiletypesConfPath(string arg0) {}
+    public string getFileSuffix(string fileName) {}
+    public string getFiletypesConfPath() {}
+    public string getFiletypesConfPath(string path) {}
     public string getI18nDir() {}
     public string getLangPath() {}
     public string getLangPath(string file) {}
@@ -199,10 +212,13 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getThemePath() {}
     public string getThemePath(string file) {}
     public string getThemePath(string file, bool base16) {}
+    public string guessFileType(string suffix, string inputFile) {}
+    public string guessFileType(string suffix, string inputFile, bool useUserSuffix) {}
+    public string guessFileType(string suffix, string inputFile, bool useUserSuffix, bool forceShebangCheckStdin) {}
     public void initSearchDirectories(string userDefinedDir) {}
+    public bool loadFileTypeConfig(string name) {}
     public void printConfigPaths() {}
     public void searchDataDir(string userDefinedDir) {}
-    public string searchFile(string path) {}
   }
 
   public class ReGroup : IDisposable {
@@ -222,19 +238,6 @@ namespace Smdn.LibHighlightSharp.Bindings {
     ~ReGroup() {}
   }
 
-  public class RegexDef : IDisposable {
-    protected bool swigCMemOwn;
-
-    public RegexDef() {}
-
-    public int capturingGroup { get; set; }
-    public string reString { get; set; }
-
-    protected virtual void Dispose(bool disposing) {}
-    public void Dispose() {}
-    ~RegexDef() {}
-  }
-
   public class RegexElement : IDisposable {
     public static int instanceCnt { get; set; }
 
@@ -252,6 +255,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public uint kwClass { get; set; }
     public string langName { get; set; }
     public State open { get; set; }
+    public string pattern { get; set; }
     public SWIGTYPE_p_boost__xpressive__sregex rex { get; set; }
 
     protected virtual void Dispose(bool disposing) {}
@@ -277,6 +281,10 @@ namespace Smdn.LibHighlightSharp.Bindings {
 
   public class SWIGTYPE_p_std__mapT_std__string_int_std__lessT_std__string_t_t {
     protected SWIGTYPE_p_std__mapT_std__string_int_std__lessT_std__string_t_t() {}
+  }
+
+  public class SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t {
+    protected SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t() {}
   }
 
   public class SWIGTYPE_p_std__vectorT_highlight__RegexElement_p_t {
@@ -305,6 +313,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public bool delimiterIsDistinct(int delimID) {}
     public bool delimiterIsRawString(int delimID) {}
     public bool enableReformatting() {}
+    public string getCategoryDescription() {}
     public byte getContinuationChar() {}
     public string getCurrentPath() {}
     public SWIGTYPE_p_Diluculum__LuaFunction getDecorateFct() {}
