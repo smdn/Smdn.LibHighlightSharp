@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.43.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.44.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 3.43.0.0
-//   InformationalVersion: 3.43.0+27feade9b3db0ec462b0ae3c38f7275d031cfcdc
+//   AssemblyVersion: 3.44.0.0
+//   InformationalVersion: 3.44.0+2fcddbba47f5bc00ce2cd97aa767d946130f67cb
 //   TargetFramework: .NETStandard,Version=v2.0
 //   Configuration: Release
 
@@ -120,6 +120,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getSyntaxLuaError() {}
     public SyntaxReader getSyntaxReader() {}
     public string getSyntaxRegexError() {}
+    public string getThemeDescription() {}
     public string getThemeInitError() {}
     public string getTitle() {}
     public bool getValidateInput() {}
@@ -197,6 +198,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getSystemDataPath() {}
     public string getThemePath() {}
     public string getThemePath(string file) {}
+    public string getThemePath(string file, bool base16) {}
     public void initSearchDirectories(string userDefinedDir) {}
     public void printConfigPaths() {}
     public void searchDataDir(string userDefinedDir) {}
