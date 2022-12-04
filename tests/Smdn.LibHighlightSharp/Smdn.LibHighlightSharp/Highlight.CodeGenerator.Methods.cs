@@ -191,7 +191,7 @@ partial class HighlightTests {
       var ex = Assert.Throws<HighlightThemeException>(Action)!;
 
       StringAssert.Contains(
-        Path.Join("base16/", themeName + ".theme"),
+        Path.Join("base16", themeName + ".theme"),
         ex.ThemeFilePath
       );
       Assert.IsNotEmpty(ex.Reason);
