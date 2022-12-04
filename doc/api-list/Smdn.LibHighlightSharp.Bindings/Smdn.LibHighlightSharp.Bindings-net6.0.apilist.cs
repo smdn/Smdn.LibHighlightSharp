@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.56.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.60.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 3.56.0.0
-//   InformationalVersion: 3.56.0+090fddc06d3ce81c1dbd0cf3254604dee9c77535
+//   AssemblyVersion: 3.60.0.0
+//   InformationalVersion: 3.60.0+11c9c1634ccf3d96d71724a669c7875d8244f937
 //   TargetFramework: .NETCoreApp,Version=v6.0
 //   Configuration: Release
 
@@ -117,6 +117,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public SWIGTYPE_p_std__vectorT_std__string_t getPosTestErrors() {}
     public bool getPrintLineNumbers() {}
     public bool getPrintZeroes() {}
+    public virtual string getStyleDefinition() {}
     public string getStyleInputPath() {}
     public string getStyleName() {}
     public string getStyleOutputPath() {}
@@ -127,6 +128,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public SyntaxReader getSyntaxReader() {}
     public string getSyntaxRegexError() {}
     public string getThemeCatDescription() {}
+    public float getThemeContrast() {}
     public string getThemeDescription() {}
     public string getThemeInitError() {}
     public string getTitle() {}
@@ -139,6 +141,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public bool printExternalStyle(string outFile) {}
     public virtual bool printIndexFile(SWIGTYPE_p_std__vectorT_std__string_t fileList, string outPath) {}
     public bool printPersistentState(string outFile) {}
+    public string readUserStyleDef() {}
     public bool requiresTwoPassParsing() {}
     public void resetSyntaxReaders() {}
     public void setBaseFont(string fontName) {}
@@ -368,6 +371,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public LoadResult load(string langDefPath, string pluginReadFilePath, OutputType outputType) {}
     public bool matchesOpenDelimiter(string token, State s, int openDelimId) {}
     public bool needsReload(string langDefPath) {}
+    public bool requiresParamUpdate() {}
     public bool requiresTwoPassRun() {}
     public void restoreLangEndDelim(string langPath) {}
     public void setInputFileName(string fn) {}
