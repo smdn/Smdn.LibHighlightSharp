@@ -1,1 +1,4 @@
 2d714c8912a4d1c971960f62b498816bdcbbb8f2 *../runtimes/osx-x64/native/libhighlight-v3_60_0_0.dylib
+f87b58ec46b960456e39f60ca7a2d38963f0aa6f *../runtimes/ubuntu.20.04-x64/native/libhighlight-v3_60_0_0.so
+e1ca62b1bdca6f3958453b0a2e059661f1ddb993 *../runtimes/ubuntu.22.04-x64/native/libhighlight-v3_60_0_0.so
+821807c925d08ff6184a7c5fb8c70f00a5419fb5 *../runtimes/win-x64/native/highlight-v3_60_0_0.dll
