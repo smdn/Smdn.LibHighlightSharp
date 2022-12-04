@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
     <Highlight_MinimumSupportedVersionInclusive>3.36.0</Highlight_MinimumSupportedVersionInclusive>
     <Highlight_MaximumSupportedVersionExclusive>5.0.0</Highlight_MaximumSupportedVersionExclusive>
 
-    <Highlight_SourceVersionMajorMinor>3.51</Highlight_SourceVersionMajorMinor>
+    <Highlight_SourceVersionMajorMinor>3.56</Highlight_SourceVersionMajorMinor>
     <Lua_VersionMajorMinor>5.3</Lua_VersionMajorMinor>
     <Lua_VersionMajorMinorPatch>5.3.6</Lua_VersionMajorMinorPatch>
   </PropertyGroup>
