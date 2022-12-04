@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.51.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.56.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 3.51.0.0
-//   InformationalVersion: 3.51.0+e16b6978304ea97cceb7b86f67e2a0e541516e53
+//   AssemblyVersion: 3.56.0.0
+//   InformationalVersion: 3.56.0+090fddc06d3ce81c1dbd0cf3254604dee9c77535
 //   TargetFramework: .NETStandard,Version=v2.0
 //   Configuration: Release
 
@@ -98,7 +98,8 @@ namespace Smdn.LibHighlightSharp.Bindings {
     protected virtual void Dispose(bool disposing) {}
     public void Dispose() {}
     ~CodeGenerator() {}
-    public void disableTrailingNL(bool flag) {}
+    public void clearPersistentSnippets() {}
+    public void disableTrailingNL(int flag) {}
     public bool formattingDisabled() {}
     public bool formattingIsPossible() {}
     public ParseError generateFile(string inFileName, string outFileName) {}
@@ -121,6 +122,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getStyleOutputPath() {}
     public string getSyntaxCatDescription() {}
     public string getSyntaxDescription() {}
+    public string getSyntaxEncodingHint() {}
     public string getSyntaxLuaError() {}
     public SyntaxReader getSyntaxReader() {}
     public string getSyntaxRegexError() {}
@@ -136,6 +138,9 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public LoadResult loadLanguage(string langDefPath, bool embedded) {}
     public bool printExternalStyle(string outFile) {}
     public virtual bool printIndexFile(SWIGTYPE_p_std__vectorT_std__string_t fileList, string outPath) {}
+    public bool printPersistentState(string outFile) {}
+    public bool requiresTwoPassParsing() {}
+    public void resetSyntaxReaders() {}
     public void setBaseFont(string fontName) {}
     public void setBaseFontSize(string fontSize) {}
     public void setEOLDelimiter(char delim) {}
@@ -180,6 +185,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public void setTitle(string title) {}
     public void setValidateInput(bool flag) {}
     public bool styleFound() {}
+    public bool syntaxRequiresTwoPassRun() {}
   }
 
   public class DataDir : IDisposable {
@@ -194,11 +200,13 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t assocByExtension { get; set; }
     public SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t assocByFilename { get; set; }
     public SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t assocByShebang { get; set; }
+    public SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t encodingHint { get; set; }
 
     protected virtual void Dispose(bool disposing) {}
     public void Dispose() {}
     ~DataDir() {}
     public string getDocDir() {}
+    public string getEncodingHint(string arg0) {}
     public string getExtDir() {}
     public string getFileSuffix(string fileName) {}
     public string getFiletypesConfPath() {}
@@ -248,14 +256,20 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public RegexElement(State oState, State eState, string rePattern, uint cID) {}
     public RegexElement(State oState, State eState, string rePattern, uint cID, int group) {}
     public RegexElement(State oState, State eState, string rePattern, uint cID, int group, string name) {}
+    public RegexElement(State oState, State eState, string rePattern, uint cID, int group, string name, uint prio) {}
+    public RegexElement(State oState, State eState, string rePattern, uint cID, int group, string name, uint prio, uint cLineNum) {}
+    public RegexElement(State oState, State eState, string rePattern, uint cID, int group, string name, uint prio, uint cLineNum, string cFilename) {}
 
     public int capturingGroup { get; set; }
+    public string constraintFilename { get; set; }
+    public uint constraintLineNum { get; set; }
     public State end { get; set; }
     public int instanceId { get; set; }
     public uint kwClass { get; set; }
     public string langName { get; set; }
     public State open { get; set; }
     public string pattern { get; set; }
+    public uint priority { get; set; }
     public SWIGTYPE_p_boost__xpressive__sregex rex { get; set; }
 
     protected virtual void Dispose(bool disposing) {}
@@ -291,6 +305,10 @@ namespace Smdn.LibHighlightSharp.Bindings {
     protected SWIGTYPE_p_std__vectorT_highlight__RegexElement_p_t() {}
   }
 
+  public class SWIGTYPE_p_std__vectorT_int_t {
+    protected SWIGTYPE_p_std__vectorT_int_t() {}
+  }
+
   public class SWIGTYPE_p_std__vectorT_std__string_t {
     protected SWIGTYPE_p_std__vectorT_std__string_t() {}
   }
@@ -306,10 +324,13 @@ namespace Smdn.LibHighlightSharp.Bindings {
     protected virtual void Dispose(bool disposing) {}
     public void Dispose() {}
     ~SyntaxReader() {}
+    public void addPersistentKeyword(uint groupID, string kw) {}
+    public void addPersistentStateRange(uint groupID, uint column, uint length, uint lineNumber, string fileName) {}
     public void addUserChunk(SWIGTYPE_p_Diluculum__LuaFunction chunk) {}
     public bool allowNestedMLComments() {}
     public bool allowsInnerSection(string langPath) {}
     public bool assertDelimEqualLength() {}
+    public void clearPersistentSnippets() {}
     public bool delimiterIsDistinct(int delimID) {}
     public bool delimiterIsRawString(int delimID) {}
     public bool enableReformatting() {}
@@ -320,27 +341,36 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public SWIGTYPE_p_Diluculum__LuaFunction getDecorateLineBeginFct() {}
     public SWIGTYPE_p_Diluculum__LuaFunction getDecorateLineEndFct() {}
     public string getDescription() {}
+    public string getEncodingHint() {}
     public string getFailedRegex() {}
     public string getFooterInjection() {}
     public string getHeaderInjection() {}
+    public string getInputFileName() {}
     public SWIGTYPE_p_std__vectorT_std__string_t getKeywordClasses() {}
+    public int getKeywordListGroup(string s) {}
     public SWIGTYPE_p_std__mapT_std__string_int_std__lessT_std__string_t_t getKeywords() {}
     public string getLuaErrorText() {}
     public SWIGTYPE_p_Diluculum__LuaState getLuaState() {}
     public string getNewPath(string lang) {}
     public int getOpenDelimiterID(string token, State s) {}
     public string getOverrideConfigVal(string name) {}
+    public SWIGTYPE_p_std__vectorT_int_t getOverrideStyleAttributes() {}
+    public string getPersistentHookConditions() {}
+    public SWIGTYPE_p_std__vectorT_std__string_t getPersistentSnippets() {}
+    public int getPersistentSnippetsNum() {}
     public byte getRawStringPrefix() {}
     public SWIGTYPE_p_std__vectorT_highlight__RegexElement_p_t getRegexElements() {}
     public SWIGTYPE_p_Diluculum__LuaFunction getValidateStateChangeFct() {}
     public bool highlightingDisabled() {}
     public bool highlightingEnabled() {}
     public bool isIgnoreCase() {}
-    public int isKeyword(string s) {}
+    public bool isKeyword(string s) {}
     public LoadResult load(string langDefPath, string pluginReadFilePath, OutputType outputType) {}
     public bool matchesOpenDelimiter(string token, State s, int openDelimId) {}
     public bool needsReload(string langDefPath) {}
+    public bool requiresTwoPassRun() {}
     public void restoreLangEndDelim(string langPath) {}
+    public void setInputFileName(string fn) {}
   }
 
   public class highlight {
