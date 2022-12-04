@@ -190,7 +190,10 @@ partial class HighlightTests {
     if (Highlight.MinimumVersionSupportingBase16Themes <= VersionInformations.NativeLibraryVersion) {
       var ex = Assert.Throws<HighlightThemeException>(Action)!;
 
-      StringAssert.Contains("base16/" + themeName + ".theme", ex.ThemeFilePath);
+      StringAssert.Contains(
+        Path.Join("base16/", themeName + ".theme"),
+        ex.ThemeFilePath
+      );
       Assert.IsNotEmpty(ex.Reason);
     }
     else {
