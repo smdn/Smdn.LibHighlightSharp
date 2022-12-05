@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Smdn.LibHighlightSharp.LangDefs" Version="4.0" />
+  </ItemGroup>
+
+  <!--
+    This target modifies the <Content> items before running the build
+    to specify which syntax files should be copied to the output directory.
+  -->
+  <Target
+    Name="SpecifySyntaxFilesToCopyToOutputDirectory"
+    BeforeTargets="BeforeBuild"
+  >
+    <ItemGroup>
+      <!--
+        Extract items whose the NuGetPackageId is 'Smdn.LibHighlightSharp.LangDefs' and
+        whose extension is '.lang' from the <Content> items.
+      -->
+      <SyntaxFiles Include="@(Content)" Condition=" '%(NuGetPackageId)' == 'Smdn.LibHighlightSharp.LangDefs' and '%(Extension)' == '.lang' " />
+
+      <!--
+        Remove the extracted items (= syntax files) from the <Content> items.
+      -->
+      <Content Remove="@(SyntaxFiles)" />
+
+      <!--
+        Then, include only the specific syntax files into <Content> again.
+      -->
+      <Content Include="@(SyntaxFiles)" Condition=" '%(Filename)' == 'csharp' " />
+      <Content Include="@(SyntaxFiles)" Condition=" '%(Filename)' == 'fsharp' " />
+      <Content Include="@(SyntaxFiles)" Condition=" '%(Filename)' == 'vb' " />
+    </ItemGroup>
+  </Target>
+
+</Project>

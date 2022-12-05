@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Smdn.LibHighlightSharp.Themes" Version="4.0" />
+  </ItemGroup>
+
+  <!--
+    This target modifies the <Content> items before running the build
+    to specify which theme files should be copied to the output directory.
+  -->
+  <Target
+    Name="SpecifyThemeFilesToCopyToOutputDirectory"
+    BeforeTargets="BeforeBuild"
+  >
+    <ItemGroup>
+      <!--
+        Extract items whose the NuGetPackageId is 'Smdn.LibHighlightSharp.Themes' and
+        whose extension is '.theme' from the <Content> items.
+      -->
+      <ThemeFiles Include="@(Content)" Condition=" '%(NuGetPackageId)' == 'Smdn.LibHighlightSharp.Themes' and '%(Extension)' == '.theme' " />
+
+      <!--
+        Remove the extracted items (= theme files) from the <Content> items.
+      -->
+      <Content Remove="@(ThemeFiles)" />
+
+      <!--
+        Then, include only the specific themes into <Content> again.
+      -->
+      <Content Include="@(ThemeFiles)" Condition=" '%(Filename)' == 'github' " />
+      <Content Include="@(ThemeFiles)" Condition=" '%(Filename)' == 'default-dark' " />
+      <Content Include="@(ThemeFiles)" Condition=" '%(Filename)' == 'edit-gedit' " />
+    </ItemGroup>
+  </Target>
+
+</Project>
