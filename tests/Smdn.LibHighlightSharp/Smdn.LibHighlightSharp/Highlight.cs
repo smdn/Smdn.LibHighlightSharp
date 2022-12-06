@@ -193,7 +193,7 @@ public partial class HighlightTests {
       else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Unix(testAction);
       else
-        Assert.Ignore($"undefined platform: {RuntimeInformation.RuntimeIdentifier}");
+        Assert.Ignore($"undefined platform: {RuntimeInformation.OSDescription}");
     }
     finally {
       backingField.SetValue(null, null);
