@@ -140,16 +140,10 @@ public partial class HighlightTests {
   }
 
   [Test]
-  public void GeneratorVersionString()
+  public void GeneratorInformationalVersion()
   {
-    using var hl = new Highlight();
-
-    Assert.IsNotNull(hl.GeneratorVersionString);
-    StringAssert.Contains(VersionInformations.NativeLibraryVersion.ToString(), hl.GeneratorVersionString);
-
-    // data dirs must not be disposed by calling GeneratorVersionString
-    Assert.DoesNotThrow(() => hl.SetSyntax("csharp"));
-    Assert.DoesNotThrow(() => hl.SetTheme("github"));
+    Assert.IsNotNull(Highlight.GeneratorInformationalVersion);
+    StringAssert.Contains(VersionInformations.NativeLibraryVersion.ToString(), Highlight.GeneratorInformationalVersion);
   }
 
   private static Bindings.DataDir CreateNonExistentPathDataDir()
@@ -166,47 +160,47 @@ public partial class HighlightTests {
     return dataDir;
   }
 
-  private static System.Collections.IEnumerable YieldTestCases_GeneratorVersionString_MustLoadThemeAndSyntaxFromPathIndependentFromDataDirs()
+  private static System.Collections.IEnumerable YieldTestCases_GeneratorInformationalVersion_MustLoadThemeAndSyntaxFromPathIndependentFromDataDirs()
   {
     yield return new object[] { Highlight.CreateDefaultDataDir()!, CreateNonExistentPathDataDir() };
     yield return new object[] { CreateNonExistentPathDataDir(), Highlight.CreateDefaultDataDir()! };
     yield return new object[] { CreateNonExistentPathDataDir(), CreateNonExistentPathDataDir() };
   }
 
-  [TestCaseSource(nameof(YieldTestCases_GeneratorVersionString_MustLoadThemeAndSyntaxFromPathIndependentFromDataDirs))]
-  public void GeneratorVersionString_MustLoadThemeAndSyntaxFromPathIndependentFromDataDirs(
+  [TestCaseSource(nameof(YieldTestCases_GeneratorInformationalVersion_MustLoadThemeAndSyntaxFromPathIndependentFromDataDirs))]
+  [Ignore("cannot test")]
+  public void GeneratorInformationalVersion_MustLoadThemeAndSyntaxFromPathIndependentFromDataDirs(
     Bindings.DataDir dataDirForSyntaxes,
     Bindings.DataDir dataDirForThemes
   )
-  {
-    using var hl = new Highlight(
-      dataDirForSyntaxes: dataDirForSyntaxes,
-      dataDirForThemes: dataDirForThemes,
-      shouldDisposeDataDir: true
-    );
-
-    Assert.IsNotNull(hl.GeneratorVersionString);
-    StringAssert.Contains(VersionInformations.NativeLibraryVersion.ToString(), hl.GeneratorVersionString);
-  }
+    => Assert.IsNotNull(Highlight.GeneratorInformationalVersion);
 
   [Test]
-  public void GeneratorVersionString_FailedToLoadThemeOrSyntax()
+  public void GeneratorInformationalVersion_FailedToLoadThemeOrSyntax()
   {
-    using var hl = new Highlight();
+    var testAction = () => Assert.IsEmpty(Highlight.GeneratorInformationalVersion);
 
-    var testAction = () => Assert.IsEmpty(hl.GeneratorVersionString);
+    // HACK: force reset backing field to null
+    var backingField = typeof(Highlight).GetField("generatorInformationalVersion", BindingFlags.Static | BindingFlags.NonPublic);
 
-    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-      GeneratorVersionString_FailedToLoadThemeOrSyntax_Windows(testAction);
-    else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-      GeneratorVersionString_FailedToLoadThemeOrSyntax_Unix(testAction);
-    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-      GeneratorVersionString_FailedToLoadThemeOrSyntax_Unix(testAction);
-    else
-      Assert.Ignore($"undefined platform: {RuntimeInformation.RuntimeIdentifier}");
+    backingField.SetValue(null, null);
+
+    try {
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Windows(testAction);
+      else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Unix(testAction);
+      else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Unix(testAction);
+      else
+        Assert.Ignore($"undefined platform: {RuntimeInformation.RuntimeIdentifier}");
+    }
+    finally {
+      backingField.SetValue(null, null);
+    }
   }
 
-  private void GeneratorVersionString_FailedToLoadThemeOrSyntax_Unix(Action testAction)
+  private void GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Unix(Action testAction)
   {
     const string envvarNameTMPDIR = "TMPDIR";
     var envvarTMPDIR = Environment.GetEnvironmentVariable(envvarNameTMPDIR, EnvironmentVariableTarget.Process);
@@ -231,7 +225,7 @@ public partial class HighlightTests {
     }
   }
 
-  private void GeneratorVersionString_FailedToLoadThemeOrSyntax_Windows(Action testAction)
+  private void GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Windows(Action testAction)
   {
     const string envvarNameTMP = "TMP";
     var envvarTMP = Environment.GetEnvironmentVariable(envvarNameTMP, EnvironmentVariableTarget.Process);

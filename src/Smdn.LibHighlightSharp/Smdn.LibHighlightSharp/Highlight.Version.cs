@@ -67,7 +67,7 @@ partial class Highlight {
     }
   }
 
-  private string? GetGeneratorVersionString()
+  private static string? GetGeneratorInformationalVersion()
   {
     const string versionStringInvalid = "";
 
@@ -136,14 +136,17 @@ partial class Highlight {
     }
   }
 
-  private string? generatorVersionString;
+  private static string? generatorInformationalVersion;
 
-  public string? GeneratorVersionString {
+  public static string? GeneratorInformationalVersion {
     get {
-      if (generatorVersionString is null)
-        Interlocked.CompareExchange(ref generatorVersionString, GetGeneratorVersionString(), null);
+      if (generatorInformationalVersion is null)
+        Interlocked.CompareExchange(ref generatorInformationalVersion, GetGeneratorInformationalVersion(), null);
 
-      return generatorVersionString;
+      return generatorInformationalVersion;
     }
   }
+
+  [Obsolete($"Use {nameof(GeneratorInformationalVersion)} instead.")]
+  public string? GeneratorVersionString => GeneratorInformationalVersion;
 }

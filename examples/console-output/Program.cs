@@ -8,7 +8,7 @@ var sourceFilePath = GetSourceFilePath();
 
 // This code block is intended to demonstrate the language elements to be highlighted, such as directives and string interpolations.
 #if SHOW_HEADER || true
-Console.WriteLine($"This exmaple outputs the '{sourceFilePath}' highlighted with '{hl.GeneratorVersionString}'.");
+Console.WriteLine($"This exmaple outputs the '{sourceFilePath}' highlighted with '{Highlight.GeneratorInformationalVersion}'.");
 Console.WriteLine(new string('-', 120));
 #endif
 
