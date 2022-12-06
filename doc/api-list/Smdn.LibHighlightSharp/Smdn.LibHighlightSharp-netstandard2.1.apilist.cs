@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.dll (Smdn.LibHighlightSharp-1.0.0)
+// Smdn.LibHighlightSharp.dll (Smdn.LibHighlightSharp-1.1.0)
 //   Name: Smdn.LibHighlightSharp
-//   AssemblyVersion: 1.0.0.0
-//   InformationalVersion: 1.0.0+0728a9ecd0eff18dc31667e893ba787a178644e5
+//   AssemblyVersion: 1.1.0.0
+//   InformationalVersion: 1.1.0+f24e630967db8b274a29d2f3c9ce85030f883681
 //   TargetFramework: .NETStandard,Version=v2.1
 //   Configuration: Release
 #nullable enable annotations
@@ -56,6 +56,8 @@ namespace Smdn.LibHighlightSharp {
     public static readonly Version MinimumVersionSupportingGuessFileType; // = "3.51"
     public static readonly Version MinimumVersionSupportingLoadFileTypesConfig; // = "3.51"
 
+    public static string? GeneratorInformationalVersion { get; }
+
     public static DataDir? CreateDefaultDataDir() {}
 
     public Highlight(DataDir dataDir, GeneratorOutputType outputType = GeneratorOutputType.Html, bool shouldDisposeDataDir = false) {}
@@ -67,6 +69,7 @@ namespace Smdn.LibHighlightSharp {
     public string BaseFont { get; set; }
     public string BaseFontSize { get; set; }
     public bool Fragment { get; set; }
+    [Obsolete("Use GeneratorInformationalVersion instead.")]
     public string? GeneratorVersionString { get; }
     public bool IncrementWrappedLineNumber { get; set; }
     public bool IsolateTags { get; set; }
