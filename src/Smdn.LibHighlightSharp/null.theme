@@ -1,0 +1,26 @@
+-- SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+-- SPDX-License-Identifier: MIT
+
+Description="Smdn.LibHighlightSharp empty theme file"
+
+Categories = {"Smdn.LibHighlightSharp internal use"}
+
+Default         = { Colour="#000000" }
+Canvas          = { Colour="#000000" }
+Number          = { Colour="#000000" }
+Escape          = { Colour="#000000" }
+String          = { Colour="#000000" }
+StringPreProc   = { Colour="#000000" }
+BlockComment    = { Colour="#000000" }
+PreProcessor    = { Colour="#000000" }
+LineNum         = { Colour="#000000" }
+Operator        = { Colour="#000000" }
+LineComment     = BlockComment
+Interpolation   = { Colour="#000000" }
+
+Keywords = {
+  { Colour = "#000000" },
+  { Colour = "#000000" },
+  { Colour = "#000000" },
+  { Colour = "#000000" },
+}

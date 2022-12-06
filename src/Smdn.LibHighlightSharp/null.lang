@@ -1,0 +1,27 @@
+-- SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+-- SPDX-License-Identifier: MIT
+
+Description="Smdn.LibHighlightSharp null syntax file"
+
+Categories = {"Smdn.LibHighlightSharp internal use"}
+
+IgnoreCase=false
+
+Keywords = {
+  { Id = 1, List={ } },
+  { Id = 2, List={ } },
+  { Id = 3, List={ } },
+  { Id = 4, List={ } },
+}
+
+Strings = {
+  Delimiter=[["]],
+}
+
+Digits=[[\d+]]
+
+Operators=[[\+]]
+
+Comments = {
+  { Block = false, Delimiter={ [[//]] } },
+}

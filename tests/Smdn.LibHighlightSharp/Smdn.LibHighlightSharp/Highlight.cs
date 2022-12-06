@@ -5,6 +5,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using NUnit.Framework;
 
 namespace Smdn.LibHighlightSharp;
@@ -165,27 +166,93 @@ public partial class HighlightTests {
     return dataDir;
   }
 
-  [Test]
-  public void GeneratorVersionString_FailedToLoadLangDef()
+  private static System.Collections.IEnumerable YieldTestCases_GeneratorVersionString_MustLoadThemeAndSyntaxFromPathIndependentFromDataDirs()
+  {
+    yield return new object[] { Highlight.CreateDefaultDataDir()!, CreateNonExistentPathDataDir() };
+    yield return new object[] { CreateNonExistentPathDataDir(), Highlight.CreateDefaultDataDir()! };
+    yield return new object[] { CreateNonExistentPathDataDir(), CreateNonExistentPathDataDir() };
+  }
+
+  [TestCaseSource(nameof(YieldTestCases_GeneratorVersionString_MustLoadThemeAndSyntaxFromPathIndependentFromDataDirs))]
+  public void GeneratorVersionString_MustLoadThemeAndSyntaxFromPathIndependentFromDataDirs(
+    Bindings.DataDir dataDirForSyntaxes,
+    Bindings.DataDir dataDirForThemes
+  )
   {
     using var hl = new Highlight(
-      dataDirForSyntaxes: CreateNonExistentPathDataDir(),
-      dataDirForThemes: Highlight.CreateDefaultDataDir()!,
+      dataDirForSyntaxes: dataDirForSyntaxes,
+      dataDirForThemes: dataDirForThemes,
       shouldDisposeDataDir: true
     );
 
-    Assert.IsEmpty(hl.GeneratorVersionString);
+    Assert.IsNotNull(hl.GeneratorVersionString);
+    StringAssert.Contains(VersionInformations.NativeLibraryVersion.ToString(), hl.GeneratorVersionString);
   }
 
   [Test]
-  public void GeneratorVersionString_FailedToLoadTheme()
+  public void GeneratorVersionString_FailedToLoadThemeOrSyntax()
   {
-    using var hl = new Highlight(
-      dataDirForSyntaxes: Highlight.CreateDefaultDataDir()!,
-      dataDirForThemes: CreateNonExistentPathDataDir(),
-      shouldDisposeDataDir: true
-    );
+    using var hl = new Highlight();
 
-    Assert.IsEmpty(hl.GeneratorVersionString);
+    var testAction = () => Assert.IsEmpty(hl.GeneratorVersionString);
+
+    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+      GeneratorVersionString_FailedToLoadThemeOrSyntax_Windows(testAction);
+    else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+      GeneratorVersionString_FailedToLoadThemeOrSyntax_Unix(testAction);
+    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+      GeneratorVersionString_FailedToLoadThemeOrSyntax_Unix(testAction);
+    else
+      Assert.Ignore($"undefined platform: {RuntimeInformation.RuntimeIdentifier}");
+  }
+
+  private void GeneratorVersionString_FailedToLoadThemeOrSyntax_Unix(Action testAction)
+  {
+    const string envvarNameTMPDIR = "TMPDIR";
+    var envvarTMPDIR = Environment.GetEnvironmentVariable(envvarNameTMPDIR, EnvironmentVariableTarget.Process);
+
+    try {
+      var nonexistentDirectory = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+        ".non-existent-temp-directory"
+      );
+
+      if (Directory.Exists(nonexistentDirectory)) {
+        Assert.Fail($"directory already exists ({nonexistentDirectory})");
+        return;
+      }
+
+      Environment.SetEnvironmentVariable(envvarNameTMPDIR, nonexistentDirectory, EnvironmentVariableTarget.Process);
+
+      testAction();
+    }
+    finally {
+      Environment.SetEnvironmentVariable(envvarNameTMPDIR, envvarTMPDIR, EnvironmentVariableTarget.Process);
+    }
+  }
+
+  private void GeneratorVersionString_FailedToLoadThemeOrSyntax_Windows(Action testAction)
+  {
+    const string envvarNameTMP = "TMP";
+    var envvarTMP = Environment.GetEnvironmentVariable(envvarNameTMP, EnvironmentVariableTarget.Process);
+
+    try {
+      var nonexistentDirectory = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+        ".non-existent-temp-directory"
+      );
+
+      if (Directory.Exists(nonexistentDirectory)) {
+        Assert.Fail($"directory already exists ({nonexistentDirectory})");
+        return;
+      }
+
+      Environment.SetEnvironmentVariable(envvarNameTMP, nonexistentDirectory, EnvironmentVariableTarget.Process);
+
+      testAction();
+    }
+    finally {
+      Environment.SetEnvironmentVariable(envvarNameTMP, envvarTMP, EnvironmentVariableTarget.Process);
+    }
   }
 }

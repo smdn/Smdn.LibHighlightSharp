@@ -13,6 +13,7 @@ SPDX-License-Identifier: MIT
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyCLSCompliant>false</AssemblyCLSCompliant>
     <BuildInParallel>false</BuildInParallel> <!-- disable parallel builds to avoid running simultaneous native binary build -->
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
 
   <PropertyGroup Label="assembly attributes">
@@ -62,6 +63,17 @@ $(LicenseNoticeMarkdownText_Lua_Notice)
       Version="[1.3.6]"
       PrivateAssets="all"
       IncludeAssets="build"
+    />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource
+      Include="$(MSBuildThisFileDirectory)null.lang"
+      LogicalName="null.lang"
+    />
+    <EmbeddedResource
+      Include="$(MSBuildThisFileDirectory)null.theme"
+      LogicalName="null.theme"
     />
   </ItemGroup>
 

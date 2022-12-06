@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 
 namespace Smdn.LibHighlightSharp;
@@ -30,6 +31,42 @@ partial class Highlight {
     );
   }
 
+  private static void UseTempResourceFile<TArg>(
+    string manifestResourceName,
+    TArg arg,
+    Action<string, TArg> actionUsingTempFile
+  )
+  {
+    var executingAssembly = Assembly.GetExecutingAssembly();
+
+    var resourceStream = executingAssembly.GetManifestResourceStream(manifestResourceName);
+
+    if (resourceStream is null)
+      throw new InvalidOperationException($"manifest resource named with '{manifestResourceName}' did not find or is invisible.");
+
+    var assemblyName = executingAssembly.GetName();
+    var tempFilePath = Path.Combine(
+      Path.GetTempPath(),
+      $"{assemblyName.Name}-{assemblyName.Version}-{manifestResourceName}.tmp"
+    );
+
+    try {
+      // write out a manifest resource to a file in the temporary directory
+      using (var tempFileStream = File.OpenWrite(tempFilePath)) {
+        tempFileStream.SetLength(0L);
+
+        resourceStream.CopyTo(tempFileStream);
+
+        tempFileStream.Flush();
+      }
+
+      actionUsingTempFile(tempFilePath, arg);
+    }
+    finally {
+      File.Delete(tempFilePath);
+    }
+  }
+
   private string? GetGeneratorVersionString()
   {
     const string versionStringInvalid = "";
@@ -39,17 +76,41 @@ partial class Highlight {
     hl.Fragment = false;
     hl.OmitVersionComment = false;
 
+    var executingAssembly = Assembly.GetExecutingAssembly();
+
+    // write out a theme file to a temporary directory and load it
     try {
-      hl.SetTheme("github");
+      UseTempResourceFile(
+        "null.theme",
+        hl,
+        static (path, hl) => hl.SetThemeFromFile(path)
+      );
     }
     catch (HighlightThemeException) {
       return versionStringInvalid;
     }
+    catch (IOException) {
+      return versionStringInvalid;
+    }
+    catch (UnauthorizedAccessException) {
+      return versionStringInvalid;
+    }
 
+    // write out a syntax file to a temporary directory and load it
     try {
-      hl.SetSyntax("c");
+      UseTempResourceFile(
+        "null.lang",
+        hl,
+        static (path, hl) => hl.SetSyntaxFromFile(path)
+      );
     }
     catch (HighlightSyntaxException) {
+      return versionStringInvalid;
+    }
+    catch (IOException) {
+      return versionStringInvalid;
+    }
+    catch (UnauthorizedAccessException) {
       return versionStringInvalid;
     }
 
