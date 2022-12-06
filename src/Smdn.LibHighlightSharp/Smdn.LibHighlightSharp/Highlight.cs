@@ -201,15 +201,6 @@ public partial class Highlight : IDisposable {
     codeGenerator = Bindings.CodeGenerator.getInstance(TranslateOutputType(outputType));
   }
 
-  /// <summary>create a new instance with DataDir inherited.</summary>
-  private Highlight Create(GeneratorOutputType outputType)
-    => new(
-      dataDirForSyntaxes: (DataDirForSyntaxes, UserDefinedDataDirPathForSyntaxes),
-      dataDirForThemes: (DataDirForThemes, UserDefinedDataDirPathForThemes),
-      outputType: outputType,
-      shouldDisposeDataDir: false // do not dispose data dirs since this method creates a new instance with data dir of this instance.
-    );
-
   public void Dispose()
   {
     Dispose(disposing: true);

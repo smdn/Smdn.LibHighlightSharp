@@ -71,7 +71,7 @@ partial class Highlight {
   {
     const string versionStringInvalid = "";
 
-    using var hl = Create(outputType: GeneratorOutputType.Html);
+    using var hl = new Highlight(outputType: GeneratorOutputType.Html);
 
     hl.Fragment = false;
     hl.OmitVersionComment = false;
