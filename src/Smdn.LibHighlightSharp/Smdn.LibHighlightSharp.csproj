@@ -57,6 +57,7 @@ $(LicenseNoticeMarkdownText_Lua_Notice)
 
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" />
+    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" />
     <PackageReference Include="Microsoft.CSharp" />
     <PackageReference
       Include="Smdn.MSBuild.DefineConstants.NETSdkApi"
