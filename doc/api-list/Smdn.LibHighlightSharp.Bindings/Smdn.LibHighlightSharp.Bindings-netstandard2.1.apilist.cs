@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-3.60.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.0.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 3.60.0.0
-//   InformationalVersion: 3.60.0+11c9c1634ccf3d96d71724a669c7875d8244f937
+//   AssemblyVersion: 4.0.0.0
+//   InformationalVersion: 4.0.0+a2e4bcedc158a01b4422726864946ed4c60e668d
 //   TargetFramework: .NETStandard,Version=v2.1
 //   Configuration: Release
 
@@ -18,6 +18,13 @@ namespace Smdn.LibHighlightSharp {
 }
 
 namespace Smdn.LibHighlightSharp.Bindings {
+  public enum LSResult : int {
+    CMD_ERROR = 3,
+    INIT_BAD_PIPE = 1,
+    INIT_BAD_REQUEST = 2,
+    INIT_OK = 0,
+  }
+
   public enum LoadResult : int {
     LOAD_FAILED = 1,
     LOAD_FAILED_LUA = 3,
@@ -28,10 +35,9 @@ namespace Smdn.LibHighlightSharp.Bindings {
   public enum OutputType : int {
     BBCODE = 9,
     ESC_ANSI = 5,
-    ESC_TRUECOLOR = 12,
+    ESC_TRUECOLOR = 7,
     ESC_XTERM256 = 6,
     HTML = 0,
-    HTML32_UNUSED = 7,
     LATEX = 3,
     ODTFLAT = 11,
     PANGO = 10,
@@ -51,30 +57,32 @@ namespace Smdn.LibHighlightSharp.Bindings {
 
   public enum State : int {
     DIRECTIVE = 6,
-    DIRECTIVE_END = 17,
+    DIRECTIVE_END = 19,
     DIRECTIVE_STRING = 7,
-    EMBEDDED_CODE_BEGIN = 23,
-    EMBEDDED_CODE_END = 24,
+    EMBEDDED_CODE_BEGIN = 25,
+    EMBEDDED_CODE_END = 26,
     ESC_CHAR = 5,
-    ESC_CHAR_END = 16,
-    IDENTIFIER_BEGIN = 21,
-    IDENTIFIER_END = 22,
-    KEYWORD = 11,
-    KEYWORD_END = 20,
+    ESC_CHAR_END = 18,
+    IDENTIFIER_BEGIN = 23,
+    IDENTIFIER_END = 24,
+    KEYWORD = 13,
+    KEYWORD_END = 22,
     LINENUMBER = 8,
     ML_COMMENT = 4,
-    ML_COMMENT_END = 15,
+    ML_COMMENT_END = 17,
     NUMBER = 2,
-    NUMBER_END = 13,
+    NUMBER_END = 15,
     SL_COMMENT = 3,
-    SL_COMMENT_END = 14,
+    SL_COMMENT_END = 16,
     STANDARD = 0,
     STRING = 1,
-    STRING_END = 12,
+    STRING_END = 14,
     STRING_INTERPOLATION = 10,
-    STRING_INTERPOLATION_END = 19,
+    STRING_INTERPOLATION_END = 21,
     SYMBOL = 9,
-    SYMBOL_END = 18,
+    SYMBOL_END = 20,
+    SYNTAX_ERROR = 11,
+    SYNTAX_ERROR_MSG = 12,
     _EOF = 103,
     _EOL = 102,
     _REJECT = 101,
@@ -100,6 +108,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     ~CodeGenerator() {}
     public void clearPersistentSnippets() {}
     public void disableTrailingNL(int flag) {}
+    public void exitLanguageServer() {}
     public bool formattingDisabled() {}
     public bool formattingIsPossible() {}
     public ParseError generateFile(string inFileName, string outFileName) {}
@@ -108,6 +117,8 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getBaseFont() {}
     public string getBaseFontSize() {}
     public bool getFragmentCode() {}
+    public virtual string getHoverTagClose() {}
+    public virtual string getHoverTagOpen(string hoverText) {}
     public bool getIsolateTags() {}
     public bool getKeepInjections() {}
     public int getLineNumberWidth() {}
@@ -134,10 +145,19 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getTitle() {}
     public bool getValidateInput() {}
     public bool initIndentationScheme(string indentScheme) {}
+    public LSResult initLanguageServer(string executable, SWIGTYPE_p_std__vectorT_std__string_t options, string workspace, string syntax, int delay, int logLevel) {}
     public bool initPluginScript(string script) {}
     public bool initTheme(string themePath) {}
+    public bool initTheme(string themePath, bool loadSemanticStyles) {}
+    public bool isHoverProvider() {}
+    public bool isSemanticTokensProvider() {}
     public LoadResult loadLanguage(string langDefPath) {}
     public LoadResult loadLanguage(string langDefPath, bool embedded) {}
+    public void lsAddHoverInfo(bool hover) {}
+    public bool lsAddSemanticInfo(string fileName, string suffix) {}
+    public void lsAddSyntaxErrorInfo(bool error) {}
+    public bool lsCloseDocument(string fileName, string suffix) {}
+    public bool lsOpenDocument(string fileName, string suffix) {}
     public bool printExternalStyle(string outFile) {}
     public virtual bool printIndexFile(SWIGTYPE_p_std__vectorT_std__string_t fileList, string outPath) {}
     public bool printPersistentState(string outFile) {}
@@ -160,7 +180,6 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public virtual void setHTMLOrderedList(bool arg0) {}
     public virtual void setHTMLUseNonBreakingSpace(bool arg0) {}
     public void setIncludeStyle(bool flag) {}
-    public void setIndentationOptions(SWIGTYPE_p_std__vectorT_std__string_t options) {}
     public void setIsolateTags(bool flag) {}
     public void setKeepInjections(bool flag) {}
     public void setKeyWordCase(SWIGTYPE_p_StringTools__KeywordCase keyCase) {}
@@ -182,7 +201,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public virtual void setRTFPageSize(string arg0) {}
     public virtual void setSVGSize(string arg0, string arg1) {}
     public void setStartingInputLine(uint begin) {}
-    public void setStartingNestedLang(string langName) {}
+    public void setStyleCaching(bool flag) {}
     public void setStyleInputPath(string path) {}
     public void setStyleOutputPath(string path) {}
     public void setTitle(string title) {}
@@ -219,6 +238,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getLangPath(string file) {}
     public string getPluginPath() {}
     public string getPluginPath(string arg0) {}
+    public SWIGTYPE_p_highlight__LSPProfile getProfile(string profile) {}
     public string getSystemDataPath() {}
     public string getThemePath() {}
     public string getThemePath(string file) {}
@@ -228,56 +248,9 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string guessFileType(string suffix, string inputFile, bool useUserSuffix, bool forceShebangCheckStdin) {}
     public void initSearchDirectories(string userDefinedDir) {}
     public bool loadFileTypeConfig(string name) {}
+    public bool loadLSPConfig(string name) {}
     public void printConfigPaths() {}
-    public void searchDataDir(string userDefinedDir) {}
-  }
-
-  public class ReGroup : IDisposable {
-    protected bool swigCMemOwn;
-
-    public ReGroup() {}
-    public ReGroup(ReGroup other) {}
-    public ReGroup(State s, uint l, uint c, string n) {}
-
-    public uint kwClass { get; set; }
-    public uint length { get; set; }
-    public string name { get; set; }
-    public State state { get; set; }
-
-    protected virtual void Dispose(bool disposing) {}
-    public void Dispose() {}
-    ~ReGroup() {}
-  }
-
-  public class RegexElement : IDisposable {
-    public static int instanceCnt { get; set; }
-
-    protected bool swigCMemOwn;
-
-    public RegexElement() {}
-    public RegexElement(State oState, State eState, string rePattern) {}
-    public RegexElement(State oState, State eState, string rePattern, uint cID) {}
-    public RegexElement(State oState, State eState, string rePattern, uint cID, int group) {}
-    public RegexElement(State oState, State eState, string rePattern, uint cID, int group, string name) {}
-    public RegexElement(State oState, State eState, string rePattern, uint cID, int group, string name, uint prio) {}
-    public RegexElement(State oState, State eState, string rePattern, uint cID, int group, string name, uint prio, uint cLineNum) {}
-    public RegexElement(State oState, State eState, string rePattern, uint cID, int group, string name, uint prio, uint cLineNum, string cFilename) {}
-
-    public int capturingGroup { get; set; }
-    public string constraintFilename { get; set; }
-    public uint constraintLineNum { get; set; }
-    public State end { get; set; }
-    public int instanceId { get; set; }
-    public uint kwClass { get; set; }
-    public string langName { get; set; }
-    public State open { get; set; }
-    public string pattern { get; set; }
-    public uint priority { get; set; }
-    public SWIGTYPE_p_boost__xpressive__sregex rex { get; set; }
-
-    protected virtual void Dispose(bool disposing) {}
-    public void Dispose() {}
-    ~RegexElement() {}
+    public bool profileExists(string profile) {}
   }
 
   public class SWIGTYPE_p_Diluculum__LuaFunction {
@@ -292,8 +265,8 @@ namespace Smdn.LibHighlightSharp.Bindings {
     protected SWIGTYPE_p_StringTools__KeywordCase() {}
   }
 
-  public class SWIGTYPE_p_boost__xpressive__sregex {
-    protected SWIGTYPE_p_boost__xpressive__sregex() {}
+  public class SWIGTYPE_p_highlight__LSPProfile {
+    protected SWIGTYPE_p_highlight__LSPProfile() {}
   }
 
   public class SWIGTYPE_p_std__mapT_std__string_int_std__lessT_std__string_t_t {
@@ -337,6 +310,8 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public bool delimiterIsDistinct(int delimID) {}
     public bool delimiterIsRawString(int delimID) {}
     public bool enableReformatting() {}
+    public uint generateNewKWClass(int classID) {}
+    public uint generateNewKWClass(int classID, string prefix) {}
     public string getCategoryDescription() {}
     public byte getContinuationChar() {}
     public string getCurrentPath() {}
@@ -350,6 +325,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getHeaderInjection() {}
     public string getInputFileName() {}
     public SWIGTYPE_p_std__vectorT_std__string_t getKeywordClasses() {}
+    public int getKeywordCount() {}
     public int getKeywordListGroup(string s) {}
     public SWIGTYPE_p_std__mapT_std__string_int_std__lessT_std__string_t_t getKeywords() {}
     public string getLuaErrorText() {}
