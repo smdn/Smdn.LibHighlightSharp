@@ -80,6 +80,7 @@ ${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}:
 highlight-x64.res: highlight.rc
 	x86_64-w64-mingw32-windres --input=$< --input-format=rc --output=$@ --output-format=coff
 
+${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: CXX := $(CXX_MINGW)
 ${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: CFLAGS := $(CFLAGS_COMMON) -DWIN32 -m64 -I $(abspath $(MINGW_INCLUDE_DIR))
 #${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: CFLAGS := $(CFLAGS) -DHL_DATA_DIR=... -DHL_CONFIG_DIR=...
 ${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: LDFLAGS := -shared -static-libstdc++ -static-libgcc
@@ -92,7 +93,7 @@ ${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: highlight-x64.res
 # The option -lwinpthread must be specified after the object files to avoid overriding duplicated version resources from winpthreads.
 #   ref: https://stackoverflow.com/questions/63013037/mingw-winpthreads-overrides-rc-resource-file-information
 	$(MAKE) -f $(THIS_FILE) \
-	  CXX="$(CXX_MINGW)" \
+	  CXX="$(CXX)" \
 	  CFLAGS="$(CFLAGS)" \
 	  OBJS_EXTRA="highlight-x64.res" \
 	  LDFLAGS="$(LDFLAGS)" \
