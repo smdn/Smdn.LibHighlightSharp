@@ -42,7 +42,7 @@ library-native:
 
 	mkdir -p $(dir $(NATIVE_BINARY_OUTPUT_PATH))
 
-	$(CXX) $(LDFLAGS) -s $(WRAPPER_OBJS) $(OBJS_EXTRA) -L$(HIGHLIGHT_SRC_DIR) -lhighlight $(LUA_LIBS) -o $(NATIVE_BINARY_OUTPUT_PATH)
+	$(CXX) $(LDFLAGS) -s $(WRAPPER_OBJS) $(OBJS_EXTRA) $(LDFLAGS_EXTRA) -L$(HIGHLIGHT_SRC_DIR) -lhighlight $(LUA_LIBS) -o $(NATIVE_BINARY_OUTPUT_PATH)
 
 $(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64): CXX := g++
 $(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64): CFLAGS := $(CFLAGS_COMMON) -m64
@@ -80,18 +80,23 @@ ${NATIVE_BINARY_OUTPUT_PATH_MACOS_X64}:
 highlight-x64.res: highlight.rc
 	x86_64-w64-mingw32-windres --input=$< --input-format=rc --output=$@ --output-format=coff
 
-${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: CXX := x86_64-w64-mingw32-g++-win32
 ${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: CFLAGS := $(CFLAGS_COMMON) -DWIN32 -m64 -I $(abspath $(MINGW_INCLUDE_DIR))
 #${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: CFLAGS := $(CFLAGS) -DHL_DATA_DIR=... -DHL_CONFIG_DIR=...
 ${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: LDFLAGS := -shared -static-libstdc++ -static-libgcc
 ${NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64}: highlight-x64.res
 	$(MAKE) restore-deps-win-x64 -f deps.mk
 
+# Static linking of winpthreads will result in duplicate version resources, and the following message will appear.
+#   /usr/bin/x86_64-w64-mingw32-ld: .rsrc merge failure: duplicate leaf: type: 10 (VERSION) name: 1 lang: 409
+#
+# The option -lwinpthread must be specified after the object files to avoid overriding duplicated version resources from winpthreads.
+#   ref: https://stackoverflow.com/questions/63013037/mingw-winpthreads-overrides-rc-resource-file-information
 	$(MAKE) -f $(THIS_FILE) \
-	  CXX="$(CXX)" \
+	  CXX="$(CXX_MINGW)" \
 	  CFLAGS="$(CFLAGS)" \
 	  OBJS_EXTRA="highlight-x64.res" \
 	  LDFLAGS="$(LDFLAGS)" \
+	  LDFLAGS_EXTRA="$(LDFLAGS_MINGW)" \
 	  NATIVE_BINARY_OUTPUT_PATH="$@" \
 	  LUA_LIBS="-L$(MINGW_LUA_DLL_DIR_WINDOWS_X64) -Wl,-dy,-l$(basename $(MINGW_LUA_DLL_FILENAME))" \
 	  library-native
