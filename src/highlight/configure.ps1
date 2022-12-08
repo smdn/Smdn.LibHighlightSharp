@@ -137,6 +137,23 @@ function Build-ConfigMk {
   $lines += "MINGW_LUA_DLL_DIR_WINDOWS_X64 := ./mingw/lib/win-x64/lua/"
   $lines += "MINGW_LUA_DLL_FILENAME := ${MINGW_LUA_DLL_FILENAME}"
 
+  if ([System.Version]$HIGHLIGHT_SOURCE_VERSION -lt [System.Version]"4.0") {
+    # for Highlight 3.xx
+    $CXX_MINGW = 'x86_64-w64-mingw32-g++-win32'
+    $LDFLAGS_MINGW = ''
+  }
+  else {
+    # for Highlight 4.xx
+    #   use posix version of mingw32-g++ and link libwinpthread.dll statically, since Highlight 4.xx depends std::this_thread and so on
+    #     ref: https://stackoverflow.com/questions/13768515/how-to-do-static-linking-of-libwinpthread-1-dll-in-mingw
+    #     ref: https://github.com/cython/cython/issues/3851
+    $CXX_MINGW = 'x86_64-w64-mingw32-g++-posix'
+    $LDFLAGS_MINGW = '-Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive'
+  }
+
+  $lines += "CXX_MINGW := ${CXX_MINGW}"
+  $lines += "LDFLAGS_MINGW := ${LDFLAGS_MINGW}"
+
   if (Test-Path -LiteralPath $TargetFilename -PathType leaf) {
     Remove-Item -Force -LiteralPath $TargetFilename
   }

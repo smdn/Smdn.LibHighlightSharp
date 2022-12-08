@@ -1,0 +1,4 @@
+8d6cf4d06e0124c3bc8b454476e1934ac756e5f5 *../runtimes/osx-x64/native/libhighlight-v4_0_0_0.dylib
+9baba648615c0afae8d9f7525593c7ca84beb491 *../runtimes/ubuntu.20.04-x64/native/libhighlight-v4_0_0_0.so
+23a51930606e3e47fbd98d7df2e069f6f11457c9 *../runtimes/ubuntu.22.04-x64/native/libhighlight-v4_0_0_0.so
+984f769b416e3bdba4bd434331f9e8fa0b87bc72 *../runtimes/win-x64/native/highlight-v4_0_0_0.dll
