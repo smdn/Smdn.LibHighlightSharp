@@ -12,6 +12,12 @@ namespace Smdn.LibHighlightSharp;
 
 [TestFixture]
 public partial class HighlightTests {
+  [OneTimeSetUp]
+  public void OneTimeSetUp()
+  {
+    TestContext.Progress.WriteLine($"{nameof(VersionInformations.NativeLibraryVersion)}: {VersionInformations.NativeLibraryVersion}");
+  }
+
   [Test]
   public void Ctor()
   {

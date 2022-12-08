@@ -13,9 +13,14 @@ SPDX-License-Identifier: MIT
     <RequireToInstallCIRuntimeDependencies>true</RequireToInstallCIRuntimeDependencies>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TestReleasedPackage)' == 'true' ">
+  <ItemGroup Condition=" '$(TestReleasedPackage)' == 'true' and '$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)' == '' ">
     <PackageReference Include="Smdn.LibHighlightSharp.LangDefs" Version="[$(Highlight_MinimumSupportedVersionInclusive),$(Highlight_MaximumSupportedVersionExclusive))" />
     <PackageReference Include="Smdn.LibHighlightSharp.Themes"   Version="[$(Highlight_MinimumSupportedVersionInclusive),$(Highlight_MaximumSupportedVersionExclusive))" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TestReleasedPackage)' == 'true' and '$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)' != '' ">
+    <PackageReference Include="Smdn.LibHighlightSharp.LangDefs" Version="$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)" />
+    <PackageReference Include="Smdn.LibHighlightSharp.Themes"   Version="$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)" />
+    <PackageReference Include="Smdn.LibHighlightSharp.Bindings" Version="$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TestReleasedPackage)' != 'true' ">
     <ProjectReference
