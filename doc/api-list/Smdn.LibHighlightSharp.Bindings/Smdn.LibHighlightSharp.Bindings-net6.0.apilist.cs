@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.3.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.4.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 4.3.0.0
-//   InformationalVersion: 4.3.0+2a55f99105492abeb0b9acc0e433f828330f7c72
+//   AssemblyVersion: 4.4.0.0
+//   InformationalVersion: 4.4.0+061b392277ae6420abb650d65db91bb5d0c42a36
 //   TargetFramework: .NETCoreApp,Version=v6.0
 //   Configuration: Release
 
@@ -146,6 +146,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public bool getValidateInput() {}
     public bool initIndentationScheme(string indentScheme) {}
     public LSResult initLanguageServer(string executable, SWIGTYPE_p_std__vectorT_std__string_t options, string workspace, string syntax, int delay, int logLevel) {}
+    public LSResult initLanguageServer(string executable, SWIGTYPE_p_std__vectorT_std__string_t options, string workspace, string syntax, int delay, int logLevel, bool legacy) {}
     public bool initPluginScript(string script) {}
     public bool initTheme(string themePath) {}
     public bool initTheme(string themePath, bool loadSemanticStyles) {}
