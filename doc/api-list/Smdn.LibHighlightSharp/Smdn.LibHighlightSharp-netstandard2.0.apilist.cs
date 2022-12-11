@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.dll (Smdn.LibHighlightSharp-1.1.0)
+// Smdn.LibHighlightSharp.dll (Smdn.LibHighlightSharp-1.1.1)
 //   Name: Smdn.LibHighlightSharp
-//   AssemblyVersion: 1.1.0.0
-//   InformationalVersion: 1.1.0+f24e630967db8b274a29d2f3c9ce85030f883681
+//   AssemblyVersion: 1.1.1.0
+//   InformationalVersion: 1.1.1+b00b51f7c1034916e6a3e8cae54ccd33a88127de
 //   TargetFramework: .NETStandard,Version=v2.0
 //   Configuration: Release
 #nullable enable annotations
@@ -30,13 +30,15 @@ namespace Smdn.LibHighlightSharp {
 
   public enum HighlightElementType : int {
     Default = 1,
-    ErrorMessage = 18,
+    ErrorMessage = 20,
     EscapedCharacter = 6,
-    HoverText = 16,
+    HoverText = 18,
     KeywordA = 12,
     KeywordB = 13,
     KeywordC = 14,
     KeywordD = 15,
+    KeywordE = 16,
+    KeywordF = 17,
     LineNumber = 9,
     MultiLineComment = 5,
     Number = 3,
@@ -47,7 +49,7 @@ namespace Smdn.LibHighlightSharp {
     SingleLineComment = 4,
     StringInterpolation = 11,
     Strings = 2,
-    SyntaxError = 17,
+    SyntaxError = 19,
   }
 
   public class Highlight : IDisposable {
@@ -125,6 +127,8 @@ namespace Smdn.LibHighlightSharp {
     public static HighlightHtmlClass KeywordB { get; }
     public static HighlightHtmlClass KeywordC { get; }
     public static HighlightHtmlClass KeywordD { get; }
+    public static HighlightHtmlClass KeywordE { get; }
+    public static HighlightHtmlClass KeywordF { get; }
     public static HighlightHtmlClass LineNumber { get; }
     public static HighlightHtmlClass MultiLineComment { get; }
     public static HighlightHtmlClass Number { get; }
