@@ -27,6 +27,8 @@ public class HighlightHtmlClassTests {
     yield return new object[] { HighlightHtmlClass.KeywordB, "kwb" };
     yield return new object[] { HighlightHtmlClass.KeywordC, "kwc" };
     yield return new object[] { HighlightHtmlClass.KeywordD, "kwd" };
+    yield return new object[] { HighlightHtmlClass.KeywordE, "kwe" };
+    yield return new object[] { HighlightHtmlClass.KeywordF, "kwf" };
     yield return new object[] { HighlightHtmlClass.HoverText, "hvr" };
     yield return new object[] { HighlightHtmlClass.SyntaxError, "err" };
     yield return new object[] { HighlightHtmlClass.ErrorMessage, "erm" };
@@ -75,6 +77,8 @@ public class HighlightHtmlClassTests {
     yield return new object?[] { "kwb", true, HighlightHtmlClass.KeywordB };
     yield return new object?[] { "kwc", true, HighlightHtmlClass.KeywordC };
     yield return new object?[] { "kwd", true, HighlightHtmlClass.KeywordD };
+    yield return new object?[] { "kwe", true, HighlightHtmlClass.KeywordE };
+    yield return new object?[] { "kwf", true, HighlightHtmlClass.KeywordF };
   }
 
   [TestCaseSource(nameof(YieldTestCases_TryParse))]
@@ -172,6 +176,8 @@ public class HighlightHtmlClassTests {
     yield return new object?[] { "hl kwb", true, HighlightHtmlClass.KeywordB };
     yield return new object?[] { "hl kwc", true, HighlightHtmlClass.KeywordC };
     yield return new object?[] { "hl kwd", true, HighlightHtmlClass.KeywordD };
+    yield return new object?[] { "hl kwe", true, HighlightHtmlClass.KeywordE };
+    yield return new object?[] { "hl kwf", true, HighlightHtmlClass.KeywordF };
 
     var isVersion4x = 4 <= VersionInformations.NativeLibraryVersion.Major;
 

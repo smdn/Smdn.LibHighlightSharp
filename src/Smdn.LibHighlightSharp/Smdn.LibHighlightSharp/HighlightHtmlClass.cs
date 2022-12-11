@@ -46,10 +46,13 @@ public sealed class HighlightHtmlClass : IEquatable<HighlightHtmlClass>, IEquata
   public static HighlightHtmlClass Operator { get; } = new("opt", HighlightElementType.Operator, version3x, versionLatest);
   public static HighlightHtmlClass StringInterpolation { get; } = new("ipl", HighlightElementType.StringInterpolation, version3x, versionLatest);
 
+  // IDs are defined up to 6 (6 is used in plugins/cpp_qt.lua from v3.x, langDefs/c.lang from v4.0)
   public static HighlightHtmlClass KeywordA { get; } = new("kwa", HighlightElementType.KeywordA, version3x, versionLatest);
   public static HighlightHtmlClass KeywordB { get; } = new("kwb", HighlightElementType.KeywordB, version3x, versionLatest);
   public static HighlightHtmlClass KeywordC { get; } = new("kwc", HighlightElementType.KeywordC, version3x, versionLatest);
   public static HighlightHtmlClass KeywordD { get; } = new("kwd", HighlightElementType.KeywordD, version3x, versionLatest);
+  public static HighlightHtmlClass KeywordE { get; } = new("kwe", HighlightElementType.KeywordE, version3x, versionLatest);
+  public static HighlightHtmlClass KeywordF { get; } = new("kwf", HighlightElementType.KeywordF, version3x, versionLatest);
 
   public static HighlightHtmlClass HoverText { get; } = new("hvr", HighlightElementType.HoverText, version4x, versionLatest);
   public static HighlightHtmlClass SyntaxError { get; } = new("err", HighlightElementType.SyntaxError, version4x, versionLatest);
@@ -79,6 +82,8 @@ public sealed class HighlightHtmlClass : IEquatable<HighlightHtmlClass>, IEquata
       nameof(KeywordB),
       nameof(KeywordC),
       nameof(KeywordD),
+      nameof(KeywordE),
+      nameof(KeywordF),
       nameof(HoverText),
       nameof(SyntaxError),
       nameof(ErrorMessage),

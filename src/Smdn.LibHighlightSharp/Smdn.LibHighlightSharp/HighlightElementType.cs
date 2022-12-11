@@ -21,6 +21,8 @@ public enum HighlightElementType {
   KeywordB,
   KeywordC,
   KeywordD,
+  KeywordE,
+  KeywordF,
 
   HoverText,
   SyntaxError,
