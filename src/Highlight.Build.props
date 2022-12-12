@@ -48,7 +48,7 @@ SPDX-License-Identifier: MIT
 
   <PropertyGroup Label="Dependencies license notice">
     <LicenseNoticeMarkdownText_Highlight_Bundle><![CDATA[## Highlight
-The bundled file copyied or generated from [Highlight]($(Highlight_ProjectUrl)) is licensed under the GNU General Public License v3.0 (see COPYING.txt).
+The bundled file copied or generated from [Highlight]($(Highlight_ProjectUrl)) is licensed under the GNU General Public License v3.0 (see COPYING.txt).
 
 - Source: $(Highlight_SourceRepoUrl)
 - Version: $(Highlight_SourceVersionMajorMinor)
