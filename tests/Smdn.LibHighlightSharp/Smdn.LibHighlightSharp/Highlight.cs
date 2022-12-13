@@ -15,6 +15,8 @@ public partial class HighlightTests {
   [OneTimeSetUp]
   public void OneTimeSetUp()
   {
+    TestContext.Progress.WriteLine($"{typeof(Highlight).Assembly.GetName()}");
+    TestContext.Progress.WriteLine($"{typeof(VersionInformations).Assembly.GetName()}");
     TestContext.Progress.WriteLine($"{nameof(VersionInformations.NativeLibraryVersion)}: {VersionInformations.NativeLibraryVersion}");
   }
 
