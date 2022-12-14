@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.dll (Smdn.LibHighlightSharp-1.1.1)
+// Smdn.LibHighlightSharp.dll (Smdn.LibHighlightSharp-1.1.2)
 //   Name: Smdn.LibHighlightSharp
-//   AssemblyVersion: 1.1.1.0
-//   InformationalVersion: 1.1.1+b00b51f7c1034916e6a3e8cae54ccd33a88127de
+//   AssemblyVersion: 1.1.2.0
+//   InformationalVersion: 1.1.2+97f587c88f07999319d440b036d945aeb3a0e6dc
 //   TargetFramework: .NETStandard,Version=v2.1
 //   Configuration: Release
 #nullable enable annotations
