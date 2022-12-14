@@ -21,6 +21,20 @@ SPDX-License-Identifier: MIT
     <GenerateNupkgReadmeFileDependsOnTargets>$(GenerateNupkgReadmeFileDependsOnTargets);FormatPackageReadmeFileContent</GenerateNupkgReadmeFileDependsOnTargets>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(AssemblyVersionForReferenceBySmdnLibHighlightSharp)' != '' ">
+    <!--
+      Smdn.LibHighlightSharp must support for multiple versions of Smdn.LibHighlightSharp.Bindings,
+      so the version of the reference assembly must also be the minimum.
+
+      If a value is set for AssemblyVersionForReferenceBySmdnLibHighlightSharp when built from Smdn.LibHighlightSharp,
+      set that value as an assembly version temporarily and build Smdn.LibHighlightSharp.Bindings.
+
+      This setting will result building Smdn.LibHighlightSharp that references the
+      minimum version of Smdn.LibHighlightSharp.Bindings.
+    -->
+    <AssemblyVersion>$(AssemblyVersionForReferenceBySmdnLibHighlightSharp)</AssemblyVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <!-- Include *.cs files from directly under the directory for the namespace Smdn.LibHighlightSharp. -->
     <Compile Include="Smdn.LibHighlightSharp\*.cs" />
@@ -82,6 +96,14 @@ $(LicenseNoticeMarkdownText_Lua_Bundle)
     BeforeTargets="BeforeBuild"
     DependsOnTargets="Highlight_PrepareHighlightBuildConfigurationsFile"
   />
+
+  <Target
+    Name="WarnAssemblyVersionForBuild"
+    BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
+    Condition=" '$(AssemblyVersionForReferenceBySmdnLibHighlightSharp)' != '' "
+  >
+    <Warning Text="Build for AssemblyVersion $(AssemblyVersion)" />
+  </Target>
 
   <ImportGroup>
     <Import Project="$(MSBuildThisFileDirectory)Bindings.targets" />

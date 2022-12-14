@@ -28,6 +28,10 @@ SPDX-License-Identifier: MIT
   </ItemGroup>
   <ItemGroup Condition=" '$(TestReleasedPackage)' != 'true' ">
     <ProjectReference
+      Include="$(MSBuildThisFileDirectory)..\..\src\Smdn.LibHighlightSharp.Bindings\Smdn.LibHighlightSharp.Bindings.csproj"
+      AdditionalProperties="IsBuildDueToProjectReference=true;AssemblyVersionForReferenceBySmdnLibHighlightSharp=$(Highlight_MinimumSupportedVersionInclusive)"
+    />
+    <ProjectReference
       Include="$(MSBuildThisFileDirectory)..\..\src\Smdn.LibHighlightSharp.LangDefs\Smdn.LibHighlightSharp.LangDefs.csproj"
       ReferenceOutputAssembly="false"
       AdditionalProperties="IsBuildDueToProjectReference=true"
