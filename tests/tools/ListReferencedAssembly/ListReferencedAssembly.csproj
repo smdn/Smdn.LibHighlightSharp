@@ -1,0 +1,16 @@
+<!--
+SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reflection.MetadataLoadContext" Version="7.0.0" />
+  </ItemGroup>
+
+</Project>
