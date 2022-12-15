@@ -1,11 +1,14 @@
 // SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
 #if NULL_STATE_STATIC_ANALYSIS_ATTRIBUTES
 using System.Diagnostics.CodeAnalysis;
 #endif
 using System.IO;
+using System.Linq;
 using Microsoft.CSharp.RuntimeBinder;
+using Smdn.LibHighlightSharp.Bindings;
 
 namespace Smdn.LibHighlightSharp;
 
@@ -135,6 +138,41 @@ partial class Highlight {
     syntaxFilePath = GetSyntaxFilePathFromName(name, nameof(name));
 
     return File.Exists(syntaxFilePath);
+  }
+
+  public IEnumerable<string> EnumerateSyntaxFiles()
+  {
+    var syntaxDir = DataDirForSyntaxes.getLangPath(string.Empty);
+
+    if (UserDefinedDataDirPathForSyntaxes is not null && !Path.IsPathRooted(syntaxDir)) {
+      // Fallback path
+      //   highlight (< 3.40) does not support HIGHLIGHT_DATADIR on Windows.
+      //   ref: https://github.com/andre-simon/highlight/issues/24
+      syntaxDir = UserDefinedDataDirPathForSyntaxes;
+    }
+
+    if (!Directory.Exists(syntaxDir))
+      return Enumerable.Empty<string>();
+
+    return Directory.EnumerateFiles(
+      syntaxDir,
+      "*" + SyntaxFileExtension,
+      SearchOption.TopDirectoryOnly
+    );
+  }
+
+  public IEnumerable<(
+    string Path,
+    string? Description
+  )> EnumerateSyntaxFilesWithDescription()
+  {
+    foreach (var syntaxFile in EnumerateSyntaxFiles()) {
+      using var reader = new SyntaxReader();
+
+      var canGetDescription = LoadResult.LOAD_OK == reader.load(syntaxFile, string.Empty, Bindings.OutputType.HTML);
+
+      yield return (Path: syntaxFile, Description: canGetDescription ? reader.getDescription() : null);
+    }
   }
 
   /*

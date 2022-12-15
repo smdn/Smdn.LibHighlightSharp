@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
@@ -243,5 +244,71 @@ using System;",
     else {
       Assert.IsFalse(ret);
     }
+  }
+
+  [Test]
+  public void EnumerateSyntaxFiles()
+  {
+    using var hl = new Highlight();
+
+    var syntaxFilesEnumerable = hl.EnumerateSyntaxFiles();
+
+    Assert.IsNotNull(syntaxFilesEnumerable, nameof(syntaxFilesEnumerable));
+
+    var syntaxFiles = syntaxFilesEnumerable.ToList();
+
+    CollectionAssert.IsNotEmpty(syntaxFiles, nameof(syntaxFiles));
+    Assert.IsNotNull(syntaxFiles.FirstOrDefault(static syntaxFile => Path.GetFileNameWithoutExtension(syntaxFile) == "csharp"), $"{nameof(syntaxFiles)} contains 'csharp'");
+    Assert.IsTrue(syntaxFiles.All(static syntaxFile => Path.GetExtension(syntaxFile) == ".lang"), $"all of {nameof(syntaxFiles)} must have extension '.lang'");
+  }
+
+  [Test]
+  public void EnumerateSyntaxFiles_NonExistentSyntaxDir()
+  {
+    using var hl = new Highlight(dataDirForSyntaxes: "non-existent-syntax-dir", dataDirForThemes: string.Empty);
+
+    var syntaxFilesEnumerable = hl.EnumerateSyntaxFiles();
+
+    Assert.IsNotNull(syntaxFilesEnumerable, nameof(syntaxFilesEnumerable));
+
+    var syntaxFiles = syntaxFilesEnumerable.ToList();
+
+    CollectionAssert.IsEmpty(syntaxFiles, nameof(syntaxFiles));
+  }
+
+  [Test]
+  public void EnumerateSyntaxFilesWithDescription()
+  {
+    using var hl = new Highlight();
+
+    var syntaxFilesWithDescriptionEnumerable = hl.EnumerateSyntaxFilesWithDescription();
+
+    Assert.IsNotNull(syntaxFilesWithDescriptionEnumerable, nameof(syntaxFilesWithDescriptionEnumerable));
+
+    var syntaxFilesWithDescription = syntaxFilesWithDescriptionEnumerable.ToList();
+
+    CollectionAssert.IsNotEmpty(syntaxFilesWithDescription, nameof(syntaxFilesWithDescription));
+
+    var csharp = syntaxFilesWithDescription.FirstOrDefault(static syntax => syntax.Description == "C#");
+
+    Assert.IsNotNull(csharp.Path, "csharp.lang path");
+    Assert.AreEqual("csharp", Path.GetFileNameWithoutExtension(csharp.Path), "csharp.lang file name");
+    Assert.AreEqual(".lang", Path.GetExtension(csharp.Path), "csharp.lang extension");
+
+    Assert.IsNotNull(csharp.Description, "csharp.lang description");
+  }
+
+  [Test]
+  public void EnumerateSyntaxFilesWithDescription_NonExistentSyntaxDir()
+  {
+    using var hl = new Highlight(dataDirForSyntaxes: "non-existent-syntax-dir", dataDirForThemes: string.Empty);
+
+    var syntaxFilesWithDescriptionEnumerable = hl.EnumerateSyntaxFilesWithDescription();
+
+    Assert.IsNotNull(syntaxFilesWithDescriptionEnumerable, nameof(syntaxFilesWithDescriptionEnumerable));
+
+    var syntaxFilesWithDescription = syntaxFilesWithDescriptionEnumerable.ToList();
+
+    CollectionAssert.IsEmpty(syntaxFilesWithDescription, nameof(syntaxFilesWithDescription));
   }
 }
