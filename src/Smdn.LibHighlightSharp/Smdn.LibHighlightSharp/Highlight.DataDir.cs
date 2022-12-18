@@ -255,4 +255,48 @@ partial class Highlight {
 
     return File.Exists(themeFilePath);
   }
+
+  public IEnumerable<string> EnumerateThemeFiles()
+  {
+    var themeDir = DataDirForThemes.getThemePath(string.Empty);
+
+    if (UserDefinedDataDirPathForThemes is not null && !Path.IsPathRooted(themeDir)) {
+      // Fallback path
+      //   highlight (< 3.40) does not support HIGHLIGHT_DATADIR on Windows.
+      //   ref: https://github.com/andre-simon/highlight/issues/24
+      themeDir = UserDefinedDataDirPathForThemes;
+    }
+
+    if (!Directory.Exists(themeDir))
+      return Enumerable.Empty<string>();
+
+    return Directory.EnumerateFiles(
+      themeDir,
+      "*" + ThemeFileExtension,
+      SearchOption.AllDirectories
+    );
+  }
+
+  public IEnumerable<(
+    string Path,
+    string? Description
+  )> EnumerateThemeFilesWithDescription()
+  {
+    using var hl = Clone();
+
+    foreach (var themeFile in EnumerateThemeFiles()) {
+      string? themeDescription = null;
+
+      try {
+        hl.SetThemeFromFile(themeFile);
+
+        themeDescription = hl.ThemeDescription;
+      }
+      catch (HighlightThemeException) {
+        // ignore
+      }
+
+      yield return (Path: themeFile, Description: themeDescription);
+    }
+  }
 }

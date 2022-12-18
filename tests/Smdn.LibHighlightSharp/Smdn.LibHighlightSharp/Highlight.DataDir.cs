@@ -311,4 +311,70 @@ using System;",
 
     CollectionAssert.IsEmpty(syntaxFilesWithDescription, nameof(syntaxFilesWithDescription));
   }
+
+  [Test]
+  public void EnumerateThemeFiles()
+  {
+    using var hl = new Highlight();
+
+    var themeFilesEnumerable = hl.EnumerateThemeFiles();
+
+    Assert.IsNotNull(themeFilesEnumerable, nameof(themeFilesEnumerable));
+
+    var themeFiles = themeFilesEnumerable.ToList();
+
+    CollectionAssert.IsNotEmpty(themeFiles, nameof(themeFiles));
+    Assert.IsNotNull(themeFiles.FirstOrDefault(static themeFile => Path.GetFileNameWithoutExtension(themeFile) == "github"), $"{nameof(themeFiles)} contains 'github'");
+    Assert.IsTrue(themeFiles.All(static themeFile => Path.GetExtension(themeFile) == ".theme"), $"all of {nameof(themeFiles)} must have extension '.theme'");
+  }
+
+  [Test]
+  public void EnumerateThemeFiles_NonExistentThemeDir()
+  {
+    using var hl = new Highlight(dataDirForThemes: "non-existent-theme-dir", dataDirForSyntaxes: string.Empty);
+
+    var themeFilesEnumerable = hl.EnumerateSyntaxFiles();
+
+    Assert.IsNotNull(themeFilesEnumerable, nameof(themeFilesEnumerable));
+
+    var themeFiles = themeFilesEnumerable.ToList();
+
+    CollectionAssert.IsEmpty(themeFiles, nameof(themeFiles));
+  }
+
+  [Test]
+  public void EnumerateThemeFilesWithDescription()
+  {
+    using var hl = new Highlight();
+
+    var themeFilesWithDescriptionEnumerable = hl.EnumerateThemeFilesWithDescription();
+
+    Assert.IsNotNull(themeFilesWithDescriptionEnumerable, nameof(themeFilesWithDescriptionEnumerable));
+
+    var themeFilesWithDescription = themeFilesWithDescriptionEnumerable.ToList();
+
+    CollectionAssert.IsNotEmpty(themeFilesWithDescription, nameof(themeFilesWithDescription));
+
+    var github = themeFilesWithDescription.FirstOrDefault(static theme => theme.Description?.StartsWith("Github") ?? false);
+
+    Assert.IsNotNull(github.Path, "github.theme path");
+    Assert.AreEqual("github", Path.GetFileNameWithoutExtension(github.Path), "github.theme file name");
+    Assert.AreEqual(".theme", Path.GetExtension(github.Path), "github.theme extension");
+
+    Assert.IsNotNull(github.Description, "github.theme description");
+  }
+
+  [Test]
+  public void EnumerateThemeFilesWithDescription_NonExistentThemeDir()
+  {
+    using var hl = new Highlight(dataDirForThemes: "non-existent-theme-dir", dataDirForSyntaxes: string.Empty);
+
+    var themeFilesWithDescriptionEnumerable = hl.EnumerateThemeFilesWithDescription();
+
+    Assert.IsNotNull(themeFilesWithDescriptionEnumerable, nameof(themeFilesWithDescriptionEnumerable));
+
+    var themeFilesWithDescription = themeFilesWithDescriptionEnumerable.ToList();
+
+    CollectionAssert.IsEmpty(themeFilesWithDescription, nameof(themeFilesWithDescription));
+  }
 }

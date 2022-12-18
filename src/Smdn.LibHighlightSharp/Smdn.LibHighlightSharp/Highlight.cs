@@ -201,6 +201,14 @@ public partial class Highlight : IDisposable {
     codeGenerator = Bindings.CodeGenerator.getInstance(TranslateOutputType(outputType));
   }
 
+  private Highlight Clone()
+    => new(
+      dataDirForSyntaxes: (DataDirForSyntaxes, UserDefinedDataDirPathForSyntaxes),
+      dataDirForThemes: (DataDirForThemes, UserDefinedDataDirPathForThemes),
+      outputType: DefaultGeneratorOutputType,
+      shouldDisposeDataDir: false
+    );
+
   public void Dispose()
   {
     Dispose(disposing: true);
