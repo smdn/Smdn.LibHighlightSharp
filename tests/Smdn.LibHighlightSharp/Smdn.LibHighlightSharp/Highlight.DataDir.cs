@@ -355,6 +355,11 @@ using System;",
 
     CollectionAssert.IsNotEmpty(themeFilesWithDescription, nameof(themeFilesWithDescription));
 
+    if (VersionInformations.NativeLibraryVersion < new Version(3, 44)) {
+      Assert.Ignore("cannot get theme description");
+      return;
+    }
+
     var github = themeFilesWithDescription.FirstOrDefault(static theme => theme.Description?.StartsWith("Github") ?? false);
 
     Assert.IsNotNull(github.Path, "github.theme path");
