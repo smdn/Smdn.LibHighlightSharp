@@ -1,13 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Smdn.LibHighlightSharp;
-using Smdn.LibHighlightSharp.Bindings;
+﻿using Smdn.LibHighlightSharp;
 
 const int columnWidthName = 16;
 const int columnWidthDescription = 48;
 
-Console.WriteLine($"|{("Name"), -columnWidthName}|{("Description"), -columnWidthDescription}|");
+Console.WriteLine($"|{"Name", -columnWidthName}|{"Description", -columnWidthDescription}|");
 Console.WriteLine($"|{new string('-', columnWidthName)}|{new string('-', columnWidthDescription)}|");
 
 using var hl = new Highlight();
