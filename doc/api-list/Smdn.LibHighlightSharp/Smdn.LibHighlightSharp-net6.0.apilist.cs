@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.dll (Smdn.LibHighlightSharp-1.1.2)
+// Smdn.LibHighlightSharp.dll (Smdn.LibHighlightSharp-1.1.3)
 //   Name: Smdn.LibHighlightSharp
-//   AssemblyVersion: 1.1.2.0
-//   InformationalVersion: 1.1.2+97f587c88f07999319d440b036d945aeb3a0e6dc
+//   AssemblyVersion: 1.1.3.0
+//   InformationalVersion: 1.1.3+ecccec457fb677eb7ca823e2db5abdf2221a9aed
 //   TargetFramework: .NETCoreApp,Version=v6.0
 //   Configuration: Release
 //   Embedded resources:
@@ -98,6 +98,10 @@ namespace Smdn.LibHighlightSharp {
 
     protected virtual void Dispose(bool disposing) {}
     public void Dispose() {}
+    public IEnumerable<string> EnumerateSyntaxFiles() {}
+    public IEnumerable<(string Path, string? Description)> EnumerateSyntaxFilesWithDescription() {}
+    public IEnumerable<string> EnumerateThemeFiles() {}
+    public IEnumerable<(string Path, string? Description)> EnumerateThemeFilesWithDescription() {}
     public string Generate(string input) {}
     public void Generate(string inputPath, string outputPath) {}
     public string GenerateFromFile(string path) {}
