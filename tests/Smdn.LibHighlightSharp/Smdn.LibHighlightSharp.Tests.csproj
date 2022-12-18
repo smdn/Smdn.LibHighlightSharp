@@ -20,11 +20,11 @@ SPDX-License-Identifier: MIT
   <PropertyGroup>
     <SmdnLibHighlightSharpDependencyPackageReferenceStyle>ProjectReference</SmdnLibHighlightSharpDependencyPackageReferenceStyle>
     <SmdnLibHighlightSharpDependencyPackageReferenceStyle
-      Condition=" '$(TestReleasedPackage)' == 'true' "
-    >PackageReferenceImplicitVersion</SmdnLibHighlightSharpDependencyPackageReferenceStyle>
-    <SmdnLibHighlightSharpDependencyPackageReferenceStyle
       Condition=" '$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)' != '' "
     >PackageReferenceExplicitVersion</SmdnLibHighlightSharpDependencyPackageReferenceStyle>
+    <SmdnLibHighlightSharpDependencyPackageReferenceStyle
+      Condition=" '$(TestReleasedPackage)' == 'true' "
+    >PackageReferenceImplicitVersion</SmdnLibHighlightSharpDependencyPackageReferenceStyle>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(SmdnLibHighlightSharpDependencyPackageReferenceStyle)' == 'PackageReferenceImplicitVersion' ">
