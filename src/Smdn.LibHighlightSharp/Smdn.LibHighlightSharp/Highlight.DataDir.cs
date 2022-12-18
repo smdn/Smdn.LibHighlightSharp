@@ -97,6 +97,7 @@ partial class Highlight {
    * langDefs/*.lang
    */
   private const string SyntaxFileExtension = ".lang";
+  private const string SyntaxDirectoryName = "langDefs";
 
   private string GetSyntaxFilePathFromName(string name, string paramName)
   {
@@ -148,7 +149,7 @@ partial class Highlight {
       // Fallback path
       //   highlight (< 3.40) does not support HIGHLIGHT_DATADIR on Windows.
       //   ref: https://github.com/andre-simon/highlight/issues/24
-      syntaxDir = UserDefinedDataDirPathForSyntaxes;
+      syntaxDir = Path.Combine(UserDefinedDataDirPathForSyntaxes, SyntaxDirectoryName);
     }
 
     if (!Directory.Exists(syntaxDir))
@@ -179,6 +180,7 @@ partial class Highlight {
    * themes/*.theme
    */
   private const string ThemeFileExtension = ".theme";
+  private const string ThemeDirectoryName = "themes";
 
   private string GetThemeFilePathFromName(string name, bool base16, string paramName)
   {
@@ -264,7 +266,7 @@ partial class Highlight {
       // Fallback path
       //   highlight (< 3.40) does not support HIGHLIGHT_DATADIR on Windows.
       //   ref: https://github.com/andre-simon/highlight/issues/24
-      themeDir = UserDefinedDataDirPathForThemes;
+      themeDir = Path.Combine(UserDefinedDataDirPathForThemes, ThemeDirectoryName);
     }
 
     if (!Directory.Exists(themeDir))
