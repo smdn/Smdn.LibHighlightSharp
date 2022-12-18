@@ -1,5 +1,5 @@
 [![GitHub license](https://img.shields.io/github/license/smdn/Smdn.LibHighlightSharp)](https://github.com/smdn/Smdn.LibHighlightSharp/blob/main/COPYING.txt)
-[![tests/main](https://img.shields.io/github/workflow/status/smdn/Smdn.LibHighlightSharp/Run%20tests/main?label=tests%2Fmain)](https://github.com/smdn/Smdn.LibHighlightSharp/actions/workflows/test.yml)
+[![tests/main](https://img.shields.io/github/actions/workflow/status/smdn/Smdn.LibHighlightSharp/test.yml?branch=main&label=tests%2Fmain)](https://github.com/smdn/Smdn.LibHighlightSharp/actions/workflows/test.yml)
 [![CodeQL](https://github.com/smdn/Smdn.LibHighlightSharp/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/smdn/Smdn.LibHighlightSharp/actions/workflows/codeql-analysis.yml)
 
 # Smdn.LibHighlightSharp
