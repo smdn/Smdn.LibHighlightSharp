@@ -4,6 +4,9 @@
 //   InformationalVersion: 1.1.2+97f587c88f07999319d440b036d945aeb3a0e6dc
 //   TargetFramework: .NETCoreApp,Version=v6.0
 //   Configuration: Release
+//   Embedded resources:
+//     null.lang (450 bytes, Embedded, ContainedInManifestFile)
+//     null.theme (774 bytes, Embedded, ContainedInManifestFile)
 #nullable enable annotations
 
 using System;
