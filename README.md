@@ -76,6 +76,494 @@ The generated HTML is displayed as follows.
 
 See the projects in the [examples](./examples/) directory for more usages.
 
+### Syntax and theme
+Highlight supports syntax highlighting for various languages. Various color schemes are also available. You can use these **syntaxes** and **themes** by calling `SetSyntax` and `SetTheme` with its names.
+
+As of Highlight v4.4, The following syntax and themes are available.
+
+<details>
+<summary>List of syntaxes (Provided by `Smdn.LibHighlightSharp.LangDefs` v4.4.0)</summary>
+
+|Name            |Description                                     |
+|----------------|------------------------------------------------|
+|abap            |ABAP/4                                          |
+|abap4           |ABAP/4                                          |
+|abc             |ABC                                             |
+|abnf            |Advanced Backus-Naur Form                       |
+|actionscript    |ActionScript                                    |
+|ada             |ADA95                                           |
+|agda            |Agda                                            |
+|alan            |ALAN Interactive Fiction Language               |
+|algol           |ALGOL 68                                        |
+|ampl            |AMPL                                            |
+|amtrix          |AMTrix                                          |
+|applescript     |AppleScript                                     |
+|arc             |Arc                                             |
+|arm             |ARM                                             |
+|as400cl         |AS/400 CL                                       |
+|ascend          |ASCEND                                          |
+|asciidoc        |AsciiDoc                                        |
+|asp             |Active Server Pages                             |
+|aspect          |Abstract                                        |
+|assembler       |Generic Assembler                               |
+|ats             |Applied Type System                             |
+|autohotkey      |AutoHotKey                                      |
+|autoit          |AutoIt                                          |
+|avenue          |Avenue                                          |
+|awk             |(G)AWK                                          |
+|ballerina       |Ballerina                                       |
+|bat             |MS DOS Batch                                    |
+|bbcode          |BBcode                                          |
+|bcpl            |BCPL                                            |
+|bibtex          |BibTeX                                          |
+|biferno         |Biferno                                         |
+|bison           |Bison                                           |
+|blitzbasic      |Blitz Basic                                     |
+|bms             |BM Script                                       |
+|bnf             |Backus-Naur Form                                |
+|boo             |Boo                                             |
+|c               |C and C++                                       |
+|carbon          |Carbon                                          |
+|ceylon          |Ceylon                                          |
+|charmm          |Charmm                                          |
+|chill           |CHILL                                           |
+|chpl            |Chapel                                          |
+|clean           |Clean                                           |
+|clearbasic      |ClearBasic                                      |
+|clipper         |Clipper                                         |
+|clojure         |Clojure                                         |
+|clp             |Clips                                           |
+|cmake           |CMake                                           |
+|cobol           |COBOL                                           |
+|coffee          |Coffeescript                                    |
+|coffeescript    |Coffeescript                                    |
+|coldfusion      |ColdFusion MX                                   |
+|conf            |Generic config files                            |
+|critic          |CriticMarkup                                    |
+|crk             |Crack                                           |
+|crystal         |Crystal                                         |
+|cs_block_regex  |Coffeescript Block Regex                        |
+|csharp          |C#                                              |
+|css             |CSS                                             |
+|d               |D                                               |
+|dart            |Dart                                            |
+|delphi          |delphi                                          |
+|diff            |Diff                                            |
+|docker          |Dockerfile                                      |
+|dockerfile      |Dockerfile                                      |
+|dts             |Device Tree Source                              |
+|dylan           |Dylan                                           |
+|ebnf            |Extended Backus-Naur Form                       |
+|ebnf2           |EBNF2                                           |
+|eiffel          |Eiffel                                          |
+|elixir          |Elixir                                          |
+|email           |E-Mail treated as Markup                        |
+|erb             |ERB Templates                                   |
+|erlang          |Erlang                                          |
+|euphoria        |Euphoria                                        |
+|exapunks        |EXAPUNKS                                        |
+|excel           |Excel Formulas                                  |
+|express         |Express                                         |
+|fame            |FAME                                            |
+|fasm            |fasm                                            |
+|felix           |Felix                                           |
+|fish            |Fish                                            |
+|fortran77       |Fortran 77                                      |
+|fortran90       |Fortran 90                                      |
+|frink           |Frink                                           |
+|fsharp          |F#                                              |
+|fstab           |fstab config file                               |
+|fx              |Java FX                                         |
+|gambas          |Gambas                                          |
+|gdb             |gdb                                             |
+|gdscript        |GDScript                                        |
+|go              |Go                                              |
+|graphviz        |Graphviz                                        |
+|haml            |Haml (HTML Abstraction Markup Language)         |
+|haskell         |Haskell                                         |
+|haxe            |haXe                                            |
+|hcl             |Hecl                                            |
+|html            |HTML                                            |
+|httpd           |Apache Config                                   |
+|hugo            |Hugo                                            |
+|icon            |Icon                                            |
+|idl             |IDL                                             |
+|idlang          |Interactive Data Language                       |
+|inc_luatex      |Lua (for LuaTeX)                                |
+|informix        |Informix                                        |
+|ini             |INI                                             |
+|innosetup       |Inno Setup                                      |
+|interlis        |INTERLIS                                        |
+|io              |IO                                              |
+|jam             |Jam                                             |
+|jasmin          |Jasmin                                          |
+|java            |Java                                            |
+|javascript      |Javascript                                      |
+|js_regex        |Javascript Regex                                |
+|js              |Javascript                                      |
+|json            |JSON                                            |
+|jsp             |JavaServer Pages                                |
+|jsx             |JSX                                             |
+|julia           |Julia                                           |
+|kotlin          |Kotlin                                          |
+|ldif            |LDAP                                            |
+|less            |Less                                            |
+|lhs             |Haskell LHS                                     |
+|lilypond        |Lilypond                                        |
+|limbo           |Limbo                                           |
+|lindenscript    |Linden Script                                   |
+|lisp            |Lisp                                            |
+|logtalk         |Logtalk                                         |
+|lotos           |Lotos                                           |
+|lotus           |Lotus                                           |
+|lua             |Lua                                             |
+|luban           |Luban                                           |
+|make            |Make                                            |
+|makefile        |Make                                            |
+|maple           |Maple                                           |
+|markdown        |GitHub Flavored Markdown                        |
+|matlab          |Matlab                                          |
+|maya            |Maya                                            |
+|md              |GitHub Flavored Markdown                        |
+|mercury         |Mercury                                         |
+|meson           |Meson                                           |
+|miranda         |Miranda                                         |
+|mod2            |Modula2                                         |
+|mod3            |Modula3                                         |
+|modelica        |Modelica                                        |
+|moon            |MoonScript                                      |
+|ms              |MaxScript                                       |
+|msl             |mIRC Scripting                                  |
+|mssql           |MSSQL                                           |
+|mxml            |Magic eXtensible Markup                         |
+|n3              |Notation3 (N3), N-Triples, Turtle, SPARQL       |
+|nasal           |Nasal                                           |
+|nbc             |NeXT Byte Codes                                 |
+|nemerle         |Nemerle                                         |
+|netrexx         |NetRexx                                         |
+|nginx           |Nginx configuration                             |
+|nice            |Nice                                            |
+|nim             |Nim                                             |
+|nix             |Nix Expression Language                         |
+|nsis            |NSIS                                            |
+|nxc             |Not eXactly C                                   |
+|oberon          |Oberon                                          |
+|objc            |Objective C                                     |
+|ocaml           |Objective Caml                                  |
+|octave          |Octave                                          |
+|oorexx          |OpenObjectRexx                                  |
+|org             |Emacs Org-Mode                                  |
+|os              |Object Script                                   |
+|oz              |Oz                                              |
+|paradox         |Paradox                                         |
+|pas             |Pascal                                          |
+|pdf             |Portable Document Format                        |
+|perl            |Perl                                            |
+|php             |PHP                                             |
+|pike            |Pike                                            |
+|pl1             |PL/1                                            |
+|plperl          |PL/Perl                                         |
+|plpython        |PL/Python                                       |
+|pltcl           |PL/Tcl                                          |
+|po              |PO translation                                  |
+|polygen         |Polygen                                         |
+|pony            |Pony                                            |
+|pov             |POV-Ray                                         |
+|powershell      |Microsoft PowerShell                            |
+|pro             |Prolog                                          |
+|progress        |Progress                                        |
+|ps              |PostScript                                      |
+|ps1             |Microsoft PowerShell                            |
+|psl             |PATROL                                          |
+|pure            |Pure                                            |
+|purebasic       |PureBASIC                                       |
+|purescript      |PureScript                                      |
+|pyrex           |Pyrex                                           |
+|python          |Python                                          |
+|q               |Qore                                            |
+|qmake           |QMake Project                                   |
+|qml             |QML                                             |
+|qu              |Qu                                              |
+|r               |R                                               |
+|rebol           |Rebol                                           |
+|rego            |Rego                                            |
+|rexx            |Rexx                                            |
+|rnc             |Relax NG                                        |
+|rpg             |RPG                                             |
+|rpl             |RPL Programming Language                        |
+|rs              |Rust                                            |
+|rst             |reStructured Text                               |
+|ruby            |Ruby                                            |
+|rust            |Rust                                            |
+|s               |PowerPC Assembler                               |
+|sam             |Sequence Alignment Map (use with sam_seq.lua plug-in)|
+|sas             |SAS                                             |
+|scad            |OpenSCAD                                        |
+|scala           |Scala                                           |
+|scilab          |Scilab                                          |
+|scss            |Sass/SCSS                                       |
+|sh              |Bash                                            |
+|shellscript     |Bash                                            |
+|slim            |Slim (experimental)                             |
+|small           |SMALL                                           |
+|smalltalk       |Smalltalk                                       |
+|sml             |Standard ML                                     |
+|snmp            |SNMP                                            |
+|snobol          |SNOBOL                                          |
+|solidity        |Solidity                                        |
+|spec            |RPM Spec                                        |
+|spn             |SPIN SQL                                        |
+|sql             |PL/SQL                                          |
+|squirrel        |Squirrel                                        |
+|styl            |Stylus                                          |
+|svg             |SVG                                             |
+|swift           |Swift                                           |
+|sybase          |Sybase SQL                                      |
+|tcl             |Tcl/Tk                                          |
+|tcsh            |TCSH                                            |
+|terraform       |Terraform                                       |
+|tex             |TeX and LaTeX                                   |
+|toml            |TOML                                            |
+|ts              |TypeScript                                      |
+|tsql            |Transact-SQL                                    |
+|tsx             |TSX (TypeScript with React)                     |
+|ttcn3           |TTCN3                                           |
+|txt             |Plain text                                      |
+|typescript      |TypeScript                                      |
+|upc             |UPC (and C, technically)                        |
+|vala            |Vala                                            |
+|vb              |Visual Basic                                    |
+|verilog         |Verilog                                         |
+|vhd             |VHDL                                            |
+|vimscript       |vimscript                                       |
+|vue             |vue.js (beta)                                   |
+|wat             |Web Assembly Text                               |
+|whiley          |Whiley                                          |
+|wren            |Wren                                            |
+|xml             |XML                                             |
+|xpp             |SuperX++                                        |
+|yaiff           |Yaiff                                           |
+|yaml            |Ansible YAML                                    |
+|yang            |Yang                                            |
+|zig             |Zig                                             |
+|znn             |                                                |
+
+</details>
+
+<details>
+<summary>List of themes (Provided by `Smdn.LibHighlightSharp.Themes` v4.4.0)</summary>
+
+|Name                          |Description                                     |
+|------------------------------|------------------------------------------------|
+|acid                          |Acid                                            |
+|aiseered                      |vim aiseered                                    |
+|andes                         |Andes                                           |
+|anotherdark                   |vim anotherdark                                 |
+|autumn                        |vim autumn                                      |
+|baycomb                       |vim baycomb                                     |
+|bclear                        |vim bclear                                      |
+|biogoo                        |vim biogoo                                      |
+|bipolar                       |Bipolar                                         |
+|blacknblue                    |Black And Blue                                  |
+|bluegreen                     |vim blue and green                              |
+|breeze                        |vim breeze                                      |
+|bright                        |Bright                                          |
+|camo                          |vim camo                                        |
+|candy                         |vim candy                                       |
+|clarity                       |vim clarity                                     |
+|dante                         |vim dante                                       |
+|darkblue                      |Dark Blue                                       |
+|darkbone                      |vim dark bone                                   |
+|darkness                      |Darkness                                        |
+|darkplus                      |vscode darkplus                                 |
+|darkslategray                 |vim darkslategray                               |
+|darkspectrum                  |vim darkspectrum                                |
+|denim                         |vim denim                                       |
+|duotone-dark-earth            |DuoTone Dark Earth                              |
+|duotone-dark-forest           |DuoTone Dark Forest                             |
+|duotone-dark-sea              |DuoTone Dark Sea                                |
+|duotone-dark-sky              |DuoTone Dark Sky                                |
+|duotone-dark-space            |DuoTone Dark Space                              |
+|dusk                          |vim dusk                                        |
+|earendel                      |vim earendel                                    |
+|easter                        |Easter                                          |
+|edit-anjuta                   |Anjuta IDE                                      |
+|edit-bbedit                   |BBEdit Classic                                  |
+|edit-eclipse                  |Eclipse IDE                                     |
+|edit-emacs                    |Emacs Editor                                    |
+|edit-fasm                     |FASM Editor                                     |
+|edit-flashdevelop             |FlashDevelop                                    |
+|edit-gedit                    |Gedit Editor                                    |
+|edit-godot                    |Godot Engine                                    |
+|edit-jedit                    |jEdit Editor                                    |
+|edit-kwrite                   |Kwrite Editor                                   |
+|edit-matlab                   |Matlab Editor                                   |
+|edit-msvs2008                 |Visual Studio IDE                               |
+|edit-nedit                    |Nedit Editor                                    |
+|edit-purebasic                |PureBASIC                                       |
+|edit-vim-dark                 |Vim Dark Editor                                 |
+|edit-vim                      |Vim Editor                                      |
+|edit-xcode                    |XCode IDE                                       |
+|ekvoli                        |vim ekvoli                                      |
+|fine_blue                     |vim fine_blue                                   |
+|fineblue                      |vim fine_blue                                   |
+|freya                         |vim freya                                       |
+|fruit                         |vim fruit                                       |
+|github                        |Github Source View                              |
+|golden                        |Golden                                          |
+|greenlcd                      |Green LCD                                       |
+|kellys                        |vim kellys                                      |
+|leo                           |vim leo256                                      |
+|lucretia                      |Lucretia                                        |
+|manxome                       |vim manxome                                     |
+|maroloccio                    |vim maroloccio                                  |
+|matrix                        |vim Matrix                                      |
+|moe                           |Moe                                             |
+|molokai                       |vim molokai                                     |
+|moria                         |vim moria                                       |
+|navajo-night                  |vim navajo-night                                |
+|navy                          |Navy                                            |
+|neon                          |vim neon                                        |
+|night                         |vim night                                       |
+|nightshimmer                  |vim nightshimmer                                |
+|nord                          |Nord                                            |
+|nuvola                        |vim nuvola                                      |
+|olive                         |vim olive                                       |
+|orion                         |Orion                                           |
+|oxygenated                    |oXygenated rnc                                  |
+|pablo                         |Pablo                                           |
+|peaksea                       |vim peaksea                                     |
+|print                         |Print                                           |
+|rand01                        |Random 01                                       |
+|rdark                         |vim rdark                                       |
+|relaxedgreen                  |vim relaxedgreen                                |
+|rootwater                     |vim rootwater                                   |
+|seashell                      |Seashell                                        |
+|solarized-dark                |Solarized Dark                                  |
+|solarized-light               |Solarized Light                                 |
+|sourceforge                   |Sourceforge.net                                 |
+|tabula                        |vim tabula                                      |
+|tcsoft                        |vim TCSoft                                      |
+|the                           |the                                             |
+|vampire                       |Vampire                                         |
+|whitengrey                    |White and Grey                                  |
+|xoria256                      |vim xoria256                                    |
+|zellner                       |Zellner                                         |
+|zenburn                       |vim zenburn                                     |
+|zmrok                         |vim zmrok                                       |
+
+|Name (Base16)                 |Description                                     |
+|------------------------------|------------------------------------------------|
+|3024                          |Base16 3024                                     |
+|apathy                        |Base16 Apathy                                   |
+|ashes                         |Base16 Ashes                                    |
+|atelier-cave-light            |Base16 Atelier Cave Light                       |
+|atelier-cave                  |Base16 Atelier Cave                             |
+|atelier-dune-light            |Base16 Atelier Dune Light                       |
+|atelier-dune                  |Base16 Atelier Dune                             |
+|atelier-estuary-light         |Base16 Atelier Estuary Light                    |
+|atelier-estuary               |Base16 Atelier Estuary                          |
+|atelier-forest-light          |Base16 Atelier Forest Light                     |
+|atelier-forest                |Base16 Atelier Forest                           |
+|atelier-heath-light           |Base16 Atelier Heath Light                      |
+|atelier-heath                 |Base16 Atelier Heath                            |
+|atelier-lakeside-light        |Base16 Atelier Lakeside Light                   |
+|atelier-lakeside              |Base16 Atelier Lakeside                         |
+|atelier-plateau-light         |Base16 Atelier Plateau Light                    |
+|atelier-plateau               |Base16 Atelier Plateau                          |
+|atelier-savanna-light         |Base16 Atelier Savanna Light                    |
+|atelier-savanna               |Base16 Atelier Savanna                          |
+|atelier-seaside-light         |Base16 Atelier Seaside Light                    |
+|atelier-seaside               |Base16 Atelier Seaside                          |
+|atelier-sulphurpool-light     |Base16 Atelier Sulphurpool Light                |
+|atelier-sulphurpool           |Base16 Atelier Sulphurpool                      |
+|bespin                        |Base16 Bespin                                   |
+|brewer                        |Base16 Brewer                                   |
+|bright                        |Base16 Bright                                   |
+|brushtrees-dark               |Base16 Brush Trees Dark                         |
+|brushtrees                    |Base16 Brush Trees                              |
+|chalk                         |Base16 Chalk                                    |
+|circus                        |Base16 Circus                                   |
+|classic-dark                  |Base16 Classic Dark                             |
+|classic-light                 |Base16 Classic Light                            |
+|codeschool                    |Base16 Codeschool                               |
+|cupcake                       |Base16 Cupcake                                  |
+|cupertino                     |Base16 Cupertino                                |
+|darktooth                     |Base16 Darktooth                                |
+|default-dark                  |Base16 Default Dark                             |
+|default-light                 |Base16 Default Light                            |
+|dracula                       |Base16 Dracula                                  |
+|eighties                      |Base16 Eighties                                 |
+|embers                        |Base16 Embers                                   |
+|flat                          |Base16 Flat                                     |
+|github                        |Base16 Github                                   |
+|google-dark                   |Base16 Google Dark                              |
+|google-light                  |Base16 Google Light                             |
+|grayscale-dark                |Base16 Grayscale Dark                           |
+|grayscale-light               |Base16 Grayscale Light                          |
+|greenscreen                   |Base16 Green Screen                             |
+|gruvbox-dark-hard             |Base16 Gruvbox dark, hard                       |
+|gruvbox-dark-medium           |Base16 Gruvbox dark, medium                     |
+|gruvbox-dark-pale             |Base16 Gruvbox dark, pale                       |
+|gruvbox-dark-soft             |Base16 Gruvbox dark, soft                       |
+|gruvbox-light-hard            |Base16 Gruvbox light, hard                      |
+|gruvbox-light-medium          |Base16 Gruvbox light, medium                    |
+|gruvbox-light-soft            |Base16 Gruvbox light, soft                      |
+|harmonic-dark                 |Base16 Harmonic16 Dark                          |
+|harmonic-light                |Base16 Harmonic16 Light                         |
+|hopscotch                     |Base16 Hopscotch                                |
+|ia-dark                       |Base16 iA Dark                                  |
+|ia-light                      |Base16 iA Light                                 |
+|icy                           |Base16 Icy                                      |
+|irblack                       |Base16 IR Black                                 |
+|isotope                       |Base16 Isotope                                  |
+|macintosh                     |Base16 Macintosh                                |
+|marrakesh                     |Base16 Marrakesh                                |
+|materia                       |Base16 Materia                                  |
+|material-darker               |Base16 Material Darker                          |
+|material-lighter              |Base16 Material Lighter                         |
+|material-palenight            |Base16 Material Palenight                       |
+|material-vivid                |Base16 Material Vivid                           |
+|material                      |Base16 Material                                 |
+|mellow-purple                 |Base16 Mellow Purple                            |
+|mexico-light                  |Base16 Mexico Light                             |
+|mocha                         |Base16 Mocha                                    |
+|monokai                       |Base16 Monokai                                  |
+|nord                          |Base16 Nord                                     |
+|ocean                         |Base16 Ocean                                    |
+|oceanicnext                   |Base16 OceanicNext                              |
+|one-light                     |Base16 One Light                                |
+|onedark                       |Base16 OneDark                                  |
+|outrun-dark                   |Base16 Outrun Dark                              |
+|paraiso                       |Base16 Paraiso                                  |
+|phd                           |Base16 PhD                                      |
+|pico                          |Base16 Pico                                     |
+|pop                           |Base16 Pop                                      |
+|porple                        |Base16 Porple                                   |
+|railscasts                    |Base16 Railscasts                               |
+|rebecca                       |Base16 Rebecca                                  |
+|seti                          |Base16 Seti UI                                  |
+|shapeshifter                  |Base16 Shapeshifter                             |
+|snazzy                        |Base16 Snazzy                                   |
+|solarflare                    |Base16 Solar Flare                              |
+|solarized-dark                |Base16 Solarized Dark                           |
+|solarized-light               |Base16 Solarized Light                          |
+|spacemacs                     |Base16 Spacemacs                                |
+|summerfruit-dark              |Base16 Summerfruit Dark                         |
+|summerfruit-light             |Base16 Summerfruit Light                        |
+|tomorrow-night                |Base16 Tomorrow Night                           |
+|tomorrow                      |Base16 Tomorrow                                 |
+|tube                          |Base16 London Tube                              |
+|twilight                      |Base16 Twilight                                 |
+|unikitty-dark                 |Base16 Unikitty Dark                            |
+|unikitty-light                |Base16 Unikitty Light                           |
+|unikitty-reversible           |Base16 Unikitty Reversible                      |
+|woodland                      |Base16 Woodland                                 |
+|xcode-dusk                    |Base16 XCode Dusk                               |
+|zenburn                       |Base16 Zenburn                                  |
+
+</details>
+
 ### Combining different versions
 You can combine the different versions of bindings/syntaxes/themes, as in the following example.
 
