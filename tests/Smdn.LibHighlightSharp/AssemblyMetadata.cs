@@ -72,7 +72,7 @@ public class AssemblyMetadataTests {
     );
 
     StringAssert.StartsWith(
-      "Smdn.LibHighlightSharp.Bindings, Version=3.36.0.0,",
+      $"Smdn.LibHighlightSharp.Bindings, Version={new Version(TestConstants.ExpectedBindingsReferenceVersionString)}",
       referencedAssemblyNameSmdnLibHighlightSharpBindings.GetString(),
       "must be Smdn.LibHighlightSharp.Bindings, Version=<minimum>"
     );
