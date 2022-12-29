@@ -6,8 +6,6 @@
 #
 # For a list of dependencies, see [../src/README.md].
 #
-# SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
-# SPDX-License-Identifier: MIT
 install-buildtime-deps-ubuntu.22.04.stamp:
 	sudo apt-get install -y \
 	  autotools-dev \
