@@ -35,7 +35,7 @@ partial class Highlight {
   {
     // translate by enum filed name
     if (generatorOutputTypeValueToNameMap.TryGetValue(outputType, out var name)) {
-#if NET5_0_OR_GREATER // Enum.GetValues<TEnum>, Enum.GetName<TEnum>
+#if SYSTEM_ENUM_GETVALUES_OF_TENUM && SYSTEM_ENUM_GETNAME_OF_TENUM
       foreach (var value in Enum.GetValues<Bindings.OutputType>()) {
         if (string.Equals(name, Enum.GetName(value), StringComparison.Ordinal))
           return value;
