@@ -23,7 +23,7 @@ SPDX-License-Identifier: MIT
       Condition=" '$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)' != '' "
     >PackageReferenceExplicitVersion</SmdnLibHighlightSharpDependencyPackageReferenceStyle>
     <SmdnLibHighlightSharpDependencyPackageReferenceStyle
-      Condition=" '$(TestReleasedPackage)' == 'true' "
+      Condition=" '$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)' == '' and '$(TestReleasedPackage)' == 'true' "
     >PackageReferenceImplicitVersion</SmdnLibHighlightSharpDependencyPackageReferenceStyle>
   </PropertyGroup>
 
