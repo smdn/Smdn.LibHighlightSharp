@@ -29,11 +29,15 @@ public class SwigBindingTests {
       SearchOption.AllDirectories
     );
 
+#if SYSTEM_RUNTIME_INTEROPSERVICES_RUNTIMEINFORMATION_RUNTIMEIDENTIFIER
     var nativeLibraryFilePathForCurrentRuntime = nativeLibraryFilePathCandidatesPackageReference
       .FirstOrDefault(static path => path.Contains(RuntimeInformation.RuntimeIdentifier + Path.DirectorySeparatorChar, StringComparison.Ordinal));
 
     var nativeLibraryFilePathPackageReference =
       nativeLibraryFilePathForCurrentRuntime ?? nativeLibraryFilePathCandidatesPackageReference.FirstOrDefault();
+#else
+    var nativeLibraryFilePathPackageReference = nativeLibraryFilePathCandidatesPackageReference.FirstOrDefault();
+#endif
 
     if (nativeLibraryFilePathPackageReference is null)
       return false;
@@ -54,7 +58,7 @@ public class SwigBindingTests {
       return;
     }
 
-#if SYSTEM_RUNTIME_INTEROPSERVICES_NATIVELIBRARY
+#if SYSTEM_RUNTIME_INTEROPSERVICES_NATIVELIBRARY && SYSTEM_RUNTIME_INTEROPSERVICES_RUNTIMEINFORMATION_RUNTIMEIDENTIFIER
     var nativeLibraryHandle = IntPtr.Zero;
 
     Assert.DoesNotThrow(() => nativeLibraryHandle = NativeLibrary.Load(nativeLibraryFilePath)); // maybe already loaded
