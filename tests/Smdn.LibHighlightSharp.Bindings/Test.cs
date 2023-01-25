@@ -57,7 +57,7 @@ public class SwigBindingTests {
 #if SYSTEM_RUNTIME_INTEROPSERVICES_NATIVELIBRARY
     var nativeLibraryHandle = IntPtr.Zero;
 
-    Assert.DoesNotThrow(() => nativeLibraryHandle = NativeLibrary.Load(nativeLibraryFilePath)); // maybe alread loaded
+    Assert.DoesNotThrow(() => nativeLibraryHandle = NativeLibrary.Load(nativeLibraryFilePath)); // maybe already loaded
 
     Assert.AreNotEqual(IntPtr.Zero, nativeLibraryHandle);
 #endif
