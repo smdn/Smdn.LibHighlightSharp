@@ -2,9 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-#if SYSTEM_RUNTIME_INTEROPSERVICES_NATIVELIBRARY
 using System.Runtime.InteropServices;
-#endif
 using NUnit.Framework;
 
 namespace Smdn.LibHighlightSharp.Bindings;
@@ -25,11 +23,17 @@ public class SwigBindingTests {
       return true;
     }
 
-    var nativeLibraryFilePathPackageReference = Directory.EnumerateFiles(
+    var nativeLibraryFilePathCandidatesPackageReference = Directory.EnumerateFiles(
       Path.Combine(TestContext.CurrentContext.TestDirectory, "runtimes"),
       VersionInformations.NativeLibraryFileName,
       SearchOption.AllDirectories
-    ).FirstOrDefault();
+    );
+
+    var nativeLibraryFilePathForCurrentRuntime = nativeLibraryFilePathCandidatesPackageReference
+      .FirstOrDefault(static path => path.Contains(RuntimeInformation.RuntimeIdentifier + Path.DirectorySeparatorChar, StringComparison.Ordinal));
+
+    var nativeLibraryFilePathPackageReference =
+      nativeLibraryFilePathForCurrentRuntime ?? nativeLibraryFilePathCandidatesPackageReference.FirstOrDefault();
 
     if (nativeLibraryFilePathPackageReference is null)
       return false;
