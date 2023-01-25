@@ -1,9 +1,5 @@
 // SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 // SPDX-License-Identifier: GPL-3.0-or-later
-#if NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
-#define SYSTEM_IO_PATH_ENDSINDIRECTORYSEPARATOR // System.IO.Path.EndsInDirectorySeparator
-#endif
-
 using System;
 using System.IO;
 using System.Reflection;

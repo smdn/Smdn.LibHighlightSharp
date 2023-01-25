@@ -62,7 +62,7 @@ $(LicenseNoticeMarkdownText_Lua_Notice)
     <PackageReference Include="Microsoft.CSharp" />
     <PackageReference
       Include="Smdn.MSBuild.DefineConstants.NETSdkApi"
-      Version="[1.3.7]"
+      Version="[1.3.8]"
       PrivateAssets="all"
       IncludeAssets="build"
     />
