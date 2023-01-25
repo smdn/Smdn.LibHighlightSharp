@@ -10,13 +10,19 @@ on:
         description: "The number of pull request that requests to merge the release working branch."
         required: true
         type: string
+      dry_run:
+        description: "If true, performs a trial run."
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   run-publish-release-target:
-    uses: smdn/Smdn.Fundamentals/.github/workflows/publish-release-target.yml@workflows/release-target-v1.5.5
+    uses: smdn/Smdn.Fundamentals/.github/workflows/publish-release-target.yml@workflows/release-target-v1.5.8
     with:
       pr_number_request_for_release: ${{ fromJson(github.event.inputs.pr_number_request_for_release) }}
       pr_label_request_for_release:  'release-target'
+      dry_run:                       ${{ fromJson(github.event.inputs.dry_run) }}
     secrets:
       token_repo:                 ${{ secrets.PUBLISH_NEW_RELEASE }}
       token_push_nuget_org:       ${{ secrets.PUBLISH_PACKAGE_NUGETORG }}
