@@ -42,19 +42,25 @@ $(LicenseNoticeMarkdownText_Lua_Notice)
 ]]></LicenseNoticeMarkdownText>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference
-      VersionRange="[$(Highlight_MinimumSupportedVersionInclusive),$(Highlight_MaximumSupportedVersionExclusive))"
-      Include="$(MSBuildThisFileDirectory)..\Smdn.LibHighlightSharp.Bindings\Smdn.LibHighlightSharp.Bindings.csproj"
-      Condition=" '$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)' == '' "
-      AdditionalProperties="IsBuildDueToProjectReference=true;AssemblyVersionForReferenceBySmdnLibHighlightSharp=$(Highlight_MinimumSupportedVersionInclusive)"
-    />
-    <PackageReference
-      Include="Smdn.LibHighlightSharp.Bindings"
-      Version="$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)"
-      Condition=" '$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)' != '' "
-    />
-  </ItemGroup>
+  <Choose>
+    <When Condition=" '$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)' == '' ">
+      <ItemGroup>
+        <ProjectOrPackageReference
+          Include="$(MSBuildThisFileDirectory)..\Smdn.LibHighlightSharp.Bindings\Smdn.LibHighlightSharp.Bindings.csproj"
+          ReferencePackageVersion="[$(Highlight_MinimumSupportedVersionInclusive),$(Highlight_MaximumSupportedVersionExclusive))"
+          AdditionalProperties="IsBuildDueToProjectReference=true;AssemblyVersionForReferenceBySmdnLibHighlightSharp=$(Highlight_MinimumSupportedVersionInclusive)"
+        />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference
+          Include="Smdn.LibHighlightSharp.Bindings"
+          Version="$(SmdnLibHighlightSharpBindingsPackageReferenceVersion)"
+        />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
 
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" />
