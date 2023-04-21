@@ -78,7 +78,9 @@ Run the GitHub workflow to generate native libraries with the current version co
 eng/build-artifact-for-all-targets.sh
 ```
 
-Then, merge PRs created by this workflow.
+Then, merge the PRs that will be created by this workflow.
+
+These PRs merge the created artifacts into a working branch. Changes to `SHA1SUMS.txt` will conflict during the merge, so resolve it accordingly.
 
 ### Create a PR and merge the working branch
 Fetch the changes up to this point.
@@ -93,13 +95,13 @@ Create a PR to merge the changes up to this point into the `main` branch.
 gh pr create --base main --head artifact-highlight-4.5 --assignee @me --title "Add artifact highlight-4.5" --fill
 ```
 
-Then, merge a PR created by this command.
+Then, merge a PR created by this command, after testing and other checks have been completed.
 
 ### Fetch the main branch after the merge has completed
 ```
+git fetch github --prune
 git switch main
 git pull github main
-git fetch github --prune
 git branch -d artifact-highlight-4.5
 ```
 
@@ -135,7 +137,8 @@ If necessary, also run a test workflow.
 ## Release new versions of packages
 
 ### Run package release workflow
-Set the tag and trigger the release workflow.
+
+Set the tag and trigger the release workflow. When trigger the workflow, ensure that the Actions secrets are properly updated and not expired.
 
 ```
 git tag -m "new release" new-release/main/Smdn.LibHighlightSharp.LangDefs-4.5.0
