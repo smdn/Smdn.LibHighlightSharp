@@ -13,6 +13,7 @@ SPDX-License-Identifier: MIT
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyCLSCompliant>false</AssemblyCLSCompliant>
     <BuildInParallel>false</BuildInParallel> <!-- disable parallel builds to avoid running simultaneous native binary build -->
+    <EnableTrimAnalyzer>false</EnableTrimAnalyzer>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
 
