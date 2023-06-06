@@ -179,7 +179,7 @@ partial class HighlightTests {
 
     Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = eof);
 
-    if (new Version(4, 6) >= VersionInformations.NativeLibraryVersion)
+    if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
       Assert.AreEqual(eof, hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
     else
       Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
@@ -197,7 +197,7 @@ partial class HighlightTests {
 
     Assert.Throws<ArgumentOutOfRangeException>(() => hl.AdditionalEndOfFileChar = eof);
 
-    if (new Version(4, 6) >= VersionInformations.NativeLibraryVersion)
+    if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
       Assert.AreEqual(initialEofChar, hl.AdditionalEndOfFileChar);
     else
       Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
@@ -211,7 +211,7 @@ partial class HighlightTests {
 
     Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = initialEofChar);
 
-    if (new Version(4, 6) >= VersionInformations.NativeLibraryVersion)
+    if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
       Assert.AreEqual(initialEofChar, hl.AdditionalEndOfFileChar);
     else
       Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
