@@ -360,7 +360,7 @@ using System;",
       return;
     }
 
-    var github = themeFilesWithDescription.FirstOrDefault(static theme => theme.Description?.StartsWith("Github") ?? false);
+    var github = themeFilesWithDescription.FirstOrDefault(static theme => theme.Description?.StartsWith("Github", StringComparison.Ordinal) ?? false);
 
     Assert.IsNotNull(github.Path, "github.theme path");
     Assert.AreEqual("github", Path.GetFileNameWithoutExtension(github.Path), "github.theme file name");

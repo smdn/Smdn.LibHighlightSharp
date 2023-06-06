@@ -59,7 +59,7 @@ public class AssemblyMetadataTests {
     var resultSmdnLibHighlightSharpBindings = result
       .RootElement
       .EnumerateArray()
-      .FirstOrDefault(static entry => entry.GetProperty("name").GetString()?.StartsWith("Smdn.LibHighlightSharp.Bindings,") ?? false);
+      .FirstOrDefault(static entry => entry.GetProperty("name").GetString()?.StartsWith("Smdn.LibHighlightSharp.Bindings,", StringComparison.Ordinal) ?? false);
 
     Assert.AreEqual(
       JsonValueKind.Object,
@@ -83,7 +83,7 @@ public class AssemblyMetadataTests {
     var resultSmdnLibHighlightSharp = result
       .RootElement
       .EnumerateArray()
-      .FirstOrDefault(static entry => entry.GetProperty("name").GetString()?.StartsWith("Smdn.LibHighlightSharp,") ?? false);
+      .FirstOrDefault(static entry => entry.GetProperty("name").GetString()?.StartsWith("Smdn.LibHighlightSharp,", StringComparison.Ordinal) ?? false);
 
     Assert.AreEqual(
       JsonValueKind.Object,
@@ -94,7 +94,7 @@ public class AssemblyMetadataTests {
     var referencedAssemblyNameSmdnLibHighlightSharpBindings = resultSmdnLibHighlightSharp
       .GetProperty("referencedAssemblies")
       .EnumerateArray()
-      .FirstOrDefault(static element => element.GetString()?.StartsWith("Smdn.LibHighlightSharp.Bindings,") ?? false);
+      .FirstOrDefault(static element => element.GetString()?.StartsWith("Smdn.LibHighlightSharp.Bindings,", StringComparison.Ordinal) ?? false);
 
     Assert.AreEqual(
       JsonValueKind.String,
