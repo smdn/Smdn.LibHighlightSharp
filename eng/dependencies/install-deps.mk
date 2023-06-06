@@ -8,7 +8,7 @@
 #
 install-buildtime-deps-ubuntu.22.04.stamp:
 	sudo rm -rf /var/lib/apt/lists/*
-	sudo apt-update
+	sudo apt-get update
 	sudo apt-get install -y \
 	  autotools-dev \
 	  libboost-dev \
@@ -22,7 +22,7 @@ install-buildtime-deps-ubuntu.22.04: install-buildtime-deps-ubuntu.22.04.stamp
 
 install-buildtime-deps-ubuntu.20.04.stamp:
 	sudo rm -rf /var/lib/apt/lists/*
-	sudo apt-update
+	sudo apt-get update
 	sudo apt-get install -y \
 	  autotools-dev \
 	  libboost-dev \
