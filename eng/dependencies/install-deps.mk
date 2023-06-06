@@ -7,8 +7,10 @@
 # For a list of dependencies, see [../src/README.md].
 #
 install-buildtime-deps-ubuntu.22.04.stamp:
+# refreshes the cached package lists before installing packages
 	sudo rm -rf /var/lib/apt/lists/*
 	sudo apt-get update
+# install the packages
 	sudo apt-get install -y \
 	  autotools-dev \
 	  libboost-dev \
@@ -21,8 +23,10 @@ install-buildtime-deps-ubuntu.22.04.stamp:
 install-buildtime-deps-ubuntu.22.04: install-buildtime-deps-ubuntu.22.04.stamp
 
 install-buildtime-deps-ubuntu.20.04.stamp:
+# refreshes the cached package lists before installing packages
 	sudo rm -rf /var/lib/apt/lists/*
 	sudo apt-get update
+# install the packages
 	sudo apt-get install -y \
 	  autotools-dev \
 	  libboost-dev \
