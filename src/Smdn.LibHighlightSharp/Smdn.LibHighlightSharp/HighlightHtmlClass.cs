@@ -167,7 +167,7 @@ public sealed class HighlightHtmlClass : IEquatable<HighlightHtmlClass>, IEquata
   }
 
   public override int GetHashCode()
-    => ClassName.GetHashCode();
+    => ClassNameEqualityComparer.GetHashCode(ClassName);
 
   public override bool Equals(object? obj)
     => obj switch {

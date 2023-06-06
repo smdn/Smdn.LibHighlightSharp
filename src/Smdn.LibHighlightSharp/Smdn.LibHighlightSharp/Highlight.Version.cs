@@ -39,11 +39,8 @@ partial class Highlight {
   {
     var executingAssembly = Assembly.GetExecutingAssembly();
 
-    var resourceStream = executingAssembly.GetManifestResourceStream(manifestResourceName);
-
-    if (resourceStream is null)
-      throw new InvalidOperationException($"manifest resource named with '{manifestResourceName}' did not find or is invisible.");
-
+    var resourceStream = executingAssembly.GetManifestResourceStream(manifestResourceName)
+      ?? throw new InvalidOperationException($"manifest resource named with '{manifestResourceName}' did not find or is invisible.");
     var assemblyName = executingAssembly.GetName();
     var tempFilePath = Path.Combine(
       Path.GetTempPath(),

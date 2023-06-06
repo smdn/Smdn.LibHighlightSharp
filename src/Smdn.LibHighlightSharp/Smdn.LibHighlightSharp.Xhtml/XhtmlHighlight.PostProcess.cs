@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 // SPDX-License-Identifier: GPL-3.0-or-later
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
@@ -13,6 +14,9 @@ partial class XhtmlHighlight {
     HighlightHtmlClass HighlightClass
   )> EnumerateHighlightedElements(XContainer container)
   {
+    if (container is null)
+      throw new ArgumentNullException(nameof(container));
+
     foreach (var attrClass in container.Descendants(ElementNameXhtmlSpan).Attributes(AttributeNameXhtmlClass)) {
       if (attrClass.Parent is null)
         continue;

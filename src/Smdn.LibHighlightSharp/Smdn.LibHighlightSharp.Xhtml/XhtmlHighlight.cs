@@ -126,8 +126,9 @@ public partial class XhtmlHighlight : Highlight {
         ValidationType = ValidationType.None,
       };
 
+      using var reader = XmlReader.Create(generatedFragmentStream, settings);
       var root = XElement.Load(
-        XmlReader.Create(generatedFragmentStream, settings),
+        reader,
         PreserveWhitespace
           ? LoadOptions.PreserveWhitespace
           : LoadOptions.None
