@@ -260,4 +260,46 @@ partial class Highlight {
 
   public void SetIncludeStyle(bool trueForInclude)
     => CodeGenerator.setIncludeStyle(trueForInclude);
+
+  /// <summary>
+  /// Gets or sets a value for an additional EOF char to look for in stream.
+  /// </summary>
+  /// <value>
+  /// A value that specifies the additional EOF char.
+  /// <see langword="null"/> indicates that the additional EOF char is not set or that the CodeGenerator does not support setting additional EOF char.
+  /// If <see langword="null"/> is set, the additional EOF char is cleared.
+  /// </value>
+  public char? AdditionalEndOfFileChar {
+    get {
+      dynamic generator = CodeGenerator;
+
+      try {
+        var extraEOFChar = generator.getAdditionalEOFChar();
+
+        return extraEOFChar == DefaultExtraEOFChar
+          ? null
+          : (char)extraEOFChar;
+      }
+      catch (RuntimeBinderException) {
+        return null;
+      }
+    }
+    set {
+      dynamic generator = CodeGenerator;
+
+      try {
+        if (value is null)
+          generator.setAdditionalEOFChar();
+        else if (DefaultExtraEOFChar <= value)
+          throw new ArgumentOutOfRangeException(message: "must be in range of 0x00~0xFE", paramName: nameof(AdditionalEndOfFileChar));
+        else
+          generator.setAdditionalEOFChar((byte)value);
+      }
+      catch (RuntimeBinderException) {
+        // ignore
+      }
+    }
+  }
+
+  private const byte DefaultExtraEOFChar = 0xFF;
 }

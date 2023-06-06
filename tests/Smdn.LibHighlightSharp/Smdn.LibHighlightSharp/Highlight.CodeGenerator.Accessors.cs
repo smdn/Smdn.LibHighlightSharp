@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 // SPDX-License-Identifier: GPL-3.0-or-later
+using System;
 using NUnit.Framework;
 
 namespace Smdn.LibHighlightSharp;
@@ -166,5 +167,57 @@ partial class HighlightTests {
       () => EmptyMethodAcceptsNullableString(hl.ThemeCategoryDescription),
       $"get_{nameof(Highlight.ThemeCategoryDescription)}"
     );
+  }
+
+  [TestCase('\x00')] // NULL
+  [TestCase('\x04')] // CTRL-D / EOT (end of transmission)
+  [TestCase('\x1A')] // CTRL-Z / SUB (substitute)
+  [TestCase('\xFE')] // maximum
+  public void AdditionalEndOfFileChar(char eof)
+  {
+    using var hl = new Highlight();
+
+    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = eof);
+
+    if (new Version(4, 6) >= VersionInformations.NativeLibraryVersion)
+      Assert.AreEqual(eof, hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+    else
+      Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+  }
+
+  [TestCase('\xFF')]
+  [TestCase('\u0100')]
+  [TestCase('\uFFFF')]
+  public void AdditionalEndOfFileChar_OutOfRange(char eof)
+  {
+    using var hl = new Highlight();
+    const char initialEofChar = '\x00';
+
+    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = initialEofChar);
+
+    Assert.Throws<ArgumentOutOfRangeException>(() => hl.AdditionalEndOfFileChar = eof);
+
+    if (new Version(4, 6) >= VersionInformations.NativeLibraryVersion)
+      Assert.AreEqual(initialEofChar, hl.AdditionalEndOfFileChar);
+    else
+      Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+  }
+
+  [Test]
+  public void AdditionalEndOfFileChar_SetNull()
+  {
+    using var hl = new Highlight();
+    const char initialEofChar = '\x00';
+
+    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = initialEofChar);
+
+    if (new Version(4, 6) >= VersionInformations.NativeLibraryVersion)
+      Assert.AreEqual(initialEofChar, hl.AdditionalEndOfFileChar);
+    else
+      Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+
+    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = null);
+
+    Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
   }
 }

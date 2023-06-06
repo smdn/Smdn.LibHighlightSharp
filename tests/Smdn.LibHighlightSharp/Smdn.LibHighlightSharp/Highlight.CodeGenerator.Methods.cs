@@ -377,4 +377,32 @@ partial class HighlightTests {
     Assert.IsNotEmpty(generated);
     StringAssert.Contains("\x1b[38;2;", generated);
   }
+
+  [Test]
+  public void Generate_AdditionalEndOfFileChar()
+  {
+    if (VersionInformations.NativeLibraryVersion < new Version(4, 6)) {
+      Assert.Ignore($"not supported: {nameof(Highlight.AdditionalEndOfFileChar)}");
+      return;
+    }
+
+    using var hl = new Highlight(outputType: GeneratorOutputType.Html);
+
+    hl.SetTheme("github");
+    hl.SetSyntax("csharp");
+    hl.AdditionalEndOfFileChar = '\x04'; // CTRL-D / EOT (end of transmission)
+
+    string? generated = null;
+
+    Assert.DoesNotThrow(
+      () => generated = hl.Generate(input: @$"using System;
+{hl.AdditionalEndOfFileChar}
+Console.WriteLine(""Hello, world!"")"
+      )
+    );
+    Assert.IsNotNull(generated);
+    Assert.IsNotEmpty(generated);
+    StringAssert.Contains(">using</", generated);
+    StringAssert.DoesNotContain("Hello, world!", generated);
+  }
 }
