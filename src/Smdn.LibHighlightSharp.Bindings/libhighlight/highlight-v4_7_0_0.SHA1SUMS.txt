@@ -1,0 +1,2 @@
+92b6d6c6ebada6c2eba348b0c9834c50ee584948 *../runtimes/ubuntu.22.04-x64/native/libhighlight-v4_7_0_0.so
+accd9da6ae5a4177a286e3c12e44d5c6cf2d6137 *../runtimes/win-x64/native/highlight-v4_7_0_0.dll
