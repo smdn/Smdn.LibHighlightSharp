@@ -1,1 +1,2 @@
 79474bbf4fec6b6b39d575e411fc74c62998df0e *../runtimes/osx-x64/native/libhighlight-v4_7_0_0.dylib
+33f70ec7cac397ff04fb23815c1f642ba75f3968 *../runtimes/ubuntu.20.04-x64/native/libhighlight-v4_7_0_0.so
