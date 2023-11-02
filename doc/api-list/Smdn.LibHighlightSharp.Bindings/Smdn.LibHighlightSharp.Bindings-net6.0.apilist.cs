@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.7.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.8.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 4.7.0.0
-//   InformationalVersion: 4.7.0+02122285e6e50428991860200d14d2a491f739f2
+//   AssemblyVersion: 4.8.0.0
+//   InformationalVersion: 4.8.0+51976c70f8c42373a9546231906129ee206239cb
 //   TargetFramework: .NETCoreApp,Version=v6.0
 //   Configuration: Release
 //   Referenced assemblies:
