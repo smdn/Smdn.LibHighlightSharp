@@ -169,6 +169,15 @@ partial class HighlightTests {
     );
   }
 
+  [Test]
+  public void AdditionalEndOfFileChar_Default()
+  {
+    using var hl = new Highlight();
+
+    if (new Version(4, 7) <= VersionInformations.NativeLibraryVersion)
+      Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+  }
+
   [TestCase('\x00')] // NULL
   [TestCase('\x04')] // CTRL-D / EOT (end of transmission)
   [TestCase('\x1A')] // CTRL-Z / SUB (substitute)
