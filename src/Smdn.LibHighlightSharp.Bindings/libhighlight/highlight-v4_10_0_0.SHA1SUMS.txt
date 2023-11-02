@@ -1,1 +1,3 @@
 6dbf64988e5ef88daec22680cee12aae6a204c20 *../runtimes/ubuntu.20.04-x64/native/libhighlight-v4_10_0_0.so
+2c12369bf3d0848fedab6b3761ea9772d0ab598d *../runtimes/ubuntu.22.04-x64/native/libhighlight-v4_10_0_0.so
+7bb63e30cf29e5dc63aa01eda1bb214fffaaabc3 *../runtimes/win-x64/native/highlight-v4_10_0_0.dll
