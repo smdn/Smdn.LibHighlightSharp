@@ -1,7 +1,6 @@
 using System;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
+
 using NUnit.Framework;
 
 namespace Smdn.LibHighlightSharp;

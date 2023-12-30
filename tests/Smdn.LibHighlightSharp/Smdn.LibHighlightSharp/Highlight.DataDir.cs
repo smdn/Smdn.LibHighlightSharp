@@ -11,12 +11,12 @@ using NUnit.Framework.Legacy;
 namespace Smdn.LibHighlightSharp;
 
 partial class HighlightTests {
-  private const string customFileTypesConfFileName = "test-file-types.conf";
-  private const string nonDefaultExtensionFileTypesConfFileName = "test-file-types-with-non-default-extension.types";
-  private const string csharpSourceWithExtensionFileName = "testfile_csharp.cs";
-  private const string csharpSourceWithNonDefaultExtensionFileName = "testfile_csharp.cs11";
-  private const string csharpSourceWithoutExtensionFileName = "testfile_csharp";
-  private const string csharpScriptWithoutExtensionFileName = "testfile_csharp_script";
+  private const string CustomFileTypesConfFileName = "test-file-types.conf";
+  private const string NonDefaultExtensionFileTypesConfFileName = "test-file-types-with-non-default-extension.types";
+  private const string CSharpSourceWithExtensionFileName = "testfile_csharp.cs";
+  private const string CSharpSourceWithNonDefaultExtensionFileName = "testfile_csharp.cs11";
+  private const string CSharpSourceWithoutExtensionFileName = "testfile_csharp";
+  private const string CSharpScriptWithoutExtensionFileName = "testfile_csharp_script";
 
   [SetUp]
   public void SetUpTestFiles()
@@ -24,7 +24,7 @@ partial class HighlightTests {
     var utf8nobom = new UTF8Encoding(false);
 
     File.WriteAllText(
-      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, customFileTypesConfFileName),
+      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, CustomFileTypesConfFileName),
       contents: @"
 FileMapping = {
   { Lang=""csharp"", Extensions={ ""cs"", ""cs11"" } },
@@ -33,28 +33,28 @@ FileMapping = {
       encoding: utf8nobom
     );
     File.WriteAllText(
-      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, nonDefaultExtensionFileTypesConfFileName),
+      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, NonDefaultExtensionFileTypesConfFileName),
       contents: "FileMapping = {}",
       encoding: utf8nobom
     );
 
     File.WriteAllText(
-      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, csharpSourceWithExtensionFileName),
+      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, CSharpSourceWithExtensionFileName),
       contents: "using System;",
       encoding: utf8nobom
     );
     File.WriteAllText(
-      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, csharpSourceWithNonDefaultExtensionFileName),
+      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, CSharpSourceWithNonDefaultExtensionFileName),
       contents: "using System;",
       encoding: utf8nobom
     );
     File.WriteAllText(
-      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, csharpSourceWithoutExtensionFileName),
+      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, CSharpSourceWithoutExtensionFileName),
       contents: "using System;",
       encoding: utf8nobom
     );
     File.WriteAllText(
-      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, csharpScriptWithoutExtensionFileName),
+      path: Path.Combine(TestContext.CurrentContext.WorkDirectory, CSharpScriptWithoutExtensionFileName),
       contents: @"#!/usr/bin/env csharp
 using System;",
       encoding: utf8nobom
@@ -67,7 +67,7 @@ using System;",
     using var hl = new Highlight();
 
     void Action() => hl.LoadFileTypesConfig(
-      Path.Combine(TestContext.CurrentContext.WorkDirectory, customFileTypesConfFileName)
+      Path.Combine(TestContext.CurrentContext.WorkDirectory, CustomFileTypesConfFileName)
     );
 
     if (Highlight.MinimumVersionSupportingLoadFileTypesConfig <= VersionInformations.NativeLibraryVersion)
@@ -82,7 +82,7 @@ using System;",
     using var hl = new Highlight();
 
     void Action() => hl.LoadFileTypesConfig(
-      Path.Combine(TestContext.CurrentContext.WorkDirectory, nonDefaultExtensionFileTypesConfFileName)
+      Path.Combine(TestContext.CurrentContext.WorkDirectory, NonDefaultExtensionFileTypesConfFileName)
     );
 
     if (Highlight.MinimumVersionSupportingLoadFileTypesConfig <= VersionInformations.NativeLibraryVersion)
@@ -98,7 +98,7 @@ using System;",
 
     string? fileType = null;
 
-    void Action() => fileType = hl.GuessFileType(Path.Combine(TestContext.CurrentContext.WorkDirectory, csharpSourceWithExtensionFileName));
+    void Action() => fileType = hl.GuessFileType(Path.Combine(TestContext.CurrentContext.WorkDirectory, CSharpSourceWithExtensionFileName));
 
     if (Highlight.MinimumVersionSupportingGuessFileType <= VersionInformations.NativeLibraryVersion) {
       Assert.DoesNotThrow(Action);
@@ -112,10 +112,10 @@ using System;",
     }
   }
 
-  [TestCase(csharpSourceWithExtensionFileName, "cs")]
-  [TestCase(csharpSourceWithNonDefaultExtensionFileName, "cs11")]
-  [TestCase(csharpSourceWithoutExtensionFileName, "")]
-  [TestCase(csharpScriptWithoutExtensionFileName, "")]
+  [TestCase(CSharpSourceWithExtensionFileName, "cs")]
+  [TestCase(CSharpSourceWithNonDefaultExtensionFileName, "cs11")]
+  [TestCase(CSharpSourceWithoutExtensionFileName, "")]
+  [TestCase(CSharpScriptWithoutExtensionFileName, "")]
   public void GuessFileType_FileTypesConfigNotLoaded(string file, string expected)
   {
     if (VersionInformations.NativeLibraryVersion <= Highlight.MinimumVersionSupportingGuessFileType) {
@@ -135,10 +135,10 @@ using System;",
 
   private static System.Collections.IEnumerable YieldTestCases_GuessFileType_DefaultFileTypesConfigLoaded()
   {
-    yield return new object[] { csharpSourceWithExtensionFileName, "csharp" }; // proper file type must be returned in this case
-    yield return new object[] { csharpSourceWithNonDefaultExtensionFileName, "cs11" }; // file extension must be returned in this case
-    yield return new object[] { csharpSourceWithoutExtensionFileName, "" }; // file extension must be returned in this case
-    yield return new object[] { csharpScriptWithoutExtensionFileName, 4 <= VersionInformations.NativeLibraryVersion.Major ? "shellscript" : "sh" }; // file type must be misdetected as 'sh'
+    yield return new object[] { CSharpSourceWithExtensionFileName, "csharp" }; // proper file type must be returned in this case
+    yield return new object[] { CSharpSourceWithNonDefaultExtensionFileName, "cs11" }; // file extension must be returned in this case
+    yield return new object[] { CSharpSourceWithoutExtensionFileName, "" }; // file extension must be returned in this case
+    yield return new object[] { CSharpScriptWithoutExtensionFileName, 4 <= VersionInformations.NativeLibraryVersion.Major ? "shellscript" : "sh" }; // file type must be misdetected as 'sh'
   }
 
   [TestCaseSource(nameof(YieldTestCases_GuessFileType_DefaultFileTypesConfigLoaded))]
@@ -164,10 +164,10 @@ using System;",
     );
   }
 
-  [TestCase(csharpSourceWithExtensionFileName, "csharp")]
-  [TestCase(csharpSourceWithNonDefaultExtensionFileName, "csharp")]
-  [TestCase(csharpSourceWithoutExtensionFileName, "")]
-  [TestCase(csharpScriptWithoutExtensionFileName, "csharp")]
+  [TestCase(CSharpSourceWithExtensionFileName, "csharp")]
+  [TestCase(CSharpSourceWithNonDefaultExtensionFileName, "csharp")]
+  [TestCase(CSharpSourceWithoutExtensionFileName, "")]
+  [TestCase(CSharpScriptWithoutExtensionFileName, "csharp")]
   public void GuessFileType_CustomFileTypesConfigLoaded(string file, string expected)
   {
     if (VersionInformations.NativeLibraryVersion <= Highlight.MinimumVersionSupportingGuessFileType) {
@@ -181,7 +181,7 @@ using System;",
 
     using var hl = new Highlight();
 
-    hl.LoadFileTypesConfig(Path.Combine(TestContext.CurrentContext.WorkDirectory, customFileTypesConfFileName));
+    hl.LoadFileTypesConfig(Path.Combine(TestContext.CurrentContext.WorkDirectory, CustomFileTypesConfFileName));
 
     // guessed file type must be returned in this case
     Assert.That(

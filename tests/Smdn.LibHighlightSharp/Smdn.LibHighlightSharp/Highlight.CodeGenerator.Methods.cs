@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.IO;
+
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 
@@ -60,17 +61,17 @@ partial class HighlightTests {
   [Test]
   public void SetSyntax_NonExistent([Values(true, false)] bool fromFile)
   {
-    const string syntaxName = "non-existent-syntax";
+    const string SyntaxName = "non-existent-syntax";
     using var hl = new Highlight();
 
     var ex = Assert.Throws<HighlightSyntaxException>(() => {
       if (fromFile)
-        hl.SetSyntaxFromFile(syntaxName);
+        hl.SetSyntaxFromFile(SyntaxName);
       else
-        hl.SetSyntax(syntaxName);
+        hl.SetSyntax(SyntaxName);
     })!;
 
-    Assert.That(ex.LangFilePath, Does.Contain(syntaxName + (fromFile ? string.Empty : ".lang")));
+    Assert.That(ex.LangFilePath, Does.Contain(SyntaxName + (fromFile ? string.Empty : ".lang")));
     Assert.That(ex.Reason, Is.Not.EqualTo(Bindings.LoadResult.LOAD_OK));
   }
 
@@ -166,34 +167,34 @@ partial class HighlightTests {
   [Test]
   public void SetTheme_NonExistent([Values(true, false)] bool fromFile)
   {
-    const string themeName = "non-existent-theme";
+    const string ThemeName = "non-existent-theme";
     using var hl = new Highlight();
 
     var ex = Assert.Throws<HighlightThemeException>(() => {
       if (fromFile)
-        hl.SetThemeFromFile(themeName);
+        hl.SetThemeFromFile(ThemeName);
       else
-        hl.SetTheme(themeName);
+        hl.SetTheme(ThemeName);
     })!;
 
-    Assert.That(ex.ThemeFilePath, Does.Contain(themeName + (fromFile ? string.Empty : ".theme")));
+    Assert.That(ex.ThemeFilePath, Does.Contain(ThemeName + (fromFile ? string.Empty : ".theme")));
     Assert.That(ex.Reason, Is.Not.Empty);
   }
 
   [Test]
   public void SetThemeBase16_NonExistent()
   {
-    const string themeName = "non-existent-theme";
+    const string ThemeName = "non-existent-theme";
     using var hl = new Highlight();
 
-    void Action() => hl.SetThemeBase16(themeName);
+    void Action() => hl.SetThemeBase16(ThemeName);
 
     if (Highlight.MinimumVersionSupportingBase16Themes <= VersionInformations.NativeLibraryVersion) {
       var ex = Assert.Throws<HighlightThemeException>(Action)!;
 
       Assert.That(
         ex.ThemeFilePath
-, Does.Contain(Path.Join("base16", themeName + ".theme")));
+, Does.Contain(Path.Join("base16", ThemeName + ".theme")));
       Assert.That(ex.Reason, Is.Not.Empty);
     }
     else {
@@ -236,7 +237,7 @@ partial class HighlightTests {
   [Test]
   public void Generate_FromFileToFile()
   {
-    const string outputFilePath = $"generated-{nameof(Generate_FromFileToFile)}.html";
+    const string OutputFilePath = $"generated-{nameof(Generate_FromFileToFile)}.html";
 
     using var hl = new Highlight(outputType: GeneratorOutputType.Html);
 
@@ -244,31 +245,31 @@ partial class HighlightTests {
     hl.SetSyntax("csharp");
 
     try {
-      Assert.DoesNotThrow(() => hl.Generate(inputPath: GetThisFilePath(), outputPath: outputFilePath));
+      Assert.DoesNotThrow(() => hl.Generate(inputPath: GetThisFilePath(), outputPath: OutputFilePath));
 
-      FileAssert.Exists(outputFilePath);
+      FileAssert.Exists(OutputFilePath);
 
-      var generated = File.ReadAllText(outputFilePath);
+      var generated = File.ReadAllText(OutputFilePath);
 
       Assert.That(generated, Is.Not.Empty);
       Assert.That(generated, Does.Contain(">" + nameof(Generate_FromFileToFile) + "</"));
     }
     finally {
-      File.Delete(outputFilePath);
+      File.Delete(OutputFilePath);
     }
   }
 
   [Test]
   public void Generate_FromFileToFile_InvalidCallingOrder()
   {
-    const string outputFilePath = $"generated-{nameof(Generate_FromFileToFile_InvalidCallingOrder)}.html";
+    const string OutputFilePath = $"generated-{nameof(Generate_FromFileToFile_InvalidCallingOrder)}.html";
 
     using var hl = new Highlight(outputType: GeneratorOutputType.Html);
 
     hl.SetSyntax("csharp");
     hl.SetTheme("github");
 
-    void Action() => hl.Generate(inputPath: GetThisFilePath(), outputPath: outputFilePath);
+    void Action() => hl.Generate(inputPath: GetThisFilePath(), outputPath: OutputFilePath);
 
     try {
       if (4 <= VersionInformations.NativeLibraryVersion.Major)
@@ -277,7 +278,7 @@ partial class HighlightTests {
         Assert.DoesNotThrow(Action);
     }
     finally {
-      File.Delete(outputFilePath);
+      File.Delete(OutputFilePath);
     }
   }
 

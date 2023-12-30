@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+
 using NUnit.Framework;
 
 namespace Smdn.LibHighlightSharp;
@@ -200,14 +201,14 @@ partial class HighlightTests {
   public void AdditionalEndOfFileChar_OutOfRange(char eof)
   {
     using var hl = new Highlight();
-    const char initialEofChar = '\x00';
+    const char InitialEofChar = '\x00';
 
-    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = initialEofChar);
+    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = InitialEofChar);
 
     Assert.Throws<ArgumentOutOfRangeException>(() => hl.AdditionalEndOfFileChar = eof);
 
     if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
-      Assert.That(hl.AdditionalEndOfFileChar, Is.EqualTo(initialEofChar));
+      Assert.That(hl.AdditionalEndOfFileChar, Is.EqualTo(InitialEofChar));
     else
       Assert.That(hl.AdditionalEndOfFileChar, Is.Null, nameof(hl.AdditionalEndOfFileChar));
   }
@@ -216,12 +217,12 @@ partial class HighlightTests {
   public void AdditionalEndOfFileChar_SetNull()
   {
     using var hl = new Highlight();
-    const char initialEofChar = '\x00';
+    const char InitialEofChar = '\x00';
 
-    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = initialEofChar);
+    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = InitialEofChar);
 
     if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
-      Assert.That(hl.AdditionalEndOfFileChar, Is.EqualTo(initialEofChar));
+      Assert.That(hl.AdditionalEndOfFileChar, Is.EqualTo(InitialEofChar));
     else
       Assert.That(hl.AdditionalEndOfFileChar, Is.Null, nameof(hl.AdditionalEndOfFileChar));
 

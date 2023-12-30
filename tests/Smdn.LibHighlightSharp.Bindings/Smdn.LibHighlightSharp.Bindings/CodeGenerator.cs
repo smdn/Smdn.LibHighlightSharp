@@ -5,7 +5,9 @@ namespace Smdn.LibHighlightSharp.Bindings;
 [TestFixture]
 public class CodeGeneratorTests {
   [Test]
+#pragma warning disable IDE1006
   public void getInstance()
+#pragma warning restore IDE1006
   {
     CodeGenerator? gen = null;
 

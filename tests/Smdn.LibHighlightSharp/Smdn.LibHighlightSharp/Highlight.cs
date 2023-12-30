@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+
 using NUnit.Framework;
 
 namespace Smdn.LibHighlightSharp;
@@ -81,7 +82,7 @@ public partial class HighlightTests {
     using var dataDir = new DataDirEx();
     using var hl = new Highlight(dataDir: dataDir, shouldDisposeDataDir: shouldDisposeDataDir);
 
-    Assert.DoesNotThrow(() => hl.Dispose());
+    Assert.DoesNotThrow(hl.Dispose);
 
     Assert.That(dataDir.OwnsSwigCMem, Is.EqualTo(!shouldDisposeDataDir));
   }
@@ -93,7 +94,7 @@ public partial class HighlightTests {
     using var dataDirForThemes = new DataDirEx();
     using var hl = new Highlight(dataDirForSyntaxes: dataDirForSyntaxes, dataDirForThemes: dataDirForThemes, shouldDisposeDataDir: shouldDisposeDataDir);
 
-    Assert.DoesNotThrow(() => hl.Dispose());
+    Assert.DoesNotThrow(hl.Dispose);
 
     Assert.That(dataDirForSyntaxes.OwnsSwigCMem, Is.EqualTo(!shouldDisposeDataDir));
     Assert.That(dataDirForThemes.OwnsSwigCMem, Is.EqualTo(!shouldDisposeDataDir));
@@ -136,8 +137,8 @@ public partial class HighlightTests {
     Assert.DoesNotThrow(() => hl.SetSyntax("csharp"));
     Assert.DoesNotThrow(() => hl.Generate("using System;"));
 
-    Assert.DoesNotThrow(() => hl.Dispose(), "dispose #1");
-    Assert.DoesNotThrow(() => hl.Dispose(), "dispose #2");
+    Assert.DoesNotThrow(hl.Dispose, "dispose #1");
+    Assert.DoesNotThrow(hl.Dispose, "dispose #2");
 
     Assert.Throws<ObjectDisposedException>(() => hl.Title = string.Empty);
     Assert.Throws<ObjectDisposedException>(() => hl.SetSyntax("csharp"));
@@ -186,7 +187,8 @@ public partial class HighlightTests {
   [Test]
   public void GeneratorInformationalVersion_FailedToLoadThemeOrSyntax()
   {
-    var testAction = () => Assert.That(Highlight.GeneratorInformationalVersion, Is.Empty);
+    static void TestAction()
+      => Assert.That(Highlight.GeneratorInformationalVersion, Is.Empty);
 
     // HACK: force reset backing field to null
     var backingField = typeof(Highlight).GetField("generatorInformationalVersion", BindingFlags.Static | BindingFlags.NonPublic);
@@ -195,11 +197,11 @@ public partial class HighlightTests {
 
     try {
       if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Windows(testAction);
+        GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Windows(TestAction);
       else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Unix(testAction);
+        GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Unix(TestAction);
       else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Unix(testAction);
+        GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Unix(TestAction);
       else
         Assert.Ignore($"undefined platform: {RuntimeInformation.OSDescription}");
     }
@@ -210,8 +212,8 @@ public partial class HighlightTests {
 
   private void GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Unix(Action testAction)
   {
-    const string envvarNameTMPDIR = "TMPDIR";
-    var envvarTMPDIR = Environment.GetEnvironmentVariable(envvarNameTMPDIR, EnvironmentVariableTarget.Process);
+    const string EnvVarNameTMPDIR = "TMPDIR";
+    var envvarTMPDIR = Environment.GetEnvironmentVariable(EnvVarNameTMPDIR, EnvironmentVariableTarget.Process);
 
     try {
       var nonexistentDirectory = Path.Combine(
@@ -224,19 +226,19 @@ public partial class HighlightTests {
         return;
       }
 
-      Environment.SetEnvironmentVariable(envvarNameTMPDIR, nonexistentDirectory, EnvironmentVariableTarget.Process);
+      Environment.SetEnvironmentVariable(EnvVarNameTMPDIR, nonexistentDirectory, EnvironmentVariableTarget.Process);
 
       testAction();
     }
     finally {
-      Environment.SetEnvironmentVariable(envvarNameTMPDIR, envvarTMPDIR, EnvironmentVariableTarget.Process);
+      Environment.SetEnvironmentVariable(EnvVarNameTMPDIR, envvarTMPDIR, EnvironmentVariableTarget.Process);
     }
   }
 
   private void GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Windows(Action testAction)
   {
-    const string envvarNameTMP = "TMP";
-    var envvarTMP = Environment.GetEnvironmentVariable(envvarNameTMP, EnvironmentVariableTarget.Process);
+    const string EnvVarNameTMP = "TMP";
+    var envvarTMP = Environment.GetEnvironmentVariable(EnvVarNameTMP, EnvironmentVariableTarget.Process);
 
     try {
       var nonexistentDirectory = Path.Combine(
@@ -249,12 +251,12 @@ public partial class HighlightTests {
         return;
       }
 
-      Environment.SetEnvironmentVariable(envvarNameTMP, nonexistentDirectory, EnvironmentVariableTarget.Process);
+      Environment.SetEnvironmentVariable(EnvVarNameTMP, nonexistentDirectory, EnvironmentVariableTarget.Process);
 
       testAction();
     }
     finally {
-      Environment.SetEnvironmentVariable(envvarNameTMP, envvarTMP, EnvironmentVariableTarget.Process);
+      Environment.SetEnvironmentVariable(EnvVarNameTMP, envvarTMP, EnvironmentVariableTarget.Process);
     }
   }
 }

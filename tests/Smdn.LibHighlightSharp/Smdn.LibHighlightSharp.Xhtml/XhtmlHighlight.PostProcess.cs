@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+
 using NUnit.Framework;
 
 namespace Smdn.LibHighlightSharp.Xhtml;
@@ -68,14 +69,14 @@ partial class XhtmlHighlightTests {
     xhl.SetTheme("github");
     xhl.SetSyntax("csharp");
 
-    const string input = "using System;";
+    const string Input = "using System;";
 
     Assert.That(xhl.ReverseGeneratedInput, Is.Null, "PostProcessXhtml must not be called yet at this time.");
 
-    xhl.GenerateXhtmlDocument(input);
+    xhl.GenerateXhtmlDocument(Input);
 
     Assert.That(xhl.ReverseGeneratedInput, Is.Not.Null, "PostProcessXhtml must be called at this time.");
-    Assert.That(xhl.ReverseGeneratedInput, Does.Contain(input));
+    Assert.That(xhl.ReverseGeneratedInput, Does.Contain(Input));
   }
 
   [Test]
@@ -86,13 +87,13 @@ partial class XhtmlHighlightTests {
     xhl.SetTheme("github");
     xhl.SetSyntax("csharp");
 
-    const string input = "using System;";
+    const string Input = "using System;";
 
     Assert.That(xhl.ReverseGeneratedInput, Is.Null, "PostProcessXhtml must not be called yet at this time.");
 
-    xhl.GenerateXhtmlFragment(input);
+    xhl.GenerateXhtmlFragment(Input);
 
     Assert.That(xhl.ReverseGeneratedInput, Is.Not.Null, "PostProcessXhtml must be called at this time.");
-    Assert.That(xhl.ReverseGeneratedInput, Does.Contain(input));
+    Assert.That(xhl.ReverseGeneratedInput, Does.Contain(Input));
   }
 }
