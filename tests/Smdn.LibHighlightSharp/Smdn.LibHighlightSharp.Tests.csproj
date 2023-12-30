@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
   <Import Project="$(MSBuildThisFileDirectory)..\..\src\Highlight.Build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks Condition=" '$(EnableTargetFrameworkDotNet)' == 'true' ">net6.0</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(EnableTargetFrameworkDotNet)' == 'true' ">net8.0;net6.0</TargetFrameworks>
     <TargetFrameworks Condition=" '$(EnableTargetFrameworkNetFx)' == 'true' ">$(TargetFrameworks)</TargetFrameworks>
     <Nullable>enable</Nullable>
     <RequireToInstallCIRuntimeDependencies>true</RequireToInstallCIRuntimeDependencies>
