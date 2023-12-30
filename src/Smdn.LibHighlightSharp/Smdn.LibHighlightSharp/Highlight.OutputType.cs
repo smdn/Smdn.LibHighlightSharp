@@ -8,6 +8,7 @@ namespace Smdn.LibHighlightSharp;
 #pragma warning disable IDE0040
 partial class Highlight {
 #pragma warning restore IDE0040
+#pragma warning disable CA1859
   private static readonly IReadOnlyDictionary<GeneratorOutputType, string> GeneratorOutputTypeValueToNameMap
     = new Dictionary<GeneratorOutputType, string>() {
       [GeneratorOutputType.Html] = "HTML",
@@ -23,6 +24,7 @@ partial class Highlight {
       [GeneratorOutputType.Odt] = "ODTFLAT",
       [GeneratorOutputType.EscapeSequencesTrueColor] = "ESC_TRUECOLOR",
     };
+#pragma warning restore CA1859
 
   /// <summary>
   /// Converts the value of <see cref="GeneratorOutputType"/> to <see cref="Bindings.OutputType"/>.

@@ -16,7 +16,7 @@ public sealed class HighlightHtmlClass : IEquatable<HighlightHtmlClass>, IEquata
 
   // XHTML attribute values are case sensitive
   // ref: https://stackoverflow.com/questions/12533926/are-class-names-in-css-selectors-case-sensitive
-  private static readonly IEqualityComparer<string> ClassNameEqualityComparer = StringComparer.Ordinal;
+  private static readonly StringComparer ClassNameEqualityComparer = StringComparer.Ordinal;
   private static readonly StringComparison ClassNameComparison = StringComparison.Ordinal;
 
   internal const string CommonPrefix = "hl ";
@@ -60,7 +60,9 @@ public sealed class HighlightHtmlClass : IEquatable<HighlightHtmlClass>, IEquata
 
   private static readonly IReadOnlyDictionary<string, HighlightHtmlClass> ClassNameMap = InitializeClassNameMap();
 
+#pragma warning disable CA1859
   private static IReadOnlyDictionary<string, HighlightHtmlClass> InitializeClassNameMap()
+#pragma warning restore CA1859
   {
     var map = new Dictionary<string, HighlightHtmlClass>(ClassNameEqualityComparer);
     var typeOfHighlightHtmlClass = typeof(HighlightHtmlClass);
