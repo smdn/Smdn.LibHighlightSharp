@@ -185,10 +185,12 @@ public partial class Highlight : IDisposable {
   )
   {
     this.dataDirForSyntaxes = dataDirForSyntaxes.DataDir ?? throw new ArgumentNullException(nameof(dataDirForSyntaxes));
-    this.UserDefinedDataDirPathForSyntaxes = dataDirForSyntaxes.UserDefinedDirPath;
+
+    UserDefinedDataDirPathForSyntaxes = dataDirForSyntaxes.UserDefinedDirPath;
 
     this.dataDirForThemes = dataDirForThemes.DataDir ?? throw new ArgumentNullException(nameof(dataDirForThemes));
-    this.UserDefinedDataDirPathForThemes = dataDirForThemes.UserDefinedDirPath;
+
+    UserDefinedDataDirPathForThemes = dataDirForThemes.UserDefinedDirPath;
 
     OutputType = outputType;
 
