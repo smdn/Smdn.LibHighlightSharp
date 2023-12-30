@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: 2023 smdn <smdn@smdn.jp>
+# SPDX-License-Identifier: MIT
+#
+# EditorConfig is awesome: https://EditorConfig.org
+
+[Smdn.LibHighlightSharp.Bindings/highlight-*/*.cs]
+generated_code = true
