@@ -1,6 +1,7 @@
 using System.IO;
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 [TestFixture]
 public class Test {
