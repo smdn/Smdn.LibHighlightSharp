@@ -17,7 +17,7 @@ partial class HighlightTests {
       hl.PrintLineNumbers = true;
       hl.PrintLineNumbers = false;
 
-      Assert.IsNotNull(hl.PrintLineNumbers);
+      Assert.That(hl.PrintLineNumbers, Is.False);
     });
   }
 
@@ -30,7 +30,7 @@ partial class HighlightTests {
       hl.LineNumberZeroPadding = true;
       hl.LineNumberZeroPadding = false;
 
-      Assert.IsNotNull(hl.LineNumberZeroPadding);
+      Assert.That(hl.LineNumberZeroPadding, Is.False);
     });
   }
 
@@ -43,7 +43,7 @@ partial class HighlightTests {
       hl.Fragment = true;
       hl.Fragment = false;
 
-      Assert.IsNotNull(hl.Fragment);
+      Assert.That(hl.Fragment, Is.False);
     });
   }
 
@@ -56,7 +56,7 @@ partial class HighlightTests {
       hl.LineNumberWidth = 1;
       hl.LineNumberWidth = 2;
 
-      Assert.IsNotNull(hl.LineNumberWidth);
+      Assert.That(hl.LineNumberWidth, Is.EqualTo(2));
     });
   }
 
@@ -73,7 +73,7 @@ partial class HighlightTests {
       $"set_{nameof(Highlight.OmitVersionComment)}"
     );
     Assert.DoesNotThrow(
-      () => Assert.IsNotNull(hl.OmitVersionComment),
+      () => Assert.That(hl.OmitVersionComment, Is.False),
       $"get_{nameof(Highlight.OmitVersionComment)}"
     );
   }
@@ -92,7 +92,7 @@ partial class HighlightTests {
       $"set_{nameof(Highlight.IsolateTags)}"
     );
     Assert.DoesNotThrow(
-      () => Assert.IsNotNull(hl.IsolateTags),
+      () => Assert.That(hl.IsolateTags, Is.False),
       $"get_{nameof(Highlight.IsolateTags)}"
     );
   }
@@ -175,7 +175,7 @@ partial class HighlightTests {
     using var hl = new Highlight();
 
     if (new Version(4, 7) <= VersionInformations.NativeLibraryVersion)
-      Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+      Assert.That(hl.AdditionalEndOfFileChar, Is.Null, nameof(hl.AdditionalEndOfFileChar));
   }
 
   [TestCase('\x00')] // NULL
@@ -189,9 +189,9 @@ partial class HighlightTests {
     Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = eof);
 
     if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
-      Assert.AreEqual(eof, hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+      Assert.That(hl.AdditionalEndOfFileChar, Is.EqualTo(eof), nameof(hl.AdditionalEndOfFileChar));
     else
-      Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+      Assert.That(hl.AdditionalEndOfFileChar, Is.Null, nameof(hl.AdditionalEndOfFileChar));
   }
 
   [TestCase('\xFF')]
@@ -207,9 +207,9 @@ partial class HighlightTests {
     Assert.Throws<ArgumentOutOfRangeException>(() => hl.AdditionalEndOfFileChar = eof);
 
     if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
-      Assert.AreEqual(initialEofChar, hl.AdditionalEndOfFileChar);
+      Assert.That(hl.AdditionalEndOfFileChar, Is.EqualTo(initialEofChar));
     else
-      Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+      Assert.That(hl.AdditionalEndOfFileChar, Is.Null, nameof(hl.AdditionalEndOfFileChar));
   }
 
   [Test]
@@ -221,12 +221,12 @@ partial class HighlightTests {
     Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = initialEofChar);
 
     if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
-      Assert.AreEqual(initialEofChar, hl.AdditionalEndOfFileChar);
+      Assert.That(hl.AdditionalEndOfFileChar, Is.EqualTo(initialEofChar));
     else
-      Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+      Assert.That(hl.AdditionalEndOfFileChar, Is.Null, nameof(hl.AdditionalEndOfFileChar));
 
     Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = null);
 
-    Assert.IsNull(hl.AdditionalEndOfFileChar, nameof(hl.AdditionalEndOfFileChar));
+    Assert.That(hl.AdditionalEndOfFileChar, Is.Null, nameof(hl.AdditionalEndOfFileChar));
   }
 }

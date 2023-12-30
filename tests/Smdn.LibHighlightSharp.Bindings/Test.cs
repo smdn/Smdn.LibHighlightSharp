@@ -63,7 +63,7 @@ public class SwigBindingTests {
 
     Assert.DoesNotThrow(() => nativeLibraryHandle = NativeLibrary.Load(nativeLibraryFilePath)); // maybe already loaded
 
-    Assert.AreNotEqual(IntPtr.Zero, nativeLibraryHandle);
+    Assert.That(nativeLibraryHandle, Is.Not.EqualTo(IntPtr.Zero));
 #endif
   }
 
@@ -82,49 +82,49 @@ public class SwigBindingTests {
 
     var win32VersionResource = System.Diagnostics.FileVersionInfo.GetVersionInfo(nativeLibraryFilePath);
 
-    Assert.IsNotNull(win32VersionResource);
-    Assert.AreEqual(
-      win32VersionResource.ProductMajorPart,
+    Assert.That(win32VersionResource, Is.Not.Null);
+    Assert.That(
       VersionInformations.NativeLibraryVersion.Major,
+      Is.EqualTo(win32VersionResource.ProductMajorPart),
       nameof(win32VersionResource.ProductMajorPart)
     );
-    Assert.AreEqual(
-      win32VersionResource.ProductMinorPart,
+    Assert.That(
       VersionInformations.NativeLibraryVersion.Minor,
+      Is.EqualTo(win32VersionResource.ProductMinorPart),
       nameof(win32VersionResource.ProductMinorPart)
     );
-    Assert.AreEqual(
-      win32VersionResource.ProductName,
+    Assert.That(
       $"Highlight v{VersionInformations.NativeLibraryVersion.Major}.{VersionInformations.NativeLibraryVersion.Minor}",
+      Is.EqualTo(win32VersionResource.ProductName),
       nameof(win32VersionResource.ProductName)
     );
-    Assert.AreEqual(
-      win32VersionResource.FileMajorPart,
+    Assert.That(
       VersionInformations.NativeLibraryVersion.Major,
+      Is.EqualTo(win32VersionResource.FileMajorPart),
       nameof(win32VersionResource.FileMajorPart)
     );
-    Assert.AreEqual(
-      win32VersionResource.FileMinorPart,
+    Assert.That(
       VersionInformations.NativeLibraryVersion.Minor,
+      Is.EqualTo(win32VersionResource.FileMinorPart),
       nameof(win32VersionResource.ProductMinorPart)
     );
-    Assert.AreEqual(
-      win32VersionResource.InternalName,
+    Assert.That(
       VersionInformations.NativeLibraryName,
+      Is.EqualTo(win32VersionResource.InternalName),
       nameof(win32VersionResource.InternalName)
     );
-    Assert.AreEqual(
-      win32VersionResource.OriginalFilename,
+    Assert.That(
       VersionInformations.NativeLibraryFileName,
+      Is.EqualTo(win32VersionResource.OriginalFilename),
       nameof(win32VersionResource.OriginalFilename)
     );
-    Assert.AreEqual(
-      "GNU General Public License v3.0",
+    Assert.That(
       win32VersionResource.LegalTrademarks,
+      Is.EqualTo("GNU General Public License v3.0"),
       nameof(win32VersionResource.LegalTrademarks)
     );
-    StringAssert.Contains("smdn", win32VersionResource.LegalCopyright, nameof(win32VersionResource.LegalCopyright));
-    StringAssert.Contains("smdn.jp", win32VersionResource.CompanyName, nameof(win32VersionResource.CompanyName));
+    Assert.That(win32VersionResource.LegalCopyright, Does.Contain("smdn"), nameof(win32VersionResource.LegalCopyright));
+    Assert.That(win32VersionResource.CompanyName, Does.Contain("smdn.jp"), nameof(win32VersionResource.CompanyName));
 
     TestContext.WriteLine($"{nameof(win32VersionResource.Comments)}: {win32VersionResource.Comments}");
   }
@@ -136,7 +136,7 @@ public class SwigBindingTests {
 
     try {
       Assert.DoesNotThrow(() => generator = CodeGenerator.getInstance(OutputType.HTML));
-      Assert.IsNotNull(generator);
+      Assert.That(generator, Is.Not.Null);
       Assert.DoesNotThrow(() => generator!.getFragmentCode());
       Assert.DoesNotThrow(() => generator!.Dispose());
     }

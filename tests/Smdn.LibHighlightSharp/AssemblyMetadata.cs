@@ -61,9 +61,9 @@ public class AssemblyMetadataTests {
       .EnumerateArray()
       .FirstOrDefault(static entry => entry.GetProperty("name").GetString()?.StartsWith("Smdn.LibHighlightSharp.Bindings,", StringComparison.Ordinal) ?? false);
 
-    Assert.AreEqual(
-      JsonValueKind.Object,
+    Assert.That(
       resultSmdnLibHighlightSharpBindings.ValueKind,
+      Is.EqualTo(JsonValueKind.Object),
       nameof(resultSmdnLibHighlightSharpBindings)
     );
 
@@ -71,9 +71,9 @@ public class AssemblyMetadataTests {
       .GetProperty("name")
       .GetString();
 
-    StringAssert.StartsWith(
-      $"Smdn.LibHighlightSharp.Bindings, Version={new Version(TestConstants.ExpectedBindingsVersionString)}",
+    Assert.That(
       mameSmdnLibHighlightSharpBindings,
+      Does.StartWith($"Smdn.LibHighlightSharp.Bindings, Version={new Version(TestConstants.ExpectedBindingsVersionString)}"),
       "must be Smdn.LibHighlightSharp.Bindings, Version=<specific-version>"
     );
 
@@ -85,9 +85,9 @@ public class AssemblyMetadataTests {
       .EnumerateArray()
       .FirstOrDefault(static entry => entry.GetProperty("name").GetString()?.StartsWith("Smdn.LibHighlightSharp,", StringComparison.Ordinal) ?? false);
 
-    Assert.AreEqual(
-      JsonValueKind.Object,
+    Assert.That(
       resultSmdnLibHighlightSharp.ValueKind,
+      Is.EqualTo(JsonValueKind.Object),
       nameof(resultSmdnLibHighlightSharp)
     );
 
@@ -96,15 +96,14 @@ public class AssemblyMetadataTests {
       .EnumerateArray()
       .FirstOrDefault(static element => element.GetString()?.StartsWith("Smdn.LibHighlightSharp.Bindings,", StringComparison.Ordinal) ?? false);
 
-    Assert.AreEqual(
-      JsonValueKind.String,
-      referencedAssemblyNameSmdnLibHighlightSharpBindings.ValueKind,
+    Assert.That(
+      referencedAssemblyNameSmdnLibHighlightSharpBindings.ValueKind, Is.EqualTo(JsonValueKind.String),
       nameof(referencedAssemblyNameSmdnLibHighlightSharpBindings)
     );
 
-    StringAssert.StartsWith(
-      $"Smdn.LibHighlightSharp.Bindings, Version={new Version(TestConstants.ExpectedBindingsReferenceVersionString)}",
+    Assert.That(
       referencedAssemblyNameSmdnLibHighlightSharpBindings.GetString(),
+      Does.StartWith($"Smdn.LibHighlightSharp.Bindings, Version={new Version(TestConstants.ExpectedBindingsReferenceVersionString)}"),
       "must be Smdn.LibHighlightSharp.Bindings, Version=<minimum>"
     );
   }

@@ -13,9 +13,9 @@ public partial class HighlightTests {
   {
     TestContext.WriteLine($"{nameof(VersionInformations.NativeLibraryVersion)}: {VersionInformations.NativeLibraryVersion}");
 
-    Assert.IsNotNull(VersionInformations.NativeLibraryVersion);
-    Assert.GreaterOrEqual(VersionInformations.NativeLibraryVersion.Major, 0, nameof(VersionInformations.NativeLibraryVersion.Major));
-    Assert.GreaterOrEqual(VersionInformations.NativeLibraryVersion.Minor, 0, nameof(VersionInformations.NativeLibraryVersion.Minor));
+    Assert.That(VersionInformations.NativeLibraryVersion, Is.Not.Null);
+    Assert.That(VersionInformations.NativeLibraryVersion.Major, Is.GreaterThanOrEqualTo(0), nameof(VersionInformations.NativeLibraryVersion.Major));
+    Assert.That(VersionInformations.NativeLibraryVersion.Minor, Is.GreaterThanOrEqualTo(0), nameof(VersionInformations.NativeLibraryVersion.Minor));
   }
 
   [Test]
@@ -26,7 +26,7 @@ public partial class HighlightTests {
     var v = VersionInformations.NativeLibraryVersion;
     var versionSuffix = $"-v{v.Major}_{v.Minor}_0_0";
 
-    StringAssert.EndsWith(versionSuffix, VersionInformations.NativeLibraryName);
+    Assert.That(VersionInformations.NativeLibraryName, Does.EndWith(versionSuffix));
   }
 
   [Test]
@@ -37,10 +37,10 @@ public partial class HighlightTests {
       RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
       RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
     ) {
-      Assert.DoesNotThrow(() => Assert.IsNotNull(VersionInformations.NativeLibraryFileName));
+      Assert.DoesNotThrow(() => Assert.That(VersionInformations.NativeLibraryFileName, Is.Not.Null));
     }
     else {
-      Assert.Throws<PlatformNotSupportedException>(() => Assert.IsNotNull(VersionInformations.NativeLibraryFileName));
+      Assert.Throws<PlatformNotSupportedException>(() => Assert.That(VersionInformations.NativeLibraryFileName, Is.Not.Null));
       return;
     }
 
@@ -50,15 +50,15 @@ public partial class HighlightTests {
     var versionSuffix = $"-v{v.Major}_{v.Minor}_0_0";
 
     if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
-      StringAssert.StartsWith("lib", VersionInformations.NativeLibraryFileName);
-      StringAssert.EndsWith(versionSuffix + ".so", VersionInformations.NativeLibraryFileName);
+      Assert.That(VersionInformations.NativeLibraryFileName, Does.StartWith("lib"));
+      Assert.That(VersionInformations.NativeLibraryFileName, Does.EndWith(versionSuffix + ".so"));
     }
     else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) {
-      StringAssert.StartsWith("lib", VersionInformations.NativeLibraryFileName);
-      StringAssert.EndsWith(versionSuffix + ".dylib", VersionInformations.NativeLibraryFileName);
+      Assert.That(VersionInformations.NativeLibraryFileName, Does.StartWith("lib"));
+      Assert.That(VersionInformations.NativeLibraryFileName, Does.EndWith(versionSuffix + ".dylib"));
     }
     else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
-      StringAssert.EndsWith(versionSuffix + ".dll", VersionInformations.NativeLibraryFileName);
+      Assert.That(VersionInformations.NativeLibraryFileName, Does.EndWith(versionSuffix + ".dll"));
     }
   }
 
@@ -67,11 +67,11 @@ public partial class HighlightTests {
   {
     TestContext.WriteLine($"{nameof(VersionInformations.BindingsVersion)}: {VersionInformations.BindingsVersion}");
 
-    Assert.IsNotNull(VersionInformations.BindingsVersion);
-    Assert.GreaterOrEqual(VersionInformations.BindingsVersion.Major, 0, nameof(VersionInformations.BindingsVersion.Major));
-    Assert.GreaterOrEqual(VersionInformations.BindingsVersion.Minor, 0, nameof(VersionInformations.BindingsVersion.Minor));
+    Assert.That(VersionInformations.BindingsVersion, Is.Not.Null);
+    Assert.That(VersionInformations.BindingsVersion.Major, Is.GreaterThanOrEqualTo(0), nameof(VersionInformations.BindingsVersion.Major));
+    Assert.That(VersionInformations.BindingsVersion.Minor, Is.GreaterThanOrEqualTo(0), nameof(VersionInformations.BindingsVersion.Minor));
 
-    Assert.AreEqual(VersionInformations.BindingsVersion.Major, VersionInformations.NativeLibraryVersion.Major);
-    Assert.AreEqual(VersionInformations.BindingsVersion.Minor, VersionInformations.NativeLibraryVersion.Minor);
+    Assert.That(VersionInformations.NativeLibraryVersion.Major, Is.EqualTo(VersionInformations.BindingsVersion.Major));
+    Assert.That(VersionInformations.NativeLibraryVersion.Minor, Is.EqualTo(VersionInformations.BindingsVersion.Minor));
   }
 }

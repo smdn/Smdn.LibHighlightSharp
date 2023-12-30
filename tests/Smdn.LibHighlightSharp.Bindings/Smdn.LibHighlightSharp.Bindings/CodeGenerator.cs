@@ -10,7 +10,7 @@ public class CodeGeneratorTests {
     CodeGenerator? gen = null;
 
     Assert.DoesNotThrow(() => gen = CodeGenerator.getInstance(OutputType.HTML));
-    Assert.IsNotNull(gen);
+    Assert.That(gen, Is.Not.Null);
     Assert.DoesNotThrow(() => CodeGenerator.deleteInstance(gen!));
     Assert.DoesNotThrow(() => gen!.Dispose());
   }

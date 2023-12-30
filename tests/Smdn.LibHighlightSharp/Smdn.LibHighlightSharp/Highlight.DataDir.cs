@@ -103,8 +103,8 @@ using System;",
       Assert.DoesNotThrow(Action);
 
       // file extension must be returned in this case
-      Assert.IsNotNull(fileType);
-      Assert.AreEqual("cs", fileType!);
+      Assert.That(fileType, Is.Not.Null);
+      Assert.That(fileType!, Is.EqualTo("cs"));
     }
     else {
       Assert.Throws<NotSupportedException>(Action);
@@ -125,9 +125,9 @@ using System;",
     using var hl = new Highlight();
 
     // file extension must be returned in this case
-    Assert.AreEqual(
-      expected,
+    Assert.That(
       hl.GuessFileType(Path.Combine(TestContext.CurrentContext.WorkDirectory, file)),
+      Is.EqualTo(expected),
       file
     );
   }
@@ -154,11 +154,11 @@ using System;",
 
     using var hl = new Highlight();
 
-    Assert.IsTrue(hl.TryLoadFileTypesConfig(), nameof(hl.TryLoadFileTypesConfig));
+    Assert.That(hl.TryLoadFileTypesConfig(), Is.True, nameof(hl.TryLoadFileTypesConfig));
 
-    Assert.AreEqual(
-      expected,
+    Assert.That(
       hl.GuessFileType(Path.Combine(TestContext.CurrentContext.WorkDirectory, file)),
+      Is.EqualTo(expected),
       file
     );
   }
@@ -183,9 +183,9 @@ using System;",
     hl.LoadFileTypesConfig(Path.Combine(TestContext.CurrentContext.WorkDirectory, customFileTypesConfFileName));
 
     // guessed file type must be returned in this case
-    Assert.AreEqual(
-      expected,
+    Assert.That(
       hl.GuessFileType(Path.Combine(TestContext.CurrentContext.WorkDirectory, file)),
+      Is.EqualTo(expected),
       file
     );
   }
@@ -198,10 +198,10 @@ using System;",
   {
     using var hl = new Highlight();
 
-    Assert.AreEqual(hl.TryFindSyntaxFile(name!, out var syntaxFilePath), expected);
+    Assert.That(expected, Is.EqualTo(hl.TryFindSyntaxFile(name!, out var syntaxFilePath)));
 
     if (expected) {
-      Assert.IsNotNull(syntaxFilePath);
+      Assert.That(syntaxFilePath, Is.Not.Null);
       FileAssert.Exists(syntaxFilePath);
     }
   }
@@ -214,10 +214,10 @@ using System;",
   {
     using var hl = new Highlight();
 
-    Assert.AreEqual(hl.TryFindThemeFile(name!, out var themeFilePath), expected);
+    Assert.That(expected, Is.EqualTo(hl.TryFindThemeFile(name!, out var themeFilePath)));
 
     if (expected) {
-      Assert.IsNotNull(themeFilePath);
+      Assert.That(themeFilePath, Is.Not.Null);
       FileAssert.Exists(themeFilePath);
     }
   }
@@ -235,15 +235,15 @@ using System;",
     Assert.DoesNotThrow(() => ret = hl.TryFindThemeBase16File(name!, out themeFilePath));
 
     if (Highlight.MinimumVersionSupportingBase16Themes <= VersionInformations.NativeLibraryVersion) {
-      Assert.AreEqual(ret, expected);
+      Assert.That(expected, Is.EqualTo(ret));
 
       if (expected) {
-        Assert.IsNotNull(themeFilePath);
+        Assert.That(themeFilePath, Is.Not.Null);
         FileAssert.Exists(themeFilePath);
       }
     }
     else {
-      Assert.IsFalse(ret);
+      Assert.That(ret, Is.False);
     }
   }
 
@@ -254,13 +254,13 @@ using System;",
 
     var syntaxFilesEnumerable = hl.EnumerateSyntaxFiles();
 
-    Assert.IsNotNull(syntaxFilesEnumerable, nameof(syntaxFilesEnumerable));
+    Assert.That(syntaxFilesEnumerable, Is.Not.Null, nameof(syntaxFilesEnumerable));
 
     var syntaxFiles = syntaxFilesEnumerable.ToList();
 
-    CollectionAssert.IsNotEmpty(syntaxFiles, nameof(syntaxFiles));
-    Assert.IsNotNull(syntaxFiles.FirstOrDefault(static syntaxFile => Path.GetFileNameWithoutExtension(syntaxFile) == "csharp"), $"{nameof(syntaxFiles)} contains 'csharp'");
-    Assert.IsTrue(syntaxFiles.All(static syntaxFile => Path.GetExtension(syntaxFile) == ".lang"), $"all of {nameof(syntaxFiles)} must have extension '.lang'");
+    Assert.That(syntaxFiles, Is.Not.Empty, nameof(syntaxFiles));
+    Assert.That(syntaxFiles.FirstOrDefault(static syntaxFile => Path.GetFileNameWithoutExtension(syntaxFile) == "csharp"), Is.Not.Null, $"{nameof(syntaxFiles)} contains 'csharp'");
+    Assert.That(syntaxFiles.All(static syntaxFile => Path.GetExtension(syntaxFile) == ".lang"), Is.True, $"all of {nameof(syntaxFiles)} must have extension '.lang'");
   }
 
   [Test]
@@ -270,11 +270,11 @@ using System;",
 
     var syntaxFilesEnumerable = hl.EnumerateSyntaxFiles();
 
-    Assert.IsNotNull(syntaxFilesEnumerable, nameof(syntaxFilesEnumerable));
+    Assert.That(syntaxFilesEnumerable, Is.Not.Null, nameof(syntaxFilesEnumerable));
 
     var syntaxFiles = syntaxFilesEnumerable.ToList();
 
-    CollectionAssert.IsEmpty(syntaxFiles, nameof(syntaxFiles));
+    Assert.That(syntaxFiles, Is.Empty, nameof(syntaxFiles));
   }
 
   [Test]
@@ -284,19 +284,19 @@ using System;",
 
     var syntaxFilesWithDescriptionEnumerable = hl.EnumerateSyntaxFilesWithDescription();
 
-    Assert.IsNotNull(syntaxFilesWithDescriptionEnumerable, nameof(syntaxFilesWithDescriptionEnumerable));
+    Assert.That(syntaxFilesWithDescriptionEnumerable, Is.Not.Null, nameof(syntaxFilesWithDescriptionEnumerable));
 
     var syntaxFilesWithDescription = syntaxFilesWithDescriptionEnumerable.ToList();
 
-    CollectionAssert.IsNotEmpty(syntaxFilesWithDescription, nameof(syntaxFilesWithDescription));
+    Assert.That(syntaxFilesWithDescription, Is.Not.Empty, nameof(syntaxFilesWithDescription));
 
     var csharp = syntaxFilesWithDescription.FirstOrDefault(static syntax => syntax.Description == "C#");
 
-    Assert.IsNotNull(csharp.Path, "csharp.lang path");
-    Assert.AreEqual("csharp", Path.GetFileNameWithoutExtension(csharp.Path), "csharp.lang file name");
-    Assert.AreEqual(".lang", Path.GetExtension(csharp.Path), "csharp.lang extension");
+    Assert.That(csharp.Path, Is.Not.Null, "csharp.lang path");
+    Assert.That(Path.GetFileNameWithoutExtension(csharp.Path), Is.EqualTo("csharp"), "csharp.lang file name");
+    Assert.That(Path.GetExtension(csharp.Path), Is.EqualTo(".lang"), "csharp.lang extension");
 
-    Assert.IsNotNull(csharp.Description, "csharp.lang description");
+    Assert.That(csharp.Description, Is.Not.Null, "csharp.lang description");
   }
 
   [Test]
@@ -306,11 +306,11 @@ using System;",
 
     var syntaxFilesWithDescriptionEnumerable = hl.EnumerateSyntaxFilesWithDescription();
 
-    Assert.IsNotNull(syntaxFilesWithDescriptionEnumerable, nameof(syntaxFilesWithDescriptionEnumerable));
+    Assert.That(syntaxFilesWithDescriptionEnumerable, Is.Not.Null, nameof(syntaxFilesWithDescriptionEnumerable));
 
     var syntaxFilesWithDescription = syntaxFilesWithDescriptionEnumerable.ToList();
 
-    CollectionAssert.IsEmpty(syntaxFilesWithDescription, nameof(syntaxFilesWithDescription));
+    Assert.That(syntaxFilesWithDescription, Is.Empty, nameof(syntaxFilesWithDescription));
   }
 
   [Test]
@@ -320,13 +320,13 @@ using System;",
 
     var themeFilesEnumerable = hl.EnumerateThemeFiles();
 
-    Assert.IsNotNull(themeFilesEnumerable, nameof(themeFilesEnumerable));
+    Assert.That(themeFilesEnumerable, Is.Not.Null, nameof(themeFilesEnumerable));
 
     var themeFiles = themeFilesEnumerable.ToList();
 
-    CollectionAssert.IsNotEmpty(themeFiles, nameof(themeFiles));
-    Assert.IsNotNull(themeFiles.FirstOrDefault(static themeFile => Path.GetFileNameWithoutExtension(themeFile) == "github"), $"{nameof(themeFiles)} contains 'github'");
-    Assert.IsTrue(themeFiles.All(static themeFile => Path.GetExtension(themeFile) == ".theme"), $"all of {nameof(themeFiles)} must have extension '.theme'");
+    Assert.That(themeFiles, Is.Not.Empty, nameof(themeFiles));
+    Assert.That(themeFiles.FirstOrDefault(static themeFile => Path.GetFileNameWithoutExtension(themeFile) == "github"), Is.Not.Null, $"{nameof(themeFiles)} contains 'github'");
+    Assert.That(themeFiles.All(static themeFile => Path.GetExtension(themeFile) == ".theme"), Is.True, $"all of {nameof(themeFiles)} must have extension '.theme'");
   }
 
   [Test]
@@ -336,11 +336,11 @@ using System;",
 
     var themeFilesEnumerable = hl.EnumerateSyntaxFiles();
 
-    Assert.IsNotNull(themeFilesEnumerable, nameof(themeFilesEnumerable));
+    Assert.That(themeFilesEnumerable, Is.Not.Null, nameof(themeFilesEnumerable));
 
     var themeFiles = themeFilesEnumerable.ToList();
 
-    CollectionAssert.IsEmpty(themeFiles, nameof(themeFiles));
+    Assert.That(themeFiles, Is.Empty, nameof(themeFiles));
   }
 
   [Test]
@@ -350,11 +350,11 @@ using System;",
 
     var themeFilesWithDescriptionEnumerable = hl.EnumerateThemeFilesWithDescription();
 
-    Assert.IsNotNull(themeFilesWithDescriptionEnumerable, nameof(themeFilesWithDescriptionEnumerable));
+    Assert.That(themeFilesWithDescriptionEnumerable, Is.Not.Null, nameof(themeFilesWithDescriptionEnumerable));
 
     var themeFilesWithDescription = themeFilesWithDescriptionEnumerable.ToList();
 
-    CollectionAssert.IsNotEmpty(themeFilesWithDescription, nameof(themeFilesWithDescription));
+    Assert.That(themeFilesWithDescription, Is.Not.Empty, nameof(themeFilesWithDescription));
 
     if (VersionInformations.NativeLibraryVersion < new Version(3, 44)) {
       Assert.Ignore("cannot get theme description");
@@ -363,11 +363,11 @@ using System;",
 
     var github = themeFilesWithDescription.FirstOrDefault(static theme => theme.Description?.StartsWith("Github", StringComparison.Ordinal) ?? false);
 
-    Assert.IsNotNull(github.Path, "github.theme path");
-    Assert.AreEqual("github", Path.GetFileNameWithoutExtension(github.Path), "github.theme file name");
-    Assert.AreEqual(".theme", Path.GetExtension(github.Path), "github.theme extension");
+    Assert.That(github.Path, Is.Not.Null, "github.theme path");
+    Assert.That(Path.GetFileNameWithoutExtension(github.Path), Is.EqualTo("github"), "github.theme file name");
+    Assert.That(Path.GetExtension(github.Path), Is.EqualTo(".theme"), "github.theme extension");
 
-    Assert.IsNotNull(github.Description, "github.theme description");
+    Assert.That(github.Description, Is.Not.Null, "github.theme description");
   }
 
   [Test]
@@ -377,10 +377,10 @@ using System;",
 
     var themeFilesWithDescriptionEnumerable = hl.EnumerateThemeFilesWithDescription();
 
-    Assert.IsNotNull(themeFilesWithDescriptionEnumerable, nameof(themeFilesWithDescriptionEnumerable));
+    Assert.That(themeFilesWithDescriptionEnumerable, Is.Not.Null, nameof(themeFilesWithDescriptionEnumerable));
 
     var themeFilesWithDescription = themeFilesWithDescriptionEnumerable.ToList();
 
-    CollectionAssert.IsEmpty(themeFilesWithDescription, nameof(themeFilesWithDescription));
+    Assert.That(themeFilesWithDescription, Is.Empty, nameof(themeFilesWithDescription));
   }
 }

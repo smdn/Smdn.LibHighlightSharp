@@ -37,24 +37,24 @@ public class HighlightHtmlClassTests {
 
   [TestCaseSource(nameof(YieldTestCases_ToString))]
   public void ToString(HighlightHtmlClass @class, string expected)
-    => Assert.AreEqual(expected, @class.ToString());
+    => Assert.That(@class.ToString(), Is.EqualTo(expected));
 
   [Test]
   public void ToString_Default()
   {
     if (4 <= VersionInformations.NativeLibraryVersion.Major)
-      Assert.AreEqual("def", HighlightHtmlClass.Default.ToString());
+      Assert.That(HighlightHtmlClass.Default.ToString(), Is.EqualTo("def"));
     else
-      Assert.AreEqual("std", HighlightHtmlClass.Default.ToString());
+      Assert.That(HighlightHtmlClass.Default.ToString(), Is.EqualTo("std"));
   }
 
   [Test]
   public void ToString_Strings()
   {
     if (4 <= VersionInformations.NativeLibraryVersion.Major)
-      Assert.AreEqual("sng", HighlightHtmlClass.Strings.ToString());
+      Assert.That(HighlightHtmlClass.Strings.ToString(), Is.EqualTo("sng"));
     else
-      Assert.AreEqual("str", HighlightHtmlClass.Strings.ToString());
+      Assert.That(HighlightHtmlClass.Strings.ToString(), Is.EqualTo("str"));
   }
 
   private static IEnumerable YieldTestCases_TryParse()
@@ -85,9 +85,9 @@ public class HighlightHtmlClassTests {
   [TestCaseSource(nameof(YieldTestCases_TryParse))]
   public void TryParse(string className, bool expectedResult, HighlightHtmlClass expectedParseResult)
   {
-    Assert.AreEqual(expectedResult, HighlightHtmlClass.TryParse(className, out var @class));
-    Assert.AreEqual(expectedParseResult, @class);
-    Assert.IsTrue(ReferenceEquals(expectedParseResult, @class));
+    Assert.That(HighlightHtmlClass.TryParse(className, out var @class), Is.EqualTo(expectedResult));
+    Assert.That(@class, Is.EqualTo(expectedParseResult));
+    Assert.That(ReferenceEquals(expectedParseResult, @class), Is.True);
   }
 
   private static IEnumerable YieldTestCases_TryParse_V4()
@@ -102,11 +102,11 @@ public class HighlightHtmlClassTests {
   {
     var isVersion4x = 4 <= VersionInformations.NativeLibraryVersion.Major;
 
-    Assert.AreEqual(isVersion4x, HighlightHtmlClass.TryParse(className, out var @class));
+    Assert.That(HighlightHtmlClass.TryParse(className, out var @class), Is.EqualTo(isVersion4x));
 
     if (isVersion4x) {
-      Assert.AreEqual(expectedParseResult, @class);
-      Assert.IsTrue(ReferenceEquals(expectedParseResult, @class));
+      Assert.That(@class, Is.EqualTo(expectedParseResult));
+      Assert.That(ReferenceEquals(expectedParseResult, @class), Is.True);
     }
   }
 
@@ -115,16 +115,16 @@ public class HighlightHtmlClassTests {
   {
     var isVersion4x = 4 <= VersionInformations.NativeLibraryVersion.Major;
 
-    Assert.AreEqual(isVersion4x, HighlightHtmlClass.TryParse("def", out var classDef));
-    Assert.AreEqual(!isVersion4x, HighlightHtmlClass.TryParse("std", out var classStd));
+    Assert.That(HighlightHtmlClass.TryParse("def", out var classDef), Is.EqualTo(isVersion4x));
+    Assert.That(HighlightHtmlClass.TryParse("std", out var classStd), Is.EqualTo(!isVersion4x));
 
     if (isVersion4x) {
-      Assert.AreEqual(classDef, HighlightHtmlClass.DefaultV4);
-      Assert.IsTrue(ReferenceEquals(HighlightHtmlClass.DefaultV4, classDef));
+      Assert.That(HighlightHtmlClass.DefaultV4, Is.EqualTo(classDef));
+      Assert.That(ReferenceEquals(HighlightHtmlClass.DefaultV4, classDef), Is.True);
     }
     else {
-      Assert.AreEqual(classStd, HighlightHtmlClass.DefaultV3);
-      Assert.IsTrue(ReferenceEquals(HighlightHtmlClass.DefaultV3, classStd));
+      Assert.That(HighlightHtmlClass.DefaultV3, Is.EqualTo(classStd));
+      Assert.That(ReferenceEquals(HighlightHtmlClass.DefaultV3, classStd), Is.True);
     }
   }
 
@@ -133,16 +133,16 @@ public class HighlightHtmlClassTests {
   {
     var isVersion4x = 4 <= VersionInformations.NativeLibraryVersion.Major;
 
-    Assert.AreEqual(isVersion4x, HighlightHtmlClass.TryParse("sng", out var classSng));
-    Assert.AreEqual(!isVersion4x, HighlightHtmlClass.TryParse("str", out var classStr));
+    Assert.That(HighlightHtmlClass.TryParse("sng", out var classSng), Is.EqualTo(isVersion4x));
+    Assert.That(HighlightHtmlClass.TryParse("str", out var classStr), Is.EqualTo(!isVersion4x));
 
     if (isVersion4x) {
-      Assert.AreEqual(classSng, HighlightHtmlClass.StringsV4);
-      Assert.IsTrue(ReferenceEquals(HighlightHtmlClass.StringsV4, classSng));
+      Assert.That(HighlightHtmlClass.StringsV4, Is.EqualTo(classSng));
+      Assert.That(ReferenceEquals(HighlightHtmlClass.StringsV4, classSng), Is.True);
     }
     else {
-      Assert.AreEqual(classStr, HighlightHtmlClass.StringsV3);
-      Assert.IsTrue(ReferenceEquals(HighlightHtmlClass.StringsV3, classStr));
+      Assert.That(HighlightHtmlClass.StringsV3, Is.EqualTo(classStr));
+      Assert.That(ReferenceEquals(HighlightHtmlClass.StringsV3, classStr), Is.True);
     }
   }
 
@@ -196,36 +196,36 @@ public class HighlightHtmlClassTests {
   [TestCaseSource(nameof(YieldTestCases_TryParsePrefixed))]
   public void TryParsePrefixed(string className, bool expectedResult, HighlightHtmlClass expectedParseResult)
   {
-    Assert.AreEqual(expectedResult, HighlightHtmlClass.TryParsePrefixed(className, out var @class));
-    Assert.AreEqual(expectedParseResult, @class);
+    Assert.That(HighlightHtmlClass.TryParsePrefixed(className, out var @class), Is.EqualTo(expectedResult));
+    Assert.That(@class, Is.EqualTo(expectedParseResult));
 
     if (expectedResult)
-      Assert.IsTrue(ReferenceEquals(expectedParseResult, @class));
+      Assert.That(ReferenceEquals(expectedParseResult, @class), Is.True);
   }
 
   [Test]
   public void Equals_OfObject()
   {
-    Assert.IsFalse(HighlightHtmlClass.Highlight.Equals((object?)null));
-    Assert.IsFalse(HighlightHtmlClass.Highlight!.Equals((object?)1));
-    Assert.IsFalse(HighlightHtmlClass.Highlight.Equals((object?)"HL"), "case sensitive");
-    Assert.IsTrue(HighlightHtmlClass.Highlight.Equals((object?)"hl"));
-    Assert.IsTrue(HighlightHtmlClass.Highlight.Equals((object?)HighlightHtmlClass.Highlight));
+    Assert.That(HighlightHtmlClass.Highlight.Equals((object?)null), Is.False);
+    Assert.That(HighlightHtmlClass.Highlight!.Equals((object?)1), Is.False);
+    Assert.That(HighlightHtmlClass.Highlight.Equals((object?)"HL"), Is.False, "case sensitive");
+    Assert.That(HighlightHtmlClass.Highlight.Equals((object?)"hl"), Is.True);
+    Assert.That(HighlightHtmlClass.Highlight.Equals((object?)HighlightHtmlClass.Highlight), Is.True);
   }
 
   [Test]
   public void Equals_OfHighlightHtmlClass()
   {
-    Assert.IsFalse(HighlightHtmlClass.Highlight.Equals((HighlightHtmlClass?)null));
-    Assert.IsFalse(HighlightHtmlClass.Highlight!.Equals(HighlightHtmlClass.Default));
-    Assert.IsTrue(HighlightHtmlClass.Highlight.Equals(HighlightHtmlClass.Highlight));
+    Assert.That(HighlightHtmlClass.Highlight.Equals((HighlightHtmlClass?)null), Is.False);
+    Assert.That(HighlightHtmlClass.Highlight!.Equals(HighlightHtmlClass.Default), Is.False);
+    Assert.That(HighlightHtmlClass.Highlight.Equals(HighlightHtmlClass.Highlight), Is.True);
   }
 
   [Test]
   public void Equals_OfString()
   {
-    Assert.IsFalse(HighlightHtmlClass.Highlight.Equals((string?)null));
-    Assert.IsFalse(HighlightHtmlClass.Highlight!.Equals("HL"), "case sensitive");
-    Assert.IsTrue(HighlightHtmlClass.Highlight.Equals("hl"));
+    Assert.That(HighlightHtmlClass.Highlight.Equals((string?)null), Is.False);
+    Assert.That(HighlightHtmlClass.Highlight!.Equals("HL"), Is.False, "case sensitive");
+    Assert.That(HighlightHtmlClass.Highlight.Equals("hl"), Is.True);
   }
 }

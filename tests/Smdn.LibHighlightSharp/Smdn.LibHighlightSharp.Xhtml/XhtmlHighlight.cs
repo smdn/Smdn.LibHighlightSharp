@@ -26,7 +26,7 @@ public partial class XhtmlHighlightTests {
   {
     using var xhl = new XhtmlHighlight();
 
-    Assert.AreEqual(GeneratorOutputType.Xhtml, xhl.OutputType);
+    Assert.That(xhl.OutputType, Is.EqualTo(GeneratorOutputType.Xhtml));
   }
 
   [Test]
@@ -34,9 +34,9 @@ public partial class XhtmlHighlightTests {
   {
     using var xhl = CreateInstance();
 
-    StringAssert.Contains(
-      $"xmlns=\"{XmlnsXhtml.NamespaceName}\"",
+    Assert.That(
       xhl.Generate("using System;"),
+      Does.Contain($"xmlns=\"{XmlnsXhtml.NamespaceName}\""),
       "must generate XHTML document"
     );
   }
@@ -50,11 +50,11 @@ public partial class XhtmlHighlightTests {
 
     var doc = xhl.GenerateXhtmlDocument("using System;");
 
-    Assert.AreEqual(fragment, xhl.Fragment, $"{nameof(xhl.Fragment)} must be restored to initial state");
+    Assert.That(xhl.Fragment, Is.EqualTo(fragment), $"{nameof(xhl.Fragment)} must be restored to initial state");
 
-    Assert.IsNotNull(doc, nameof(doc));
-    Assert.IsNotNull(doc.Root, nameof(doc.Root));
-    Assert.AreEqual(XmlnsXhtml, doc.Root!.Name.Namespace, nameof(doc.Root.Name.Namespace));
+    Assert.That(doc, Is.Not.Null, nameof(doc));
+    Assert.That(doc.Root, Is.Not.Null, nameof(doc.Root));
+    Assert.That(doc.Root!.Name.Namespace, Is.EqualTo(XmlnsXhtml), nameof(doc.Root.Name.Namespace));
   }
 
   [Test]
@@ -68,9 +68,9 @@ public partial class XhtmlHighlightTests {
     var pre = doc.Descendants(XmlnsXhtml + "pre").First();
 
     if (preserveWhitespace)
-      StringAssert.EndsWith("\n</pre>", pre.ToString());
+      Assert.That(pre.ToString(), Does.EndWith("\n</pre>"));
     else
-      StringAssert.EndsWith("</span></pre>", pre.ToString());
+      Assert.That(pre.ToString(), Does.EndWith("</span></pre>"));
   }
 
   [Test]
@@ -82,10 +82,10 @@ public partial class XhtmlHighlightTests {
 
     var nodes = xhl.GenerateXhtmlFragment("using System;")?.ToArray();
 
-    Assert.IsNotNull(nodes);
-    Assert.IsNotEmpty(nodes!);
+    Assert.That(nodes, Is.Not.Null);
+    Assert.That(nodes!, Is.Not.Empty);
 
-    Assert.IsTrue(nodes!.Any(static n => n is XElement e && e.Value.StartsWith("using", StringComparison.Ordinal)));
+    Assert.That(nodes!.Any(static n => n is XElement e && e.Value.StartsWith("using", StringComparison.Ordinal)), Is.True);
   }
 
   [Test]
@@ -101,8 +101,8 @@ public partial class XhtmlHighlightTests {
     );
 
     if (preserveWhitespace)
-      StringAssert.EndsWith("\n</pre>", pre.ToString());
+      Assert.That(pre.ToString(), Does.EndWith("\n</pre>"));
     else
-      StringAssert.EndsWith("</span></pre>", pre.ToString());
+      Assert.That(pre.ToString(), Does.EndWith("</span></pre>"));
   }
 }

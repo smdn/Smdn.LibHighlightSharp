@@ -33,13 +33,13 @@ partial class XhtmlHighlightTests {
       )
     ).ToList();
 
-    Assert.AreEqual(2, elements.Count, nameof(elements.Count));
+    Assert.That(elements.Count, Is.EqualTo(2), nameof(elements.Count));
 
-    Assert.AreEqual(nameof(HighlightHtmlClass.KeywordA), elements[0].HighlightedElement.Value, "#0 HighlightedElement");
-    Assert.AreEqual(HighlightHtmlClass.KeywordA.ToString(), elements[0].HighlightClass.ToString(), "#0 HighlightClass");
+    Assert.That(elements[0].HighlightedElement.Value, Is.EqualTo(nameof(HighlightHtmlClass.KeywordA)), "#0 HighlightedElement");
+    Assert.That(elements[0].HighlightClass.ToString(), Is.EqualTo(HighlightHtmlClass.KeywordA.ToString()), "#0 HighlightClass");
 
-    Assert.AreEqual(nameof(HighlightHtmlClass.Number), elements[1].HighlightedElement.Value, "#1 HighlightedElement");
-    Assert.AreEqual(HighlightHtmlClass.Number.ToString(), elements[1].HighlightClass.ToString(), "#1 HighlightClass");
+    Assert.That(elements[1].HighlightedElement.Value, Is.EqualTo(nameof(HighlightHtmlClass.Number)), "#1 HighlightedElement");
+    Assert.That(elements[1].HighlightClass.ToString(), Is.EqualTo(HighlightHtmlClass.Number.ToString()), "#1 HighlightClass");
   }
 
   private class ReverseGenerateInputXhtmlHighlight : XhtmlHighlight {
@@ -70,12 +70,12 @@ partial class XhtmlHighlightTests {
 
     const string input = "using System;";
 
-    Assert.IsNull(xhl.ReverseGeneratedInput, "PostProcessXhtml must not be called yet at this time.");
+    Assert.That(xhl.ReverseGeneratedInput, Is.Null, "PostProcessXhtml must not be called yet at this time.");
 
     xhl.GenerateXhtmlDocument(input);
 
-    Assert.IsNotNull(xhl.ReverseGeneratedInput, "PostProcessXhtml must be called at this time.");
-    StringAssert.Contains(input, xhl.ReverseGeneratedInput);
+    Assert.That(xhl.ReverseGeneratedInput, Is.Not.Null, "PostProcessXhtml must be called at this time.");
+    Assert.That(xhl.ReverseGeneratedInput, Does.Contain(input));
   }
 
   [Test]
@@ -88,11 +88,11 @@ partial class XhtmlHighlightTests {
 
     const string input = "using System;";
 
-    Assert.IsNull(xhl.ReverseGeneratedInput, "PostProcessXhtml must not be called yet at this time.");
+    Assert.That(xhl.ReverseGeneratedInput, Is.Null, "PostProcessXhtml must not be called yet at this time.");
 
     xhl.GenerateXhtmlFragment(input);
 
-    Assert.IsNotNull(xhl.ReverseGeneratedInput, "PostProcessXhtml must be called at this time.");
-    StringAssert.Contains(input, xhl.ReverseGeneratedInput);
+    Assert.That(xhl.ReverseGeneratedInput, Is.Not.Null, "PostProcessXhtml must be called at this time.");
+    Assert.That(xhl.ReverseGeneratedInput, Does.Contain(input));
   }
 }

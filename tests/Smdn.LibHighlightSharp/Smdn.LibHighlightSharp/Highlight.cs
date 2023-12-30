@@ -26,8 +26,8 @@ public partial class HighlightTests {
     Highlight hl = null;
 
     Assert.DoesNotThrow(() => hl = new Highlight());
-    Assert.IsNotNull(hl);
-    Assert.AreEqual(GeneratorOutputType.Html, hl.OutputType, nameof(Highlight.OutputType));
+    Assert.That(hl, Is.Not.Null);
+    Assert.That(hl.OutputType, Is.EqualTo(GeneratorOutputType.Html), nameof(Highlight.OutputType));
     Assert.DoesNotThrow(() => hl.Dispose());
   }
 
@@ -38,8 +38,8 @@ public partial class HighlightTests {
     Highlight hl = null;
 
     Assert.DoesNotThrow(() => hl = new Highlight(outputType: outputType));
-    Assert.IsNotNull(hl);
-    Assert.AreEqual(outputType, hl.OutputType, nameof(Highlight.OutputType));
+    Assert.That(hl, Is.Not.Null);
+    Assert.That(hl.OutputType, Is.EqualTo(outputType), nameof(Highlight.OutputType));
     Assert.DoesNotThrow(() => hl.Dispose());
   }
 
@@ -83,7 +83,7 @@ public partial class HighlightTests {
 
     Assert.DoesNotThrow(() => hl.Dispose());
 
-    Assert.AreEqual(!shouldDisposeDataDir, dataDir.OwnsSwigCMem);
+    Assert.That(dataDir.OwnsSwigCMem, Is.EqualTo(!shouldDisposeDataDir));
   }
 
   [Test]
@@ -95,8 +95,8 @@ public partial class HighlightTests {
 
     Assert.DoesNotThrow(() => hl.Dispose());
 
-    Assert.AreEqual(!shouldDisposeDataDir, dataDirForSyntaxes.OwnsSwigCMem);
-    Assert.AreEqual(!shouldDisposeDataDir, dataDirForThemes.OwnsSwigCMem);
+    Assert.That(dataDirForSyntaxes.OwnsSwigCMem, Is.EqualTo(!shouldDisposeDataDir));
+    Assert.That(dataDirForThemes.OwnsSwigCMem, Is.EqualTo(!shouldDisposeDataDir));
   }
 
   [TestCase("")]
@@ -107,7 +107,7 @@ public partial class HighlightTests {
     Highlight hl = null;
 
     Assert.DoesNotThrow(() => hl = new Highlight(dataDir: dataDir));
-    Assert.IsNotNull(hl);
+    Assert.That(hl, Is.Not.Null);
     Assert.DoesNotThrow(() => hl.Dispose());
   }
 
@@ -122,7 +122,7 @@ public partial class HighlightTests {
     Highlight hl = null;
 
     Assert.DoesNotThrow(() => hl = new Highlight(dataDirForSyntaxes: dataDirForSyntaxes, dataDirForThemes: dataDirForThemes));
-    Assert.IsNotNull(hl);
+    Assert.That(hl, Is.Not.Null);
     Assert.DoesNotThrow(() => hl.Dispose());
   }
 
@@ -150,8 +150,8 @@ public partial class HighlightTests {
   [Test]
   public void GeneratorInformationalVersion()
   {
-    Assert.IsNotNull(Highlight.GeneratorInformationalVersion);
-    StringAssert.Contains(VersionInformations.NativeLibraryVersion.ToString(), Highlight.GeneratorInformationalVersion);
+    Assert.That(Highlight.GeneratorInformationalVersion, Is.Not.Null);
+    Assert.That(Highlight.GeneratorInformationalVersion, Does.Contain(VersionInformations.NativeLibraryVersion.ToString()));
   }
 
   private static Bindings.DataDir CreateNonExistentPathDataDir()
@@ -181,12 +181,12 @@ public partial class HighlightTests {
     Bindings.DataDir dataDirForSyntaxes,
     Bindings.DataDir dataDirForThemes
   )
-    => Assert.IsNotNull(Highlight.GeneratorInformationalVersion);
+    => Assert.That(Highlight.GeneratorInformationalVersion, Is.Not.Null);
 
   [Test]
   public void GeneratorInformationalVersion_FailedToLoadThemeOrSyntax()
   {
-    var testAction = () => Assert.IsEmpty(Highlight.GeneratorInformationalVersion);
+    var testAction = () => Assert.That(Highlight.GeneratorInformationalVersion, Is.Empty);
 
     // HACK: force reset backing field to null
     var backingField = typeof(Highlight).GetField("generatorInformationalVersion", BindingFlags.Static | BindingFlags.NonPublic);

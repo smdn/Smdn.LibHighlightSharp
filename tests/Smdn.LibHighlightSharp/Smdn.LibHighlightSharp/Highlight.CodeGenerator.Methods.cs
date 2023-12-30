@@ -18,9 +18,9 @@ partial class HighlightTests {
     using var hl = new Highlight();
 
     Assert.DoesNotThrow(() => hl.SetSyntax("csharp"));
-    Assert.IsNotNull(hl.SyntaxDescription);
-    Assert.IsNotEmpty(hl.SyntaxDescription);
-    Assert.AreEqual("C#", hl.SyntaxDescription);
+    Assert.That(hl.SyntaxDescription, Is.Not.Null);
+    Assert.That(hl.SyntaxDescription, Is.Not.Empty);
+    Assert.That(hl.SyntaxDescription, Is.EqualTo("C#"));
 
     hl.Dispose();
 
@@ -34,9 +34,9 @@ partial class HighlightTests {
     using var hl = new Highlight();
 
     Assert.DoesNotThrow(() => hl.SetSyntaxFromFile(syntaxFilePath));
-    Assert.IsNotNull(hl.SyntaxDescription);
-    Assert.IsNotEmpty(hl.SyntaxDescription);
-    Assert.AreEqual("C#", hl.SyntaxDescription);
+    Assert.That(hl.SyntaxDescription, Is.Not.Null);
+    Assert.That(hl.SyntaxDescription, Is.Not.Empty);
+    Assert.That(hl.SyntaxDescription, Is.EqualTo("C#"));
 
     hl.Dispose();
 
@@ -69,8 +69,8 @@ partial class HighlightTests {
         hl.SetSyntax(syntaxName);
     })!;
 
-    StringAssert.Contains(syntaxName + (fromFile ? string.Empty : ".lang"), ex.LangFilePath);
-    Assert.AreNotEqual(Bindings.LoadResult.LOAD_OK, ex.Reason);
+    Assert.That(ex.LangFilePath, Does.Contain(syntaxName + (fromFile ? string.Empty : ".lang")));
+    Assert.That(ex.Reason, Is.Not.EqualTo(Bindings.LoadResult.LOAD_OK));
   }
 
   [Test]
@@ -81,7 +81,7 @@ partial class HighlightTests {
     Assert.DoesNotThrow(() => hl.SetTheme("github"));
 
     if (hl.ThemeDescription is not null)
-      Assert.IsNotEmpty(hl.ThemeDescription);
+      Assert.That(hl.ThemeDescription, Is.Not.Empty);
 
     hl.Dispose();
 
@@ -97,7 +97,7 @@ partial class HighlightTests {
     Assert.DoesNotThrow(() => hl.SetThemeFromFile(themeFilePath));
 
     if (hl.ThemeDescription is not null)
-      Assert.IsNotEmpty(hl.ThemeDescription);
+      Assert.That(hl.ThemeDescription, Is.Not.Empty);
 
     hl.Dispose();
 
@@ -116,8 +116,8 @@ partial class HighlightTests {
     using var hl = new Highlight();
 
     Assert.DoesNotThrow(() => hl.SetThemeFromFile(themeFilePath));
-    Assert.IsNotNull(hl.ThemeDescription);
-    Assert.IsNotEmpty(hl.ThemeDescription);
+    Assert.That(hl.ThemeDescription, Is.Not.Null);
+    Assert.That(hl.ThemeDescription, Is.Not.Empty);
   }
 
   [Test]
@@ -129,8 +129,8 @@ partial class HighlightTests {
 
     if (Highlight.MinimumVersionSupportingBase16Themes <= VersionInformations.NativeLibraryVersion) {
       Assert.DoesNotThrow(Action);
-      Assert.IsNotNull(hl.ThemeDescription);
-      Assert.IsNotEmpty(hl.ThemeDescription);
+      Assert.That(hl.ThemeDescription, Is.Not.Null);
+      Assert.That(hl.ThemeDescription, Is.Not.Empty);
     }
     else {
       Assert.Throws<NotSupportedException>(Action);
@@ -175,8 +175,8 @@ partial class HighlightTests {
         hl.SetTheme(themeName);
     })!;
 
-    StringAssert.Contains(themeName + (fromFile ? string.Empty : ".theme"), ex.ThemeFilePath);
-    Assert.IsNotEmpty(ex.Reason);
+    Assert.That(ex.ThemeFilePath, Does.Contain(themeName + (fromFile ? string.Empty : ".theme")));
+    Assert.That(ex.Reason, Is.Not.Empty);
   }
 
   [Test]
@@ -190,11 +190,10 @@ partial class HighlightTests {
     if (Highlight.MinimumVersionSupportingBase16Themes <= VersionInformations.NativeLibraryVersion) {
       var ex = Assert.Throws<HighlightThemeException>(Action)!;
 
-      StringAssert.Contains(
-        Path.Join("base16", themeName + ".theme"),
+      Assert.That(
         ex.ThemeFilePath
-      );
-      Assert.IsNotEmpty(ex.Reason);
+, Does.Contain(Path.Join("base16", themeName + ".theme")));
+      Assert.That(ex.Reason, Is.Not.Empty);
     }
     else {
       Assert.Throws<NotSupportedException>(Action);
@@ -212,9 +211,9 @@ partial class HighlightTests {
     string? generated = null;
 
     Assert.DoesNotThrow(() => generated = hl.Generate(input: "using System;"));
-    Assert.IsNotNull(generated);
-    Assert.IsNotEmpty(generated);
-    StringAssert.Contains(">using</", generated);
+    Assert.That(generated, Is.Not.Null);
+    Assert.That(generated, Is.Not.Empty);
+    Assert.That(generated, Does.Contain(">using</"));
   }
 
   [Test]
@@ -250,8 +249,8 @@ partial class HighlightTests {
 
       var generated = File.ReadAllText(outputFilePath);
 
-      Assert.IsNotEmpty(generated);
-      StringAssert.Contains(">" + nameof(Generate_FromFileToFile) + "</", generated);
+      Assert.That(generated, Is.Not.Empty);
+      Assert.That(generated, Does.Contain(">" + nameof(Generate_FromFileToFile) + "</"));
     }
     finally {
       File.Delete(outputFilePath);
@@ -292,9 +291,9 @@ partial class HighlightTests {
     string? generated = null;
 
     Assert.DoesNotThrow(() => generated = hl.GenerateFromFile(path: GetThisFilePath()));
-    Assert.IsNotNull(generated);
-    Assert.IsNotEmpty(generated);
-    StringAssert.Contains(">" + nameof(GenerateFromFile) + "</", generated);
+    Assert.That(generated, Is.Not.Null);
+    Assert.That(generated, Is.Not.Empty);
+    Assert.That(generated, Does.Contain(">" + nameof(GenerateFromFile) + "</"));
   }
 
   [Test]
@@ -349,9 +348,9 @@ partial class HighlightTests {
     string? generated = null;
 
     Assert.DoesNotThrow(() => generated = hl.Generate(input: "using System;"));
-    Assert.IsNotNull(generated);
-    Assert.IsNotEmpty(generated);
-    StringAssert.Contains("<svg", generated);
+    Assert.That(generated, Is.Not.Null);
+    Assert.That(generated, Is.Not.Empty);
+    Assert.That(generated, Does.Contain("<svg"));
   }
 
   [Test]
@@ -373,9 +372,9 @@ partial class HighlightTests {
     string? generated = null;
 
     Assert.DoesNotThrow(() => generated = hl.Generate(input: "using System;"));
-    Assert.IsNotNull(generated);
-    Assert.IsNotEmpty(generated);
-    StringAssert.Contains("\x1b[38;2;", generated);
+    Assert.That(generated, Is.Not.Null);
+    Assert.That(generated, Is.Not.Empty);
+    Assert.That(generated, Does.Contain("\x1b[38;2;"));
   }
 
   [Test]
@@ -400,9 +399,9 @@ partial class HighlightTests {
 Console.WriteLine(""Hello, world!"")"
       )
     );
-    Assert.IsNotNull(generated);
-    Assert.IsNotEmpty(generated);
-    StringAssert.Contains(">using</", generated);
-    StringAssert.DoesNotContain("Hello, world!", generated);
+    Assert.That(generated, Is.Not.Null);
+    Assert.That(generated, Is.Not.Empty);
+    Assert.That(generated, Does.Contain(">using</"));
+    Assert.That(generated, Does.Not.Contain("Hello, world!"));
   }
 }
