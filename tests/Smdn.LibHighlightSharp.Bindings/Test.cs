@@ -119,8 +119,8 @@ public class SwigBindingTests {
       nameof(win32VersionResource.OriginalFilename)
     );
     Assert.AreEqual(
-      win32VersionResource.LegalTrademarks,
       "GNU General Public License v3.0",
+      win32VersionResource.LegalTrademarks,
       nameof(win32VersionResource.LegalTrademarks)
     );
     StringAssert.Contains("smdn", win32VersionResource.LegalCopyright, nameof(win32VersionResource.LegalCopyright));

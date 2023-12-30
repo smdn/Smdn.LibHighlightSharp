@@ -197,7 +197,7 @@ using System;",
   {
     using var hl = new Highlight();
 
-    Assert.AreEqual(expected, hl.TryFindSyntaxFile(name, out var syntaxFilePath));
+    Assert.AreEqual(hl.TryFindSyntaxFile(name, out var syntaxFilePath), expected);
 
     if (expected) {
       Assert.IsNotNull(syntaxFilePath);
@@ -213,7 +213,7 @@ using System;",
   {
     using var hl = new Highlight();
 
-    Assert.AreEqual(expected, hl.TryFindThemeFile(name, out var themeFilePath));
+    Assert.AreEqual(hl.TryFindThemeFile(name, out var themeFilePath), expected);
 
     if (expected) {
       Assert.IsNotNull(themeFilePath);
@@ -234,7 +234,7 @@ using System;",
     Assert.DoesNotThrow(() => ret = hl.TryFindThemeBase16File(name, out themeFilePath));
 
     if (Highlight.MinimumVersionSupportingBase16Themes <= VersionInformations.NativeLibraryVersion) {
-      Assert.AreEqual(expected, ret);
+      Assert.AreEqual(ret, expected);
 
       if (expected) {
         Assert.IsNotNull(themeFilePath);

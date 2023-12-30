@@ -42,18 +42,18 @@ public class HighlightHtmlClassTests {
   public void ToString_Default()
   {
     if (4 <= VersionInformations.NativeLibraryVersion.Major)
-      Assert.AreEqual(HighlightHtmlClass.Default.ToString(), "def");
+      Assert.AreEqual("def", HighlightHtmlClass.Default.ToString());
     else
-      Assert.AreEqual(HighlightHtmlClass.Default.ToString(), "std");
+      Assert.AreEqual("std", HighlightHtmlClass.Default.ToString());
   }
 
   [Test]
   public void ToString_Strings()
   {
     if (4 <= VersionInformations.NativeLibraryVersion.Major)
-      Assert.AreEqual(HighlightHtmlClass.Strings.ToString(), "sng");
+      Assert.AreEqual("sng", HighlightHtmlClass.Strings.ToString());
     else
-      Assert.AreEqual(HighlightHtmlClass.Strings.ToString(), "str");
+      Assert.AreEqual("str", HighlightHtmlClass.Strings.ToString());
   }
 
   private static IEnumerable YieldTestCases_TryParse()
