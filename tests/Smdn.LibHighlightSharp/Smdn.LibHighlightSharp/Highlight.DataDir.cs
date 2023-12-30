@@ -193,11 +193,11 @@ using System;",
   [TestCase("non-existent-syntax", false)]
   [TestCase("", false)]
   [TestCase(null, false)]
-  public void TryFindSyntaxFile(string name, bool expected)
+  public void TryFindSyntaxFile(string? name, bool expected)
   {
     using var hl = new Highlight();
 
-    Assert.AreEqual(hl.TryFindSyntaxFile(name, out var syntaxFilePath), expected);
+    Assert.AreEqual(hl.TryFindSyntaxFile(name!, out var syntaxFilePath), expected);
 
     if (expected) {
       Assert.IsNotNull(syntaxFilePath);
@@ -209,11 +209,11 @@ using System;",
   [TestCase("non-existent-theme", false)]
   [TestCase("", false)]
   [TestCase(null, false)]
-  public void TryFindThemeFile(string name, bool expected)
+  public void TryFindThemeFile(string? name, bool expected)
   {
     using var hl = new Highlight();
 
-    Assert.AreEqual(hl.TryFindThemeFile(name, out var themeFilePath), expected);
+    Assert.AreEqual(hl.TryFindThemeFile(name!, out var themeFilePath), expected);
 
     if (expected) {
       Assert.IsNotNull(themeFilePath);
@@ -225,13 +225,13 @@ using System;",
   [TestCase("non-existent-theme", false)]
   [TestCase("", false)]
   [TestCase(null, false)]
-  public void TryFindThemeBase16File(string name, bool expected)
+  public void TryFindThemeBase16File(string? name, bool expected)
   {
     using var hl = new Highlight();
     var ret = false;
     string? themeFilePath = null;
 
-    Assert.DoesNotThrow(() => ret = hl.TryFindThemeBase16File(name, out themeFilePath));
+    Assert.DoesNotThrow(() => ret = hl.TryFindThemeBase16File(name!, out themeFilePath));
 
     if (Highlight.MinimumVersionSupportingBase16Themes <= VersionInformations.NativeLibraryVersion) {
       Assert.AreEqual(ret, expected);
