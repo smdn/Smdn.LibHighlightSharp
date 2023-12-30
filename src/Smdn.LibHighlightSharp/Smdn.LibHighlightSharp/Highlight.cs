@@ -70,13 +70,13 @@ public partial class Highlight : IDisposable {
 
     if (0 < path.Length) {
       var pathEndsInDirectorySeparator =
-  #if SYSTEM_IO_PATH_ENDSINDIRECTORYSEPARATOR
+#if SYSTEM_IO_PATH_ENDSINDIRECTORYSEPARATOR
         Path.EndsInDirectorySeparator(path);
-  #elif SYSTEM_STRING_ENDSWITH_CHAR
+#elif SYSTEM_STRING_ENDSWITH_CHAR
         path.EndsWith(Path.DirectorySeparatorChar) || path.EndsWith(Path.AltDirectorySeparatorChar);
-  #else
+#else
         path[path.Length - 1] == Path.DirectorySeparatorChar || path[path.Length - 1] == Path.AltDirectorySeparatorChar;
-  #endif
+#endif
 
       if (!pathEndsInDirectorySeparator)
         path += Path.DirectorySeparatorChar;

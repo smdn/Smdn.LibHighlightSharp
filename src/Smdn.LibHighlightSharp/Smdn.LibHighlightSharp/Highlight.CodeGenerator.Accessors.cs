@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+
 using Microsoft.CSharp.RuntimeBinder;
 
 namespace Smdn.LibHighlightSharp;

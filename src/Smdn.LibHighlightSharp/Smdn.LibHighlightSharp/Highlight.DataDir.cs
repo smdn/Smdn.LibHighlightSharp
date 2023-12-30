@@ -7,7 +7,9 @@ using System.Diagnostics.CodeAnalysis;
 #endif
 using System.IO;
 using System.Linq;
+
 using Microsoft.CSharp.RuntimeBinder;
+
 using Smdn.LibHighlightSharp.Bindings;
 
 namespace Smdn.LibHighlightSharp;
