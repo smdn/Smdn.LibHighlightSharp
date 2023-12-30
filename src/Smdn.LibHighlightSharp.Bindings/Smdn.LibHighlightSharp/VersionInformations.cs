@@ -41,14 +41,14 @@ public static class VersionInformations {
       version = 0;
 
       try {
-        const int bufferLength = 4; // "nnn\0".Length
-        var buffer = stackalloc sbyte[bufferLength];
-        var len = smdn_libhighlightsharp_get_highlight_version((int)part, buffer, bufferLength);
+        const int BufferLength = 4; // "nnn\0".Length
+        var buffer = stackalloc sbyte[BufferLength];
+        var len = smdn_libhighlightsharp_get_highlight_version((int)part, buffer, BufferLength);
 
         if (len <= 0)
           return false;
 
-        var versionString = new string(buffer, 0, Math.Min(len, bufferLength));
+        var versionString = new string(buffer, 0, Math.Min(len, BufferLength));
 
         return int.TryParse(versionString, out version);
       }
@@ -62,14 +62,14 @@ public static class VersionInformations {
       version = default;
 
       try {
-        const int bufferLength = 7; // "xx.xxx\0".Length
-        var buffer = stackalloc sbyte[bufferLength];
-        var len = smdn_libhighlightsharp_get_highlight_version((int)VersionPart.Full, buffer, bufferLength);
+        const int BufferLength = 7; // "xx.xxx\0".Length
+        var buffer = stackalloc sbyte[BufferLength];
+        var len = smdn_libhighlightsharp_get_highlight_version((int)VersionPart.Full, buffer, BufferLength);
 
         if (len <= 0)
           return false;
 
-        var versionString = new string(buffer, 0, Math.Min(len, bufferLength));
+        var versionString = new string(buffer, 0, Math.Min(len, BufferLength));
 
         return Version.TryParse(versionString, out version);
       }
@@ -94,14 +94,14 @@ public static class VersionInformations {
     return 0; // failed
   }
 
-  private static readonly Lazy<Version> nativeLibraryVersion = new(
+  private static readonly Lazy<Version> LazyNativeLibraryVersion = new(
     () => new Version(
       major: GetHighlightVersion(VersionPart.Major),
       minor: GetHighlightVersion(VersionPart.Minor)
     )
   );
 
-  public static Version NativeLibraryVersion => nativeLibraryVersion.Value;
+  public static Version NativeLibraryVersion => LazyNativeLibraryVersion.Value;
 
   public static string NativeLibraryName => Bindings.HighlightConfigurations.DllImportName;
 

@@ -10,9 +10,9 @@ using System.Reflection;
 namespace Smdn.LibHighlightSharp;
 
 public sealed class HighlightHtmlClass : IEquatable<HighlightHtmlClass>, IEquatable<string> {
-  private static readonly Version version3x = new(3, 0);
-  private static readonly Version version4x = new(4, 0);
-  private static readonly Version versionLatest = new(5, 0);
+  private static readonly Version Version3x = new(3, 0);
+  private static readonly Version Version4x = new(4, 0);
+  private static readonly Version VersionLatest = new(5, 0);
 
   // XHTML attribute values are case sensitive
   // ref: https://stackoverflow.com/questions/12533926/are-class-names-in-css-selectors-case-sensitive
@@ -21,7 +21,7 @@ public sealed class HighlightHtmlClass : IEquatable<HighlightHtmlClass>, IEquata
 
   internal const string CommonPrefix = "hl ";
 
-  public static HighlightHtmlClass Highlight { get; } = new("hl", HighlightElementType.Other, version3x, versionLatest);
+  public static HighlightHtmlClass Highlight { get; } = new("hl", HighlightElementType.Other, Version3x, VersionLatest);
 
   // The following style names have changed in version 4.
   // - str -> sng
@@ -29,36 +29,36 @@ public sealed class HighlightHtmlClass : IEquatable<HighlightHtmlClass>, IEquata
   // ref: https://gitlab.com/saalen/highlight/-/blob/master/README_V4_MIGRATION.adoc
 
   public static HighlightHtmlClass Default => 4 <= VersionInformations.NativeLibraryVersion.Major ? DefaultV4 : DefaultV3;
-  public static HighlightHtmlClass DefaultV3 { get; } = new("std", HighlightElementType.Default, version3x, version4x);
-  public static HighlightHtmlClass DefaultV4 { get; } = new("def", HighlightElementType.Default, version4x, versionLatest);
+  public static HighlightHtmlClass DefaultV3 { get; } = new("std", HighlightElementType.Default, Version3x, Version4x);
+  public static HighlightHtmlClass DefaultV4 { get; } = new("def", HighlightElementType.Default, Version4x, VersionLatest);
 
   public static HighlightHtmlClass Strings => 4 <= VersionInformations.NativeLibraryVersion.Major ? StringsV4 : StringsV3;
-  public static HighlightHtmlClass StringsV3 { get; } = new("str", HighlightElementType.Strings, version3x, version4x);
-  public static HighlightHtmlClass StringsV4 { get; } = new("sng", HighlightElementType.Strings, version4x, versionLatest);
+  public static HighlightHtmlClass StringsV3 { get; } = new("str", HighlightElementType.Strings, Version3x, Version4x);
+  public static HighlightHtmlClass StringsV4 { get; } = new("sng", HighlightElementType.Strings, Version4x, VersionLatest);
 
-  public static HighlightHtmlClass Number { get; } = new("num", HighlightElementType.Number, version3x, versionLatest);
-  public static HighlightHtmlClass SingleLineComment { get; } = new("slc", HighlightElementType.SingleLineComment, version3x, versionLatest);
-  public static HighlightHtmlClass MultiLineComment { get; } = new("com", HighlightElementType.MultiLineComment, version3x, versionLatest);
-  public static HighlightHtmlClass EscapedCharacter { get; } = new("esc", HighlightElementType.EscapedCharacter, version3x, versionLatest);
-  public static HighlightHtmlClass Preprocessor { get; } = new("ppc", HighlightElementType.Preprocessor, version3x, versionLatest);
-  public static HighlightHtmlClass PreprocessorString { get; } = new("pps", HighlightElementType.PreprocessorString, version3x, versionLatest);
-  public static HighlightHtmlClass LineNumber { get; } = new("lin", HighlightElementType.LineNumber, version3x, versionLatest);
-  public static HighlightHtmlClass Operator { get; } = new("opt", HighlightElementType.Operator, version3x, versionLatest);
-  public static HighlightHtmlClass StringInterpolation { get; } = new("ipl", HighlightElementType.StringInterpolation, version3x, versionLatest);
+  public static HighlightHtmlClass Number { get; } = new("num", HighlightElementType.Number, Version3x, VersionLatest);
+  public static HighlightHtmlClass SingleLineComment { get; } = new("slc", HighlightElementType.SingleLineComment, Version3x, VersionLatest);
+  public static HighlightHtmlClass MultiLineComment { get; } = new("com", HighlightElementType.MultiLineComment, Version3x, VersionLatest);
+  public static HighlightHtmlClass EscapedCharacter { get; } = new("esc", HighlightElementType.EscapedCharacter, Version3x, VersionLatest);
+  public static HighlightHtmlClass Preprocessor { get; } = new("ppc", HighlightElementType.Preprocessor, Version3x, VersionLatest);
+  public static HighlightHtmlClass PreprocessorString { get; } = new("pps", HighlightElementType.PreprocessorString, Version3x, VersionLatest);
+  public static HighlightHtmlClass LineNumber { get; } = new("lin", HighlightElementType.LineNumber, Version3x, VersionLatest);
+  public static HighlightHtmlClass Operator { get; } = new("opt", HighlightElementType.Operator, Version3x, VersionLatest);
+  public static HighlightHtmlClass StringInterpolation { get; } = new("ipl", HighlightElementType.StringInterpolation, Version3x, VersionLatest);
 
   // IDs are defined up to 6 (6 is used in plugins/cpp_qt.lua from v3.x, langDefs/c.lang from v4.0)
-  public static HighlightHtmlClass KeywordA { get; } = new("kwa", HighlightElementType.KeywordA, version3x, versionLatest);
-  public static HighlightHtmlClass KeywordB { get; } = new("kwb", HighlightElementType.KeywordB, version3x, versionLatest);
-  public static HighlightHtmlClass KeywordC { get; } = new("kwc", HighlightElementType.KeywordC, version3x, versionLatest);
-  public static HighlightHtmlClass KeywordD { get; } = new("kwd", HighlightElementType.KeywordD, version3x, versionLatest);
-  public static HighlightHtmlClass KeywordE { get; } = new("kwe", HighlightElementType.KeywordE, version3x, versionLatest);
-  public static HighlightHtmlClass KeywordF { get; } = new("kwf", HighlightElementType.KeywordF, version3x, versionLatest);
+  public static HighlightHtmlClass KeywordA { get; } = new("kwa", HighlightElementType.KeywordA, Version3x, VersionLatest);
+  public static HighlightHtmlClass KeywordB { get; } = new("kwb", HighlightElementType.KeywordB, Version3x, VersionLatest);
+  public static HighlightHtmlClass KeywordC { get; } = new("kwc", HighlightElementType.KeywordC, Version3x, VersionLatest);
+  public static HighlightHtmlClass KeywordD { get; } = new("kwd", HighlightElementType.KeywordD, Version3x, VersionLatest);
+  public static HighlightHtmlClass KeywordE { get; } = new("kwe", HighlightElementType.KeywordE, Version3x, VersionLatest);
+  public static HighlightHtmlClass KeywordF { get; } = new("kwf", HighlightElementType.KeywordF, Version3x, VersionLatest);
 
-  public static HighlightHtmlClass HoverText { get; } = new("hvr", HighlightElementType.HoverText, version4x, versionLatest);
-  public static HighlightHtmlClass SyntaxError { get; } = new("err", HighlightElementType.SyntaxError, version4x, versionLatest);
-  public static HighlightHtmlClass ErrorMessage { get; } = new("erm", HighlightElementType.ErrorMessage, version4x, versionLatest);
+  public static HighlightHtmlClass HoverText { get; } = new("hvr", HighlightElementType.HoverText, Version4x, VersionLatest);
+  public static HighlightHtmlClass SyntaxError { get; } = new("err", HighlightElementType.SyntaxError, Version4x, VersionLatest);
+  public static HighlightHtmlClass ErrorMessage { get; } = new("erm", HighlightElementType.ErrorMessage, Version4x, VersionLatest);
 
-  private static readonly IReadOnlyDictionary<string, HighlightHtmlClass> classNameMap = InitializeClassNameMap();
+  private static readonly IReadOnlyDictionary<string, HighlightHtmlClass> ClassNameMap = InitializeClassNameMap();
 
   private static IReadOnlyDictionary<string, HighlightHtmlClass> InitializeClassNameMap()
   {
@@ -122,7 +122,7 @@ public sealed class HighlightHtmlClass : IEquatable<HighlightHtmlClass>, IEquata
     if (className is null)
       return false;
 
-    return classNameMap.TryGetValue(className, out @class);
+    return ClassNameMap.TryGetValue(className, out @class);
   }
 
   public static bool TryParsePrefixed(
@@ -142,7 +142,7 @@ public sealed class HighlightHtmlClass : IEquatable<HighlightHtmlClass>, IEquata
 
     var styleName = prefixedClassName.Substring(CommonPrefix.Length).Trim();
 
-    return classNameMap.TryGetValue(styleName, out @class);
+    return ClassNameMap.TryGetValue(styleName, out @class);
   }
 
   /*
