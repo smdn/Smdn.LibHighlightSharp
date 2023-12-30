@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System.Collections;
+
 using NUnit.Framework;
 
 namespace Smdn.LibHighlightSharp;
@@ -181,13 +182,13 @@ public class HighlightHtmlClassTests {
 
     var isVersion4x = 4 <= VersionInformations.NativeLibraryVersion.Major;
 
-    yield return new object?[] { "hl def", isVersion4x, isVersion4x ? HighlightHtmlClass.DefaultV4 : null};
-    yield return new object?[] { "hl std", !isVersion4x, isVersion4x ? null : HighlightHtmlClass.DefaultV3};
+    yield return new object?[] { "hl def", isVersion4x, isVersion4x ? HighlightHtmlClass.DefaultV4 : null };
+    yield return new object?[] { "hl std", !isVersion4x, isVersion4x ? null : HighlightHtmlClass.DefaultV3 };
 
-    yield return new object?[] { "hl sng", isVersion4x, isVersion4x ? HighlightHtmlClass.StringsV4 : null};
-    yield return new object?[] { "hl str", !isVersion4x, isVersion4x ? null : HighlightHtmlClass.StringsV3};
+    yield return new object?[] { "hl sng", isVersion4x, isVersion4x ? HighlightHtmlClass.StringsV4 : null };
+    yield return new object?[] { "hl str", !isVersion4x, isVersion4x ? null : HighlightHtmlClass.StringsV3 };
 
-    yield return new object?[] { "hl hvr", isVersion4x, isVersion4x ? HighlightHtmlClass.HoverText : null};
+    yield return new object?[] { "hl hvr", isVersion4x, isVersion4x ? HighlightHtmlClass.HoverText : null };
     yield return new object?[] { "hl err", isVersion4x, isVersion4x ? HighlightHtmlClass.SyntaxError : null };
     yield return new object?[] { "hl erm", isVersion4x, isVersion4x ? HighlightHtmlClass.ErrorMessage : null };
   }
