@@ -5,3 +5,6 @@
 
 [highlight-*/*.cs]
 generated_code = true
+
+[highlight-*/highlight.cs]
+dotnet_diagnostic.CS8981.severity = none # CS8981 - The type name only contains lower-cased ascii characters.
