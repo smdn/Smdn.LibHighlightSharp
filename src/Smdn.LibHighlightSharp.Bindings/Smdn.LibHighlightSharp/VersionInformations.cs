@@ -8,15 +8,24 @@ using System.Runtime.InteropServices;
 
 namespace Smdn.LibHighlightSharp;
 
-public static class VersionInformations {
+public static partial class VersionInformations {
   public static Version BindingsVersion => Assembly.GetExecutingAssembly().GetName().Version ?? new Version();
 
+#if NET7_0_OR_GREATER
+  [LibraryImport(
+    Bindings.HighlightConfigurations.DllImportName,
+    EntryPoint = nameof(smdn_libhighlightsharp_get_highlight_version)
+  )]
+  private static unsafe partial
+#else
   [DllImport(
     Bindings.HighlightConfigurations.DllImportName,
     EntryPoint = nameof(smdn_libhighlightsharp_get_highlight_version)
   )]
+  private static unsafe extern
+#endif
 #pragma warning disable SA1300, SA1305
-  private static unsafe extern int smdn_libhighlightsharp_get_highlight_version(
+  int smdn_libhighlightsharp_get_highlight_version(
     int nVersionPart,
     sbyte* lpVersion,
     int nLength
