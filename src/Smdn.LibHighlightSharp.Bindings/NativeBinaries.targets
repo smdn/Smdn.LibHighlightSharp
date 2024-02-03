@@ -55,7 +55,7 @@ SPDX-License-Identifier: MIT
 
     <ItemGroup Condition=" '$(_TargetOrHostRid)' != '' ">
       <_NativeBinaryFileForTargetOrHostEnvironmentInRelativePath
-        Include="%(Highlight_NativeBinaryFileRelativePath.Identity)"
+        Include="%(Highlight_NativeBinaryFileRelativePath.ActualPath)"
         Condition=" $([System.String]::new(%(Highlight_NativeBinaryFileRelativePath.Identity)).StartsWith('$(_TargetOrHostRid)')) "
       />
       <_NativeBinaryFileForTargetOrHostEnvironment
@@ -90,7 +90,7 @@ SPDX-License-Identifier: MIT
   >
     <ItemGroup>
       <_NativeBinaryPackFile
-        Include="$(Highlight_NativeBinariesBaseDirectory)%(Highlight_NativeBinaryFileRelativePath.Identity)"
+        Include="$(Highlight_NativeBinariesBaseDirectory)%(Highlight_NativeBinaryFileRelativePath.ActualPath)"
         PackagePath="runtimes\%(Highlight_NativeBinaryFileRelativePath.Identity)"
       />
 

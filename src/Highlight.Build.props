@@ -30,7 +30,7 @@ SPDX-License-Identifier: MIT
     <Highlight_BindingsNamespace>Smdn.LibHighlightSharp.Bindings</Highlight_BindingsNamespace>
     <Highlight_BindingsSourceDirectory>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\$(Highlight_BindingsNamespace)\$(Highlight_NameWithVersion)\</Highlight_BindingsSourceDirectory>
 
-    <Highlight_NativeBinariesSupportedRuntimeIdentifiers>ubuntu.22.04-x64;ubuntu.20.04-x64;osx-x64;win-x64</Highlight_NativeBinariesSupportedRuntimeIdentifiers>
+    <Highlight_NativeBinariesSupportedRuntimeIdentifiers>linux-x64;ubuntu.22.04-x64;ubuntu.20.04-x64;osx-x64;win-x64</Highlight_NativeBinariesSupportedRuntimeIdentifiers>
     <Highlight_NativeBinariesBaseDirectory>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\runtimes\</Highlight_NativeBinariesBaseDirectory>
     <Highlight_NativeBinariesSHA1SumFile>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\libhighlight\$(Highlight_BindingsDllImportName).SHA1SUMS.txt</Highlight_NativeBinariesSHA1SumFile>
 
@@ -39,11 +39,22 @@ SPDX-License-Identifier: MIT
 
   <ItemGroup>
     <!-- Note: Must be synchronized with the RID of the property Highlight_NativeBinariesSupportedRuntimeIdentifiers -->
-    <Highlight_NativeBinaryFileRelativePath Include="ubuntu.22.04-x64\native\lib$(Highlight_BindingsDllImportName).so" />
-    <Highlight_NativeBinaryFileRelativePath Include="ubuntu.20.04-x64\native\lib$(Highlight_BindingsDllImportName).so" />
-    <Highlight_NativeBinaryFileRelativePath Include="osx-x64\native\lib$(Highlight_BindingsDllImportName).dylib" />
-    <Highlight_NativeBinaryFileRelativePath Include="win-x64\native\$(Highlight_BindingsDllImportName).dll" />
-    <Highlight_NativeBinaryFileRelativePath Include="win-x64\native\$(Lua_DllFileName)" />
+    <Highlight_NativeBinaryFileRelativePath Include="ubuntu.22.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
+    <Highlight_NativeBinaryFileRelativePath Include="ubuntu.20.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
+    <Highlight_NativeBinaryFileRelativePath Include="osx-x64\native\lib$(Highlight_BindingsDllImportName).dylib" ActualPath="%(Identity)" />
+    <Highlight_NativeBinaryFileRelativePath Include="win-x64\native\$(Highlight_BindingsDllImportName).dll" ActualPath="%(Identity)" />
+    <Highlight_NativeBinaryFileRelativePath Include="win-x64\native\$(Lua_DllFileName)" ActualPath="%(Identity)" />
+
+    <!--
+      The RID Model has been simplified after .NET 8.0 or later, so RID 'linux-x64' should be used even on Ubuntu.
+      So, deploys the binary targeted 'ubuntu.20.04-x64' as a replacement for the binary targeted 'linux-x64'.
+
+      ref: https://learn.microsoft.com/dotnet/core/compatibility/deployment/8.0/rid-asset-list
+    -->
+    <Highlight_NativeBinaryFileRelativePath
+      Include="linux-x64\native\lib$(Highlight_BindingsDllImportName).so"
+      ActualPath="ubuntu.20.04-x64\native\lib$(Highlight_BindingsDllImportName).so"
+    />
   </ItemGroup>
 
   <PropertyGroup Label="Dependencies license notice">
