@@ -11,7 +11,7 @@ namespace Smdn.LibHighlightSharp;
 public static partial class VersionInformations {
   public static Version BindingsVersion => Assembly.GetExecutingAssembly().GetName().Version ?? new Version();
 
-#if NET7_0_OR_GREATER
+#if SYSTEM_RUNTIME_INTEROPSERVICES_LIBRARYIMPORTATTRIBUTE
   [LibraryImport(
     Bindings.HighlightConfigurations.DllImportName,
     EntryPoint = nameof(smdn_libhighlightsharp_get_highlight_version)
