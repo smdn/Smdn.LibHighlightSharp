@@ -4,8 +4,8 @@ SPDX-License-Identifier: MIT
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0;netstandard2.1;netstandard2.0</TargetFrameworks><!-- System.Runtime.InteropServices.HandleRef is available in .NET Standard 2.0 or over -->
-    <RuntimeIdentifiers>$(Highlight_NativeBinariesSupportedRuntimeIdentifiers)</RuntimeIdentifiers>
+    <TargetFrameworks>net8.0;net6.0;netstandard2.1;netstandard2.0</TargetFrameworks><!-- System.Runtime.InteropServices.HandleRef is available in .NET Standard 2.0 or over -->
+    <RuntimeIdentifiers>$(LibraryProjectRuntimeIdentifiers)</RuntimeIdentifiers>
     <VersionPrefix>1.1.4</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <RootNamespace/> <!-- empty the root namespace so that the namespace is determined only by the directory name, for code style rule IDE0030 -->

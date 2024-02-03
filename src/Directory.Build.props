@@ -29,6 +29,16 @@ SPDX-License-Identifier: MIT
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
+  <PropertyGroup Label="common project properties">
+    <LibraryProjectRuntimeIdentifiers>linux-x64;osx-x64;win-x64</LibraryProjectRuntimeIdentifiers>
+    <LibraryProjectRuntimeIdentifiers Condition="
+      $(TargetFramework.StartsWith('net7')) or
+      $(TargetFramework.StartsWith('net6')) or
+      $(TargetFramework.StartsWith('net5')) or
+      $(TargetFramework.StartsWith('netstandard'))
+    ">$(Highlight_NativeBinariesSupportedRuntimeIdentifiers)</LibraryProjectRuntimeIdentifiers>
+  </PropertyGroup>
+
   <ItemGroup Label="common packaging files">
     <None
       Include="$(MSBuildThisFileDirectory)..\COPYING.txt"
