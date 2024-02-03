@@ -3,5 +3,5 @@
 #
 # EditorConfig is awesome: https://EditorConfig.org
 
-[Smdn.LibHighlightSharp.Bindings/highlight-*/*.cs]
+[highlight-*/*.cs]
 generated_code = true
