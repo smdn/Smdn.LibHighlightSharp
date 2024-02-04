@@ -2,10 +2,12 @@
 //   Name: Smdn.LibHighlightSharp.Bindings
 //   AssemblyVersion: 4.0.1.0
 //   InformationalVersion: 4.0.1+9fc1e4921c54ca6d2b96c5b19fb060296d560fde
-//   TargetFramework: .NETStandard,Version=v2.0
+//   TargetFramework: .NETCoreApp,Version=v8.0
 //   Configuration: Release
 //   Referenced assemblies:
-//     netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51
+//     System.Runtime, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+//     System.Runtime.InteropServices, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+//     System.Threading, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
 
 using System;
 using Smdn.LibHighlightSharp.Bindings;
