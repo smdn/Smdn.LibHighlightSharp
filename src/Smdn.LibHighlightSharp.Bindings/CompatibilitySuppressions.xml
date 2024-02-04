@@ -23,6 +23,13 @@
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.OutputType.ESC_TRUECOLOR</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
     <DiagnosticId>CP0001</DiagnosticId>
     <Target>T:Smdn.LibHighlightSharp.Bindings.RegexElement</Target>
     <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
@@ -32,6 +39,104 @@
   <Suppression>
     <DiagnosticId>CP0001</DiagnosticId>
     <Target>T:Smdn.LibHighlightSharp.Bindings.ReGroup</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.DIRECTIVE_END</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.EMBEDDED_CODE_BEGIN</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.EMBEDDED_CODE_END</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.ESC_CHAR_END</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.IDENTIFIER_BEGIN</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.IDENTIFIER_END</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.KEYWORD</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.KEYWORD_END</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.ML_COMMENT_END</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.NUMBER_END</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.SL_COMMENT_END</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.STRING_END</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.STRING_INTERPOLATION_END</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.SYMBOL_END</Target>
     <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
     <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -73,6 +178,13 @@
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.OutputType.ESC_TRUECOLOR</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
     <DiagnosticId>CP0001</DiagnosticId>
     <Target>T:Smdn.LibHighlightSharp.Bindings.RegexElement</Target>
     <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
@@ -82,6 +194,104 @@
   <Suppression>
     <DiagnosticId>CP0001</DiagnosticId>
     <Target>T:Smdn.LibHighlightSharp.Bindings.ReGroup</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.DIRECTIVE_END</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.EMBEDDED_CODE_BEGIN</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.EMBEDDED_CODE_END</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.ESC_CHAR_END</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.IDENTIFIER_BEGIN</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.IDENTIFIER_END</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.KEYWORD</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.KEYWORD_END</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.ML_COMMENT_END</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.NUMBER_END</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.SL_COMMENT_END</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.STRING_END</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.STRING_INTERPOLATION_END</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.SYMBOL_END</Target>
     <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
     <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -123,6 +333,13 @@
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.OutputType.ESC_TRUECOLOR</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
     <DiagnosticId>CP0001</DiagnosticId>
     <Target>T:Smdn.LibHighlightSharp.Bindings.RegexElement</Target>
     <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
@@ -132,6 +349,104 @@
   <Suppression>
     <DiagnosticId>CP0001</DiagnosticId>
     <Target>T:Smdn.LibHighlightSharp.Bindings.ReGroup</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.DIRECTIVE_END</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.EMBEDDED_CODE_BEGIN</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.EMBEDDED_CODE_END</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.ESC_CHAR_END</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.IDENTIFIER_BEGIN</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.IDENTIFIER_END</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.KEYWORD</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.KEYWORD_END</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.ML_COMMENT_END</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.NUMBER_END</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.SL_COMMENT_END</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.STRING_END</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.STRING_INTERPOLATION_END</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0011</DiagnosticId>
+    <Target>F:Smdn.LibHighlightSharp.Bindings.State.SYMBOL_END</Target>
     <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
     <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
