@@ -15,7 +15,7 @@ on:
 
 jobs:
   run-publish-release-target:
-    uses: smdn/Smdn.Fundamentals/.github/workflows/publish-release-target.yml@3c602197fee3cd952b26b9ec57ec6395a0fa7042
+    uses: smdn/Smdn.Fundamentals/.github/workflows/publish-release-target.yml@66b0fc2b4682d6a2d8f17b324b0ded186103cedc
     if: |
       (github.event.pull_request.merged == true && startsWith(github.head_ref, 'releases/')) &&
       (contains(github.event.pull_request.labels.*.name, 'release-target'))
