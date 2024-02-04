@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Suppressions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <!-- 3.36.0(baseline) vs >=4.0.0 -->
+  <!-- 3.36.0(baseline) vs >=4.0.0; net6.0 -->
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Smdn.LibHighlightSharp.Bindings.CodeGenerator.setStartingNestedLang(System.String)</Target>
@@ -11,6 +11,13 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Smdn.LibHighlightSharp.Bindings.DataDir.searchDataDir(System.String)</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Smdn.LibHighlightSharp.Bindings.DataDir.searchFile(System.String)</Target>
     <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
     <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -38,6 +45,14 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Smdn.LibHighlightSharp.Bindings.SyntaxReader.isKeyword(System.String)</Target>
+    <Left>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/net6.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <!-- 3.36.0(baseline) vs >=4.0.0; netstandard2.0 -->
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Smdn.LibHighlightSharp.Bindings.CodeGenerator.setStartingNestedLang(System.String)</Target>
     <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
     <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
@@ -46,6 +61,13 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Smdn.LibHighlightSharp.Bindings.DataDir.searchDataDir(System.String)</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Smdn.LibHighlightSharp.Bindings.DataDir.searchFile(System.String)</Target>
     <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
     <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -73,6 +95,14 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Smdn.LibHighlightSharp.Bindings.SyntaxReader.isKeyword(System.String)</Target>
+    <Left>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.0/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <!-- 3.36.0(baseline) vs >=4.0.0; netstandard2.1 -->
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Smdn.LibHighlightSharp.Bindings.CodeGenerator.setStartingNestedLang(System.String)</Target>
     <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
     <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
@@ -81,6 +111,13 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Smdn.LibHighlightSharp.Bindings.DataDir.searchDataDir(System.String)</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Smdn.LibHighlightSharp.Bindings.DataDir.searchFile(System.String)</Target>
     <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
     <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -102,6 +139,13 @@
   <Suppression>
     <DiagnosticId>CP0001</DiagnosticId>
     <Target>T:Smdn.LibHighlightSharp.Bindings.SWIGTYPE_p_boost__xpressive__sregex</Target>
+    <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
+    <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Smdn.LibHighlightSharp.Bindings.SyntaxReader.isKeyword(System.String)</Target>
     <Left>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Left>
     <Right>lib/netstandard2.1/Smdn.LibHighlightSharp.Bindings.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
