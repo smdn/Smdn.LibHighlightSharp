@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.5.1)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.6.1)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 4.5.1.0
-//   InformationalVersion: 4.5.1+5ab2b8f151c796f2be08a7a1ee4e85e07c1ca86f
+//   AssemblyVersion: 4.6.1.0
+//   InformationalVersion: 4.6.1+146d46b420652a4dffa11df7beed84cbb1b8a3c0
 //   TargetFramework: .NETStandard,Version=v2.0
 //   Configuration: Release
 //   Referenced assemblies:
@@ -116,6 +116,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public ParseError generateFile(string inFileName, string outFileName) {}
     public string generateString(string input) {}
     public string generateStringFromFile(string inFileName) {}
+    public byte getAdditionalEOFChar() {}
     public string getBaseFont() {}
     public string getBaseFontSize() {}
     public bool getFragmentCode() {}
@@ -167,6 +168,8 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string readUserStyleDef() {}
     public bool requiresTwoPassParsing() {}
     public void resetSyntaxReaders() {}
+    public void setAdditionalEOFChar() {}
+    public void setAdditionalEOFChar(byte eofChar) {}
     public void setBaseFont(string fontName) {}
     public void setBaseFontSize(string fontSize) {}
     public void setEOLDelimiter(char delim) {}
