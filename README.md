@@ -595,7 +595,27 @@ You can combine the different versions of bindings/syntaxes/themes, as in the fo
 
 Feature that is version-specific, is resolved by dynamic binding (`System.Dynamic`). Calls to version-specific features will throw an exception or be simply ignored at runtime.
 
-## Troubleshooting at run time
+## Troubleshooting
+### Warning `NETSDK1206` / Simplified RID issues (.NET 8.0)
+Starting with .NET 8.0, Runtime Identifiers (RID) such as `ubuntu.22.04-x64` have been simplified and it is recommended to use `linux-x64` instead.
+
+Some older versions of `Smdn.LibHighlightSharp.Bindings` packages do not contain native binaries targeting `linux-x64`.
+
+This may result in native binaries not being deployed and `DllNotFoundException` being thrown at runtime. Also, a warning `NETSDK1206` is displayed at build time.
+
+```
+$ dotnet build
+/usr/share/dotnet/sdk/8.0.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.Sdk.targets(284,5): warning NETSDK1206: Found version-specific or distribution-specific runtime identifier(s): ubuntu.20.04-x64, ubuntu.22.04-x64. Affected libraries: Smdn.LibHighlightSharp.Bindings. In .NET 8.0 and higher, assets for version-specific and distribution-specific runtime identifiers will not be found by default. See https://aka.ms/dotnet/rid-usage for details. [/home/runner/work/Smdn.LibHighlightSharp/Smdn.LibHighlightSharp/tests/Smdn.LibHighlightSharp.Bindings/Smdn.LibHighlightSharp.Bindings.Tests.csproj::TargetFramework=net8.0]
+
+$ dotnet run
+System.TypeInitializationException: The type initializer for 'Smdn.LibHighlightSharp.Bindings.highlightPINVOKE' threw an exception.
+ ---> System.TypeInitializationException: The type initializer for 'SWIGExceptionHelper' threw an exception.
+ ---> System.DllNotFoundException: Unable to load shared library 'highlight-v4_10_0_0' or one of its dependencies. In order to help diagnose loading problems, consider using a tool like strace. If you're using glibc, consider setting the LD_DEBUG environment variable:
+```
+
+To avoid this problem, use the version of `Smdn.LibHighlightSharp.Bindings` that ships with `linux-x64` native binaries, or apply the workaround given in [issue #141](https://github.com/smdn/Smdn.LibHighlightSharp/issues/141).
+
+
 ### `DllImport` issues
 If the exception `TypeInitializationException` or `DllNotFoundException` occurs like below, the native library may not have been deployed correctly.
 
