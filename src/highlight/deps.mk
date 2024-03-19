@@ -24,7 +24,7 @@ $(LUA_DLL_WINDOWS_X64):
 	mkdir -p $(MINGW_LUA_DLL_DIR_WINDOWS_X64)
 
 	cd $(MINGW_LUA_DLL_DIR_WINDOWS_X64) && \
-	  curl -O -J -L https://sourceforge.net/projects/luabinaries/files/$(LUA_VERSION_WINDOWS)/Windows%20Libraries/Dynamic/$(LUA_ZIP_WINDOWS_X64)/download && \
+	  curl --no-progress-meter --silent --show-error -O -J -L https://sourceforge.net/projects/luabinaries/files/$(LUA_VERSION_WINDOWS)/Windows%20Libraries/Dynamic/$(LUA_ZIP_WINDOWS_X64)/download && \
 	  unzip ${LUA_ZIP_WINDOWS_X64}
 
 copy-runtime-deps: copy-runtime-deps-win-x64
