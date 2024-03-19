@@ -6,7 +6,7 @@ include config.mk
 
 .DEFAULT_GOAL := native-binaries
 
-CFLAGS_COMMON = -std=c++11 -g -O2 -fPIC
+CFLAGS_COMMON = -std=c++17 -g -O2 -fPIC
 
 libhighlight-native:
 	$(MAKE) clean-libhighlight -f libhighlight.mk
