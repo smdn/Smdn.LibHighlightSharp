@@ -145,6 +145,8 @@ function Build-ConfigMk {
   $lines += "MINGW_LUA_DLL_DIR_WINDOWS_X64 := ./mingw/lib/win-x64/lua/"
   $lines += "MINGW_LUA_DLL_FILENAME := ${MINGW_LUA_DLL_FILENAME}"
 
+  $lines += "HIGHLIGHT_PATCH_DIR := ./patches/"
+
   if ([System.Version]$HIGHLIGHT_SOURCE_VERSION -lt [System.Version]"4.0") {
     # for Highlight 3.xx
     $CXX_MINGW = 'x86_64-w64-mingw32-g++-win32'
