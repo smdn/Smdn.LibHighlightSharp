@@ -28,4 +28,4 @@ case $yn in
     ;;
 esac
 
-gh workflow run build-artifact.yml -f 'os=ubuntu-22.04, ubuntu-20.04, macos-12' -f 'verbose=true' --ref ${BRANCH}
+gh workflow run build-artifact.yml -f 'os=ubuntu-22.04, ubuntu-20.04, macos-12' -f 'verbose=true' -f 'create-pr-merge-artifact-branch=true' --ref ${BRANCH}
