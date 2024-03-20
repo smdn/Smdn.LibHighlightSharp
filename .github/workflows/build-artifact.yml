@@ -10,6 +10,12 @@ on:
         description: "The OS label which run the build on. (ex: ubuntu-22.04, ubuntu-20.04, macos-11)"
         required: false
         type: string
+
+      create-pr-merge-artifact-branch:
+        description: "If true, creates the Pull Request for merging branch which the built artifact has been commited."
+        type: boolean
+        default: true
+
       verbose:
         description: "If true, enables verbose output."
         required: false
@@ -137,6 +143,7 @@ jobs:
         "artifact-log-file=${log_file}" >> $Env:GITHUB_OUTPUT
 
     - name: Create pull request
+      if: ${{ inputs.create-pr-merge-artifact-branch }}
       shell: pwsh
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
