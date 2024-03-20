@@ -7,9 +7,15 @@ on:
   workflow_dispatch:
     inputs:
       os:
-        description: "The OS label which run the build on. (ex: ubuntu-22.04, ubuntu-20.04, macos-11)"
+        description: "The OS label which run the build on. (ex: ubuntu-22.04, ubuntu-20.04, macos-12)"
         required: false
         type: string
+
+      create-pr-merge-artifact-branch:
+        description: "If true, creates the Pull Request for merging branch which the built artifact has been commited."
+        type: boolean
+        default: true
+
       verbose:
         description: "If true, enables verbose output."
         required: false
@@ -29,7 +35,7 @@ jobs:
       runs-ons: ${{ steps.runs-on-os-list.outputs.runs-ons }}
       base-branch: ${{ steps.base-branch.outputs.base-branch }}
     env:
-      RUNS_ON_OS_LIST_DEFAULT: "['ubuntu-22.04', 'ubuntu-20.04', 'macos-11']"
+      RUNS_ON_OS_LIST_DEFAULT: "['ubuntu-22.04', 'ubuntu-20.04', 'macos-12']"
 
     steps:
     - name: Determine OS list which run the build on
@@ -87,7 +93,7 @@ jobs:
         elseif ('${{ matrix.os }}' -eq 'ubuntu-20.04') {
           $target_rid = 'ubuntu.20.04'
         }
-        elseif ('${{ matrix.os }}' -eq 'macos-11') {
+        elseif ('${{ matrix.os }}' -eq 'macos-12') {
           $target_rid = 'osx'
         }
 
@@ -98,7 +104,7 @@ jobs:
         }
 
     - name: Checkout repository
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4.1.1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -137,6 +143,7 @@ jobs:
         "artifact-log-file=${log_file}" >> $Env:GITHUB_OUTPUT
 
     - name: Create pull request
+      if: ${{ inputs.create-pr-merge-artifact-branch }}
       shell: pwsh
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

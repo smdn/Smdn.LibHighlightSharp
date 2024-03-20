@@ -24,7 +24,10 @@ function Build-ConfigMk {
 
   $LUA_VERSION = Get-HighlightBuildProps LUA_VERSION
 
-  if ([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('osx.')) {
+  if (
+    [System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('osx.') -or
+    [System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('osx-')
+  ) {
     # Instructions suggested by homebrew:
     #   For compilers to find lua@5.3 you may need to set:
     #     export LDFLAGS="-L/usr/local/opt/lua@5.3/lib"
@@ -144,6 +147,8 @@ function Build-ConfigMk {
   $lines += "MINGW_INCLUDE_DIR := ./mingw/include/"
   $lines += "MINGW_LUA_DLL_DIR_WINDOWS_X64 := ./mingw/lib/win-x64/lua/"
   $lines += "MINGW_LUA_DLL_FILENAME := ${MINGW_LUA_DLL_FILENAME}"
+
+  $lines += "HIGHLIGHT_PATCH_DIR := ./patches/"
 
   if ([System.Version]$HIGHLIGHT_SOURCE_VERSION -lt [System.Version]"4.0") {
     # for Highlight 3.xx
