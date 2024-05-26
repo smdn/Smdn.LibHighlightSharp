@@ -8,7 +8,9 @@ $(HIGHLIGHT_SOURCE_ROOT_DIR):
 	git clone -c advice.detachedHead=false ${HIGHLIGHT_SOURCE_REPO} -b v$(HIGHLIGHT_SOURCE_VERSION) --depth 1 $(HIGHLIGHT_SOURCE_ROOT_DIR) || \
 	git clone -c advice.detachedHead=false ${HIGHLIGHT_SOURCE_REPO} -b  $(HIGHLIGHT_SOURCE_VERSION) --depth 1 $(HIGHLIGHT_SOURCE_ROOT_DIR)
 
+ifeq ($(HIGHLIGHT_SOURCE_VERSION),4.11)
 	patch -d $(HIGHLIGHT_SOURCE_ROOT_DIR) -p0 < $(HIGHLIGHT_PATCH_DIR)highlight-4.11-remove-using-namespace-std.patch
+endif
 
 highlight-src: $(HIGHLIGHT_SOURCE_ROOT_DIR)
 
