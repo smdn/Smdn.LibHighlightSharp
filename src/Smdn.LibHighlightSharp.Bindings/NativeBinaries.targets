@@ -74,6 +74,11 @@ SPDX-License-Identifier: MIT
       <Output TaskParameter="TargetOutputs" ItemName="_NativeBinaryFile"/>
     </CallTarget>
 
+    <Warning
+      Text="No native binaries were selected which support the target or host environment. (ProjectRuntimeIdentifier=$(RuntimeIdentifier), RuntimeIdentifier=$([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier), OSDescription=$([System.Runtime.InteropServices.RuntimeInformation]::OSDescription), ProcessArchitecture=$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture))"
+      Condition=" '@(_NativeBinaryFile)' == '' "
+    />
+
     <ItemGroup>
       <Content
         Include="@(_NativeBinaryFile)"
@@ -122,6 +127,11 @@ SPDX-License-Identifier: MIT
     <CallTarget Targets="NativeBinaries_GetNativeBinaryFilesForTargetOrHostEnvironment">
       <Output TaskParameter="TargetOutputs" ItemName="_NativeBinaryFile"/>
     </CallTarget>
+
+    <Warning
+      Text="No native binaries were selected which support the target or host environment. (ProjectRuntimeIdentifier=$(RuntimeIdentifier), RuntimeIdentifier=$([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier), OSDescription=$([System.Runtime.InteropServices.RuntimeInformation]::OSDescription), ProcessArchitecture=$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture))"
+      Condition=" '@(_NativeBinaryFile)' == '' "
+    />
 
     <ItemGroup>
       <_OutputFile Include="@(_NativeBinaryFile)">
