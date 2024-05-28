@@ -72,7 +72,7 @@ jobs:
         "verbose=$($verbose | ConvertTo-Json -Compress)" >> $Env:GITHUB_OUTPUT
 
   run-test:
-    uses: smdn/Smdn.Fundamentals/.github/workflows/test.yml@workflows/test-v1.3.1
+    uses: smdn/Smdn.Fundamentals/.github/workflows/test.yml@workflows/test-v1.3.2
     needs: prerequisites
     strategy:
       matrix:
