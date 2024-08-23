@@ -95,6 +95,7 @@ function Build-ConfigMk {
   $MINGW_LUA_DLL_FILENAME = Get-HighlightBuildProps MINGW_LUA_DLL_FILENAME
 
   $lines += "NATIVE_BINARY_OUTPUT_BASEDIR := ${NATIVE_BINARY_OUTPUT_BASEDIR}"
+  $lines += "NATIVE_BINARY_OUTPUT_PATH_UBUNTU_24_04_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}ubuntu.24.04-x64/native/lib${BINDINGS_DLLIMPORTNAME}.so"
   $lines += "NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}ubuntu.22.04-x64/native/lib${BINDINGS_DLLIMPORTNAME}.so"
   $lines += "NATIVE_BINARY_OUTPUT_PATH_UBUNTU_20_04_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}ubuntu.20.04-x64/native/lib${BINDINGS_DLLIMPORTNAME}.so"
   $lines += "NATIVE_BINARY_OUTPUT_PATH_MACOS_X64 := ${NATIVE_BINARY_OUTPUT_BASEDIR}osx-x64/native/lib${BINDINGS_DLLIMPORTNAME}.dylib"
@@ -105,14 +106,22 @@ function Build-ConfigMk {
   # Determine build targets for current environment
   #
   if (
+    [System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.24.04-x64') -or
+    [System.Runtime.InteropServices.RuntimeInformation]::OSDescription.StartsWith('Ubuntu 24.04')
+  ) {
+    # Target 'ubuntu.24.04-x64' and 'win-x64'(+lua.dll)
+    $artifact_rid = "ubuntu.24.04-x64"
+    $lines += "NATIVE_BINARIES :=" +
+      " `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_24_04_X64)" +
+      " `$(NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64)"
+  }
+  elseif (
     [System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.22.04-x64') -or
     [System.Runtime.InteropServices.RuntimeInformation]::OSDescription.StartsWith('Ubuntu 22.04')
   ) {
-    # Target 'ubuntu.22.04-x64' and 'win-x64'(+lua.dll)
+    # Target 'ubuntu.22.04-x64'
     $artifact_rid = "ubuntu.22.04-x64"
-    $lines += "NATIVE_BINARIES :=" +
-      " `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64)" +
-      " `$(NATIVE_BINARY_OUTPUT_PATH_WINDOWS_X64)"
+    $lines += "NATIVE_BINARIES := `$(NATIVE_BINARY_OUTPUT_PATH_UBUNTU_22_04_X64)"
   }
   elseif (
     [System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.20.04-x64') -or

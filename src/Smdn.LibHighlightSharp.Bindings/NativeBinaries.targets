@@ -159,6 +159,14 @@ SPDX-License-Identifier: MIT
       <_HostPlatform
         Condition="
           '$(_HostPlatform)' == 'linux' and (
+            $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.24.04')) or
+            $([System.Runtime.InteropServices.RuntimeInformation]::OSDescription.StartsWith('Ubuntu 24.04'))
+          )
+        "
+      >ubuntu.24.04</_HostPlatform>
+      <_HostPlatform
+        Condition="
+          '$(_HostPlatform)' == 'linux' and (
             $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.22.04')) or
             $([System.Runtime.InteropServices.RuntimeInformation]::OSDescription.StartsWith('Ubuntu 22.04'))
           )
