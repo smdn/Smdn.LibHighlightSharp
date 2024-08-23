@@ -60,6 +60,7 @@ SPDX-License-Identifier: MIT
       />
       <_NativeBinaryFileForTargetOrHostEnvironment
         Include="$(Highlight_NativeBinariesBaseDirectory)%(_NativeBinaryFileForTargetOrHostEnvironmentInRelativePath.Identity)"
+        Condition=" '%(_NativeBinaryFileForTargetOrHostEnvironmentInRelativePath.Identity)' != '' "
       />
     </ItemGroup>
   </Target>
