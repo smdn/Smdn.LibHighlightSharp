@@ -39,6 +39,7 @@ SPDX-License-Identifier: MIT
 
   <ItemGroup>
     <!-- Note: Must be synchronized with the RID of the property Highlight_NativeBinariesSupportedRuntimeIdentifiers -->
+    <Highlight_NativeBinaryFileRelativePath Include="ubuntu.24.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
     <Highlight_NativeBinaryFileRelativePath Include="ubuntu.22.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
     <Highlight_NativeBinaryFileRelativePath Include="ubuntu.20.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
     <Highlight_NativeBinaryFileRelativePath Include="osx-x64\native\lib$(Highlight_BindingsDllImportName).dylib" ActualPath="%(Identity)" />
