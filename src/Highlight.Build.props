@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
     <Highlight_MinimumSupportedVersionInclusive>3.36.0</Highlight_MinimumSupportedVersionInclusive>
     <Highlight_MaximumSupportedVersionExclusive>5.0.0</Highlight_MaximumSupportedVersionExclusive>
 
-    <Highlight_SourceVersionMajorMinor>4.12</Highlight_SourceVersionMajorMinor>
+    <Highlight_SourceVersionMajorMinor>4.13</Highlight_SourceVersionMajorMinor>
     <Lua_VersionMajorMinor>5.3</Lua_VersionMajorMinor>
     <Lua_VersionMajorMinorPatch>5.3.6</Lua_VersionMajorMinorPatch>
   </PropertyGroup>
@@ -39,6 +39,7 @@ SPDX-License-Identifier: MIT
 
   <ItemGroup>
     <!-- Note: Must be synchronized with the RID of the property Highlight_NativeBinariesSupportedRuntimeIdentifiers -->
+    <Highlight_NativeBinaryFileRelativePath Include="ubuntu.24.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
     <Highlight_NativeBinaryFileRelativePath Include="ubuntu.22.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
     <Highlight_NativeBinaryFileRelativePath Include="ubuntu.20.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
     <Highlight_NativeBinaryFileRelativePath Include="osx-x64\native\lib$(Highlight_BindingsDllImportName).dylib" ActualPath="%(Identity)" />

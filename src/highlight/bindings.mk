@@ -10,7 +10,7 @@ bindings-stamp:
 	mkdir -p $(WRAPPER_OUTPUT_PATH)
 	mkdir -p $(BINDINGS_OUTPUT_DIR)
 
-	swig -c++ -csharp \
+	swig $(SWIG_C_OPTIONS) -csharp \
 	  -o $(WRAPPER_SRC) \
 	  -dllimport $(BINDINGS_DLLIMPORTNAME) \
 	  -namespace $(BINDINGS_NAMESPACE) \
