@@ -176,6 +176,26 @@ function Build-ConfigMk {
   $lines += "CXX_MINGW := ${CXX_MINGW}"
   $lines += "LDFLAGS_MINGW := ${LDFLAGS_MINGW}"
 
+  $SWIG_C_OPTIONS = '-c++'
+
+  if ([System.Version]$HIGHLIGHT_SOURCE_VERSION -ge [System.Version]"4.13") {
+    # for Highlight 4.13 or greater
+
+    # test swig version
+    [System.Text.RegularExpressions.Regex]$swig_version_pattern = "SWIG Version (?<version>[0-9]+\.[0-9]+(\.[0-9+])?)"
+
+    if ("$(swig -version)" -match $swig_version_pattern) {
+      $swig_version = [System.Version]$Matches['version']
+
+      if ($swig_version -ge [System.Version]"4.2.0") {
+        # enable C++17 features if swig >= 4.2.0
+        $SWIG_C_OPTIONS += ' -std=c++17'
+      }
+    }
+  }
+
+  $lines += "SWIG_C_OPTIONS := ${SWIG_C_OPTIONS}"
+
   if (Test-Path -LiteralPath $TargetFilename -PathType leaf) {
     Remove-Item -Force -LiteralPath $TargetFilename
   }
