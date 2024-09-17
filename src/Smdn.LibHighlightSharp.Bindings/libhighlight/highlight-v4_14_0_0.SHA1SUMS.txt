@@ -1,0 +1,5 @@
+3dda402cb544b852e6262437848011a055a9ff31 *../runtimes/osx-x64/native/libhighlight-v4_14_0_0.dylib
+1d933975dd10b48332c43e92fef832f7adb6c133 *../runtimes/ubuntu.20.04-x64/native/libhighlight-v4_14_0_0.so
+0bb8d23d72fa8b6793e7da4f33e558fd45d8c43e *../runtimes/ubuntu.22.04-x64/native/libhighlight-v4_14_0_0.so
+53a923969edb7d3a34b4a3071f77b7c78b35e68d *../runtimes/ubuntu.24.04-x64/native/libhighlight-v4_14_0_0.so
+f5605943f8d9b7ba3a06593d9f7168a2eef7123d *../runtimes/win-x64/native/highlight-v4_14_0_0.dll

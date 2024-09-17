@@ -31,12 +31,15 @@ SPDX-License-Identifier: MIT
 
   <PropertyGroup Label="common project properties">
     <LibraryProjectRuntimeIdentifiers>linux-x64;osx-x64;win-x64</LibraryProjectRuntimeIdentifiers>
+    <!-- use only smaller RIDs to comply with the error NETSDK1083 -->
+    <!--
     <LibraryProjectRuntimeIdentifiers Condition="
       $(TargetFramework.StartsWith('net7')) or
       $(TargetFramework.StartsWith('net6')) or
       $(TargetFramework.StartsWith('net5')) or
       $(TargetFramework.StartsWith('netstandard'))
     ">$(Highlight_NativeBinariesSupportedRuntimeIdentifiers)</LibraryProjectRuntimeIdentifiers>
+    -->
   </PropertyGroup>
 
   <ItemGroup Label="common packaging files">
