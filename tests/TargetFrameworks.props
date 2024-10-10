@@ -17,6 +17,17 @@ SPDX-License-Identifier: MIT
     RuntimeInformation.OSDescription still returns 'Ubuntu 22.04' on >= .NET 8.
   -->
 
+  <!-- On Ubuntu 22.04 -->
+  <PropertyGroup
+    Condition="
+      $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.22.04')) or
+      $([System.Runtime.InteropServices.RuntimeInformation]::OSDescription.StartsWith('Ubuntu 22.04'))
+    "
+  >
+    <!-- disable Mono (test runner not working on local environment?) -->
+    <EnableTargetFrameworkNetFx Condition=" '$(GITHUB_ACTIONS)' != 'true' ">false</EnableTargetFrameworkNetFx>
+  </PropertyGroup>
+
   <!-- On Ubuntu 24.04 -->
   <PropertyGroup
     Condition="
@@ -24,21 +35,10 @@ SPDX-License-Identifier: MIT
       $([System.Runtime.InteropServices.RuntimeInformation]::OSDescription.StartsWith('Ubuntu 24.04'))
     "
   >
-    <!-- disable net6.0 -->
-    <EnableTargetFrameworkDotNet60>false</EnableTargetFrameworkDotNet60>
-  </PropertyGroup>
-
-  <!-- On Ubuntu 22.04 or 24.04 -->
-  <PropertyGroup
-    Condition="
-      $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.24.04')) or
-      $([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier.StartsWith('ubuntu.22.04')) or
-      $([System.Runtime.InteropServices.RuntimeInformation]::OSDescription.StartsWith('Ubuntu 24.04')) or
-      $([System.Runtime.InteropServices.RuntimeInformation]::OSDescription.StartsWith('Ubuntu 22.04'))
-    "
-  >
-    <!-- disable Mono (test runner not working on local environment?) -->
-    <EnableTargetFrameworkNetFx Condition=" '$(GITHUB_ACTIONS)' != 'true' ">false</EnableTargetFrameworkNetFx>
+    <!-- disable net6.0 on GitHub Actions Ubuntu 24.04 runner images -->
+    <EnableTargetFrameworkDotNet60 Condition=" '$(GITHUB_ACTIONS)' == 'true' ">false</EnableTargetFrameworkDotNet60>
+    <!-- disable Mono on GitHub Actions Ubuntu 24.04 runner images -->
+    <EnableTargetFrameworkNetFx Condition=" '$(GITHUB_ACTIONS)' == 'true' ">false</EnableTargetFrameworkNetFx>
   </PropertyGroup>
 
   <!-- On MacOS -->
