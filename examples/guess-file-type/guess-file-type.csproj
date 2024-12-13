@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Smdn.LibHighlightSharp" Version="1.*" />
-    <PackageReference Include="Smdn.LibHighlightSharp.Bindings" Version="4.0" />
-    <PackageReference Include="Smdn.LibHighlightSharp.LangDefs" Version="4.0" />
+    <PackageReference Include="Smdn.LibHighlightSharp.Bindings" Version="4.11.0" />
+    <PackageReference Include="Smdn.LibHighlightSharp.LangDefs" Version="4.*" />
   </ItemGroup>
 
   <ItemGroup>
