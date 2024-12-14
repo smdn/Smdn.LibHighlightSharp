@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -40,8 +41,11 @@ public class AssemblyMetadataTests {
     var commandLine = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
       ? $"dotnet run --project \"{pathToToolProject}\" -- \"{pathToAssemblySmdnLibHighlight}\" \"{pathToAssemblySmdnLibHighlightBindings}\""
       : $"dotnet run --project '{pathToToolProject}' -- '{pathToAssemblySmdnLibHighlight}' '{pathToAssemblySmdnLibHighlightBindings}'";
+    var environmentVariables = new Dictionary<string, string>() {
+      ["NO_COLOR"] = "NO_COLOR", // disable emitting ANSI color escape codes
+    };
 
-    if (0 != Shell.Execute(commandLine, out var stdout, out var stderr)) {
+    if (0 != Shell.Execute(commandLine, arguments: null, environmentVariables, out var stdout, out var stderr)) {
       TestContext.Out.WriteLine("[command line]");
       TestContext.Out.WriteLine(commandLine);
       TestContext.Out.WriteLine("[stdout]");
