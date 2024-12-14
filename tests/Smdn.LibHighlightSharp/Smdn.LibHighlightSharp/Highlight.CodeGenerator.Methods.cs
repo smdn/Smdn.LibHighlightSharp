@@ -46,7 +46,7 @@ partial class HighlightTests {
   }
 
   [Test]
-  public void SetSyntax_ArgumentNull([Values(true, false)] bool fromFile)
+  public void SetSyntax_ArgumentNull([Values] bool fromFile)
   {
     using var hl = new Highlight();
 
@@ -59,7 +59,7 @@ partial class HighlightTests {
   }
 
   [Test]
-  public void SetSyntax_NonExistent([Values(true, false)] bool fromFile)
+  public void SetSyntax_NonExistent([Values] bool fromFile)
   {
     const string SyntaxName = "non-existent-syntax";
     using var hl = new Highlight();
@@ -144,7 +144,7 @@ partial class HighlightTests {
   }
 
   [Test]
-  public void SetTheme_ArgumentNull([Values(true, false)] bool fromFile)
+  public void SetTheme_ArgumentNull([Values] bool fromFile)
   {
     using var hl = new Highlight();
 
@@ -165,7 +165,7 @@ partial class HighlightTests {
   }
 
   [Test]
-  public void SetTheme_NonExistent([Values(true, false)] bool fromFile)
+  public void SetTheme_NonExistent([Values] bool fromFile)
   {
     const string ThemeName = "non-existent-theme";
     using var hl = new Highlight();

@@ -43,7 +43,7 @@ public partial class XhtmlHighlightTests {
   }
 
   [Test]
-  public void GenerateXhtmlDocument([Values(true, false)] bool fragment)
+  public void GenerateXhtmlDocument([Values] bool fragment)
   {
     using var xhl = CreateInstance();
 
@@ -59,7 +59,7 @@ public partial class XhtmlHighlightTests {
   }
 
   [Test]
-  public void GenerateXhtmlDocument_PreserveWhiteSpaces([Values(true, false)] bool preserveWhitespace)
+  public void GenerateXhtmlDocument_PreserveWhiteSpaces([Values] bool preserveWhitespace)
   {
     using var xhl = CreateInstance();
 
@@ -75,7 +75,7 @@ public partial class XhtmlHighlightTests {
   }
 
   [Test]
-  public void GenerateXhtmlFragment([Values(true, false)] bool fragment)
+  public void GenerateXhtmlFragment([Values] bool fragment)
   {
     using var xhl = CreateInstance();
 
@@ -90,7 +90,7 @@ public partial class XhtmlHighlightTests {
   }
 
   [Test]
-  public void GenerateXhtmlFragment_PreserveWhiteSpaces([Values(true, false)] bool preserveWhitespace)
+  public void GenerateXhtmlFragment_PreserveWhiteSpaces([Values] bool preserveWhitespace)
   {
     using var xhl = CreateInstance();
 

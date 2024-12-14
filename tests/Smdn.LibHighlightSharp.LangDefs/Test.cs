@@ -18,7 +18,7 @@ public class Test {
 
     FileAssert.Exists(Path.Combine(langDefsDirectory, "c.lang"));
 
-    TestContext.WriteLine(
+    TestContext.Out.WriteLine(
       "Total {0} syntax files are deployed",
       Directory.GetFiles(langDefsDirectory, "*.lang", SearchOption.TopDirectoryOnly).Length
     );

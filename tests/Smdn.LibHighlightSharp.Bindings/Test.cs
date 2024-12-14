@@ -128,7 +128,7 @@ public class SwigBindingTests {
     Assert.That(win32VersionResource.LegalCopyright, Does.Contain("smdn"), nameof(win32VersionResource.LegalCopyright));
     Assert.That(win32VersionResource.CompanyName, Does.Contain("smdn.jp"), nameof(win32VersionResource.CompanyName));
 
-    TestContext.WriteLine($"{nameof(win32VersionResource.Comments)}: {win32VersionResource.Comments}");
+    TestContext.Out.WriteLine($"{nameof(win32VersionResource.Comments)}: {win32VersionResource.Comments}");
   }
 
   [Test]

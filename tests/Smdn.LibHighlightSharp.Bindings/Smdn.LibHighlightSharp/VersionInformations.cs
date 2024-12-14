@@ -12,7 +12,7 @@ public partial class HighlightTests {
   [Test]
   public void NativeLibraryVersion()
   {
-    TestContext.WriteLine($"{nameof(VersionInformations.NativeLibraryVersion)}: {VersionInformations.NativeLibraryVersion}");
+    TestContext.Out.WriteLine($"{nameof(VersionInformations.NativeLibraryVersion)}: {VersionInformations.NativeLibraryVersion}");
 
     Assert.That(VersionInformations.NativeLibraryVersion, Is.Not.Null);
     Assert.That(VersionInformations.NativeLibraryVersion.Major, Is.GreaterThanOrEqualTo(0), nameof(VersionInformations.NativeLibraryVersion.Major));
@@ -22,7 +22,7 @@ public partial class HighlightTests {
   [Test]
   public void NativeLibraryName()
   {
-    TestContext.WriteLine($"{nameof(VersionInformations.NativeLibraryName)}: {VersionInformations.NativeLibraryName}");
+    TestContext.Out.WriteLine($"{nameof(VersionInformations.NativeLibraryName)}: {VersionInformations.NativeLibraryName}");
 
     var v = VersionInformations.NativeLibraryVersion;
     var versionSuffix = $"-v{v.Major}_{v.Minor}_0_0";
@@ -45,7 +45,7 @@ public partial class HighlightTests {
       return;
     }
 
-    TestContext.WriteLine($"{nameof(VersionInformations.NativeLibraryFileName)}: {VersionInformations.NativeLibraryFileName}");
+    TestContext.Out.WriteLine($"{nameof(VersionInformations.NativeLibraryFileName)}: {VersionInformations.NativeLibraryFileName}");
 
     var v = VersionInformations.NativeLibraryVersion;
     var versionSuffix = $"-v{v.Major}_{v.Minor}_0_0";
@@ -66,7 +66,7 @@ public partial class HighlightTests {
   [Test]
   public void BindingsVersion()
   {
-    TestContext.WriteLine($"{nameof(VersionInformations.BindingsVersion)}: {VersionInformations.BindingsVersion}");
+    TestContext.Out.WriteLine($"{nameof(VersionInformations.BindingsVersion)}: {VersionInformations.BindingsVersion}");
 
     Assert.That(VersionInformations.BindingsVersion, Is.Not.Null);
     Assert.That(VersionInformations.BindingsVersion.Major, Is.GreaterThanOrEqualTo(0), nameof(VersionInformations.BindingsVersion.Major));

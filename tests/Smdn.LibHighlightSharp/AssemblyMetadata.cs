@@ -42,12 +42,12 @@ public class AssemblyMetadataTests {
       : $"dotnet run --project '{pathToToolProject}' -- '{pathToAssemblySmdnLibHighlight}' '{pathToAssemblySmdnLibHighlightBindings}'";
 
     if (0 != Shell.Execute(commandLine, out var stdout, out var stderr)) {
-      TestContext.WriteLine("[command line]");
-      TestContext.WriteLine(commandLine);
-      TestContext.WriteLine("[stdout]");
-      TestContext.WriteLine(stdout);
-      TestContext.WriteLine("[stderr]");
-      TestContext.WriteLine(stderr);
+      TestContext.Out.WriteLine("[command line]");
+      TestContext.Out.WriteLine(commandLine);
+      TestContext.Out.WriteLine("[stdout]");
+      TestContext.Out.WriteLine(stdout);
+      TestContext.Out.WriteLine("[stderr]");
+      TestContext.Out.WriteLine(stderr);
 
       Assert.Fail("failed to run tool");
     }

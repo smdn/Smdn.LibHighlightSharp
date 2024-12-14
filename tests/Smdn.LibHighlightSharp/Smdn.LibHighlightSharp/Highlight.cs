@@ -77,7 +77,7 @@ public partial class HighlightTests {
   }
 
   [Test]
-  public void Ctor_WithDataDir_ShouldDisposeDataDir([Values(true, false)] bool shouldDisposeDataDir)
+  public void Ctor_WithDataDir_ShouldDisposeDataDir([Values] bool shouldDisposeDataDir)
   {
     using var dataDir = new DataDirEx();
     using var hl = new Highlight(dataDir: dataDir, shouldDisposeDataDir: shouldDisposeDataDir);
@@ -88,7 +88,7 @@ public partial class HighlightTests {
   }
 
   [Test]
-  public void Ctor_WithDataDirForEach_ShouldDisposeDataDir([Values(true, false)] bool shouldDisposeDataDir)
+  public void Ctor_WithDataDirForEach_ShouldDisposeDataDir([Values] bool shouldDisposeDataDir)
   {
     using var dataDirForSyntaxes = new DataDirEx();
     using var dataDirForThemes = new DataDirEx();

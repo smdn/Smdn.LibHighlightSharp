@@ -14,7 +14,7 @@ public class Test {
 
     FileAssert.Exists(Path.Combine(themesDirectory, "edit-vim.theme"));
 
-    TestContext.WriteLine(
+    TestContext.Out.WriteLine(
       "Total {0} theme files are deployed",
       Directory.GetFiles(themesDirectory, "*.theme", SearchOption.TopDirectoryOnly).Length
     );
