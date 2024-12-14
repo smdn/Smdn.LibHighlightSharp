@@ -25,10 +25,10 @@ If you add references to these packages, the syntax and theme files will be copi
 
 |Assembly|Package|
 | --- | --- |
-|[Smdn.LibHighlightSharp](src/Smdn.LibHighlightSharp/)|[![NuGet Smdn.LibHighlightSharp](https://buildstats.info/nuget/Smdn.LibHighlightSharp/)](https://www.nuget.org/packages/Smdn.LibHighlightSharp/)|
-|[Smdn.LibHighlightSharp.Bindings](src/Smdn.LibHighlightSharp.Bindings/)|[![NuGet Smdn.LibHighlightSharp.Bindings](https://buildstats.info/nuget/Smdn.LibHighlightSharp.Bindings/)](https://www.nuget.org/packages/Smdn.LibHighlightSharp.Bindings/)|
-|[Smdn.LibHighlightSharp.LangDefs](src/Smdn.LibHighlightSharp.LangDefs/)|[![NuGet Smdn.LibHighlightSharp.LangDefs](https://buildstats.info/nuget/Smdn.LibHighlightSharp.LangDefs/)](https://www.nuget.org/packages/Smdn.LibHighlightSharp.LangDefs/)|
-|[Smdn.LibHighlightSharp.Themes](src/Smdn.LibHighlightSharp.Themes/)|[![NuGet Smdn.LibHighlightSharp.Themes](https://buildstats.info/nuget/Smdn.LibHighlightSharp.Themes/)](https://www.nuget.org/packages/Smdn.LibHighlightSharp.Themes/)|
+|[Smdn.LibHighlightSharp](src/Smdn.LibHighlightSharp/)|[![NuGet Smdn.LibHighlightSharp](https://img.shields.io/nuget/v/Smdn.LibHighlightSharp.svg)](https://www.nuget.org/packages/Smdn.LibHighlightSharp/)|
+|[Smdn.LibHighlightSharp.Bindings](src/Smdn.LibHighlightSharp.Bindings/)|[![NuGet Smdn.LibHighlightSharp.Bindings](https://img.shields.io/nuget/v/Smdn.LibHighlightSharp.Bindings.svg)](https://www.nuget.org/packages/Smdn.LibHighlightSharp.Bindings/)|
+|[Smdn.LibHighlightSharp.LangDefs](src/Smdn.LibHighlightSharp.LangDefs/)|[![NuGet Smdn.LibHighlightSharp.LangDefs](https://img.shields.io/nuget/v/Smdn.LibHighlightSharp.LangDefs.svg)](https://www.nuget.org/packages/Smdn.LibHighlightSharp.LangDefs/)|
+|[Smdn.LibHighlightSharp.Themes](src/Smdn.LibHighlightSharp.Themes/)|[![NuGet Smdn.LibHighlightSharp.Themes](https://img.shields.io/nuget/v/Smdn.LibHighlightSharp.Themes.svg)](https://www.nuget.org/packages/Smdn.LibHighlightSharp.Themes/)|
 
 ## Usage
 ### Syntax highlighting
