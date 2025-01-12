@@ -1,1 +1,2 @@
+5c9ddec4b4ec48903d13f2d1f915a37e374897c8 *../runtimes/ubuntu.20.04-x64/native/libhighlight-v4_15_0_0.so
 0f15153978f81254034eb411e58deaa52f5fdff8 *../runtimes/ubuntu.22.04-x64/native/libhighlight-v4_15_0_0.so
