@@ -96,7 +96,7 @@ jobs:
         elseif ('${{ matrix.os }}' -eq 'ubuntu-20.04') {
           $target_rid = 'ubuntu.20.04'
         }
-        elseif ('${{ matrix.os }}' -eq 'macos-12') {
+        elseif ('${{ matrix.os }}' -eq 'macos-13') {
           $target_rid = 'osx'
         }
 
