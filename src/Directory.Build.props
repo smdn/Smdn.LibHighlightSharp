@@ -30,7 +30,10 @@ SPDX-License-Identifier: MIT
   </PropertyGroup>
 
   <PropertyGroup Label="common project properties">
+    <!--
     <LibraryProjectRuntimeIdentifiers>linux-x64;osx-x64;win-x64</LibraryProjectRuntimeIdentifiers>
+    -->
+    <LibraryProjectRuntimeIdentifiers>linux-x64;win-x64</LibraryProjectRuntimeIdentifiers>
     <!-- use only smaller RIDs to comply with the error NETSDK1083 -->
     <!--
     <LibraryProjectRuntimeIdentifiers Condition="

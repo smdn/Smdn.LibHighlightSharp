@@ -35,7 +35,7 @@ jobs:
       runs-ons: ${{ steps.runs-on-os-list.outputs.runs-ons }}
       base-branch: ${{ steps.base-branch.outputs.base-branch }}
     env:
-      RUNS_ON_OS_LIST_DEFAULT: "['ubuntu-24.04', 'ubuntu-22.04', 'ubuntu-20.04', 'macos-12']"
+      RUNS_ON_OS_LIST_DEFAULT: "['ubuntu-24.04', 'ubuntu-22.04', 'ubuntu-20.04']"
 
     steps:
     - name: Determine OS list which run the build on
