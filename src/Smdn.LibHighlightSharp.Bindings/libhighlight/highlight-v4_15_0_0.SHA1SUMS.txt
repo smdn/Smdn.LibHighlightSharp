@@ -1,0 +1,2 @@
+3f41eb83e4b1602ff3fea73645a545f27ff47cd3 *../runtimes/ubuntu.24.04-x64/native/libhighlight-v4_15_0_0.so
+fbc1e7991ff46a18600181335be927e19a3b9d60 *../runtimes/win-x64/native/highlight-v4_15_0_0.dll
