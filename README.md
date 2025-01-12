@@ -651,6 +651,9 @@ One of the following native library files must be located in the same directory 
 
 When running on Windows, make sure that the **lua53.dll** is also deployed in the same directory.
 
+### Deprecation of lua@5.3 on Homebrew (macOS)
+Since Lua 5.3 has been deprecated on Homebrew, it is not possible to build native libraries for macOS (`libhighlight-*.dylib`). With this change, `Smdn.LibHighlightSharp.Bindings` version 4.15 or later will no longer include native libraries for macOS.
+
 # Documents
 
 ## API list
