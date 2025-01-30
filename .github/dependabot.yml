@@ -12,3 +12,6 @@ updates:
       day: "wednesday"
       time: "03:18"
       timezone: "Asia/Tokyo"
+    ignore:
+      - dependency-name: "actions/checkout"
+        update-types: ["version-update:semver-patch"]
