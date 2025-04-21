@@ -12,7 +12,7 @@ SPDX-License-Identifier: MIT
     <RuntimeIdentifiers>$(LibraryProjectRuntimeIdentifiers)</RuntimeIdentifiers>
     <VersionPrefix>$(Highlight_SourceVersionMajorMinor).$(_PackageVersionPatch)</VersionPrefix>
     <VersionSuffix></VersionSuffix>
-    <RootNamespace/> <!-- empty the root namespace so that the namespace is determined only by the directory name, for code style rule IDE0030 -->
+    <RootNamespace/> <!-- empty the root namespace so that the namespace is determined only by the directory name, for code style rule IDE0130 -->
     <PackageValidationBaselineVersion>3.36.0</PackageValidationBaselineVersion>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems> <!-- explicitly specify the items to be included to @Compile -->
     <Nullable>warnings</Nullable> <!-- The nullability annotations have to be enabled separately in each file since SWIG bindings does not have nullability annotations -->
