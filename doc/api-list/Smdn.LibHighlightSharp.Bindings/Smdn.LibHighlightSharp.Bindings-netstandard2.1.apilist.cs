@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.15.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.16.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 4.15.0.0
-//   InformationalVersion: 4.15.0+9c31db5725ac98fcb369b7c50f87e726436913ff
+//   AssemblyVersion: 4.16.0.0
+//   InformationalVersion: 4.16.0+83584bce8e1b51d9145bb69474793a26d978b0a7
 //   TargetFramework: .NETStandard,Version=v2.1
 //   Configuration: Release
 //   Referenced assemblies:
