@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       os:
-        description: "The OS label which run the test on. (ex: ubuntu-22.04, ubuntu-20.04, windows-latest, macos-latest)"
+        description: "The OS label which run the test on. (ex: ubuntu-24.04, ubuntu-22.04, windows-latest, macos-latest)"
         required: false
         type: string
       bindings-versions:

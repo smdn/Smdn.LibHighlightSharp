@@ -22,7 +22,6 @@ The following table shows the correspondence between the build platform (GitHub 
 |-|-|
 |Ubuntu 24.04|`ubuntu.24.04-x64`<br/>`win-x64`|
 |Ubuntu 22.04|`ubuntu.22.04-x64`|
-|Ubuntu 20.04|`ubuntu.20.04-x64`|
 
 Native binaries targeted to Windows are built using MinGW g++ on Ubuntu.
 

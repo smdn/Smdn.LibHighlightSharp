@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       os:
-        description: "The OS label which run the build on. (ex: ubuntu-22.04, ubuntu-20.04, macos-13)"
+        description: "The OS label which run the build on. (ex: ubuntu-24.04, ubuntu-22.04, macos-13)"
         required: false
         type: string
 
@@ -35,7 +35,7 @@ jobs:
       runs-ons: ${{ steps.runs-on-os-list.outputs.runs-ons }}
       base-branch: ${{ steps.base-branch.outputs.base-branch }}
     env:
-      RUNS_ON_OS_LIST_DEFAULT: "['ubuntu-24.04', 'ubuntu-22.04', 'ubuntu-20.04']"
+      RUNS_ON_OS_LIST_DEFAULT: "['ubuntu-24.04', 'ubuntu-22.04']"
 
     steps:
     - name: Determine OS list which run the build on
@@ -92,9 +92,6 @@ jobs:
         }
         elseif ('${{ matrix.os }}' -eq 'ubuntu-22.04') {
           $target_rid = 'ubuntu.22.04'
-        }
-        elseif ('${{ matrix.os }}' -eq 'ubuntu-20.04') {
-          $target_rid = 'ubuntu.20.04'
         }
         elseif ('${{ matrix.os }}' -eq 'macos-13') {
           $target_rid = 'osx'
