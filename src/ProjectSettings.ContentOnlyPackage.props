@@ -15,7 +15,7 @@ SPDX-License-Identifier: MIT
     <ExcludeBuildOutputAssemblyWhenPacking>true</ExcludeBuildOutputAssemblyWhenPacking>
 
     <!-- TargetFramework does not make sense, but it is needed to be set -->
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <!-- package must be a development-only dependency -->
     <DevelopmentDependency>true</DevelopmentDependency>
     <!-- suppress generating API list -->
