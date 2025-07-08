@@ -1,0 +1,18 @@
+<!--
+SPDX-FileCopyrightText: 2025 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Smdn.LibHighlightSharp.Bindings/Smdn.LibHighlightSharp.Bindings.csproj" />
+    <Project Path="src/Smdn.LibHighlightSharp.LangDefs/Smdn.LibHighlightSharp.LangDefs.csproj" />
+    <Project Path="src/Smdn.LibHighlightSharp.Themes/Smdn.LibHighlightSharp.Themes.csproj" />
+    <Project Path="src/Smdn.LibHighlightSharp/Smdn.LibHighlightSharp.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Smdn.LibHighlightSharp.Bindings/Smdn.LibHighlightSharp.Bindings.Tests.csproj" />
+    <Project Path="tests/Smdn.LibHighlightSharp.LangDefs/Smdn.LibHighlightSharp.LangDefs.Tests.csproj" />
+    <Project Path="tests/Smdn.LibHighlightSharp.Themes/Smdn.LibHighlightSharp.Themes.Tests.csproj" />
+    <Project Path="tests/Smdn.LibHighlightSharp/Smdn.LibHighlightSharp.Tests.csproj" />
+  </Folder>
+</Solution>

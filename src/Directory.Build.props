@@ -3,19 +3,14 @@ SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 SPDX-License-Identifier: MIT
 -->
 <Project>
+  <Import Project="Sdk.props" Sdk="Smdn.MSBuild.ProjectAssets.Common" />
+  <Import Project="Sdk.props" Sdk="Smdn.MSBuild.ProjectAssets.Library" />
   <Import Project="$(MSBuildThisFileDirectory)Highlight.Build.props" />
 
-  <PropertyGroup>
+  <PropertyGroup Label="Configurations for Smdn.MSBuild.ProjectAssets.*">
     <SmdnBuildAssetRootDirectory>$(MSBuildThisFileDirectory)..\</SmdnBuildAssetRootDirectory>
-  </PropertyGroup>
-
-  <ImportGroup Label="project assets">
-    <Import Project="$(MSBuildThisFileDirectory)ProjectAssets.props" />
-  </ImportGroup>
-
-  <PropertyGroup Label="API list generator configurations">
     <APIListOutputBaseDirectory>$(MSBuildThisFileDirectory)..\doc\api-list\</APIListOutputBaseDirectory>
-    <APIListPackageVersion>1.3.2</APIListPackageVersion>
+    <!-- <APIListPackageVersion>1.6.0</APIListPackageVersion> -->
   </PropertyGroup>
 
   <PropertyGroup Label="package properties">

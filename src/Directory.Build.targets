@@ -13,16 +13,17 @@ SPDX-License-Identifier: MIT
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <DevelopmentDependency>true</DevelopmentDependency>
     <!--
-      supress warning NU5128
+      suppress warning NU5128
       https://docs.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu5128#scenario-2
     -->
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
   </PropertyGroup>
 
-  <ImportGroup Label="project assets">
+  <ImportGroup>
     <Import Project="$(MSBuildThisFileDirectory)GenerateNoticeFile.targets" />
-    <Import Project="$(SmdnProjectAssets_TargetsImports)" />
     <Import Project="$(MSBuildThisFileDirectory)PackageProvidedAPI.targets" />
     <Import Project="$(MSBuildThisFileDirectory)Highlight.Build.targets" />
+    <Import Project="Sdk.targets" Sdk="Smdn.MSBuild.ProjectAssets.Common" />
+    <Import Project="Sdk.targets" Sdk="Smdn.MSBuild.ProjectAssets.Library" />
   </ImportGroup>
 </Project>
