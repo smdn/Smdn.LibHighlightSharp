@@ -18,7 +18,7 @@ git push github main
 When actually executing, replace the remote name with `origin` and so on as appropriate.
 
 ## Notes for the version used in this document
-The instructions in this document generates artifacts for Highlight version **4.17**, and references **4.16** as the previous version.
+The instructions in this document generates artifacts for Highlight version **4.18**, and references **4.17** as the previous version.
 
 Replace the version number with the desired version.
 
@@ -26,7 +26,7 @@ Replace the version number with the desired version.
 
 ## Create a working branch for generating artifacts
 ```
-git switch -c artifact-highlight-4.17
+git switch -c artifact-highlight-4.18
 ```
 
 From then on, work on this branch.
@@ -35,9 +35,9 @@ From then on, work on this branch.
 Change the value of `Highlight_SourceVersionMajorMinor` property in the file [src/Highlight.Build.props](../../src/Highlight.Build.props).
 
 ```
-sed -i -e 's/Highlight_SourceVersionMajorMinor>4\.16/Highlight_SourceVersionMajorMinor>4\.17/g' src/Highlight.Build.props
+sed -i -e 's/Highlight_SourceVersionMajorMinor>4\.17/Highlight_SourceVersionMajorMinor>4\.18/g' src/Highlight.Build.props
 
-git commit -m "bump build target version up to highlight-4.17" -- src/Highlight.Build.props
+git commit -m "bump build target version up to highlight-4.18" -- src/Highlight.Build.props
 ```
 
 Commit this change as it will be used in subsequent GitHub workflows.
@@ -54,20 +54,20 @@ Check for differences in generated source files of the bindings.
 
 ```
 cd src/Smdn.LibHighlightSharp.Bindings/Smdn.LibHighlightSharp.Bindings/
-diff highlight-4.16/ highlight-4.17/
+diff highlight-4.17/ highlight-4.18/
 cd -
 ```
 
 Then, commit the generated source files.
 
 ```
-git add src/Smdn.LibHighlightSharp.Bindings/Smdn.LibHighlightSharp.Bindings/highlight-4.17/
-git commit -m "add bindings for highlight-4.17" -- src/Smdn.LibHighlightSharp.Bindings/Smdn.LibHighlightSharp.Bindings/highlight-4.17/
+git add src/Smdn.LibHighlightSharp.Bindings/Smdn.LibHighlightSharp.Bindings/highlight-4.18/
+git commit -m "add bindings for highlight-4.18" -- src/Smdn.LibHighlightSharp.Bindings/Smdn.LibHighlightSharp.Bindings/highlight-4.18/
 ```
 
 ### Push the working branch
 ```
-git push github artifact-highlight-4.17
+git push github artifact-highlight-4.18
 ```
 
 ### Generate native binaries
@@ -85,13 +85,13 @@ These PRs merge the created artifacts into a working branch. Changes to `SHA1SUM
 Fetch the changes up to this point.
 
 ```
-git pull github artifact-highlight-4.17
+git pull github artifact-highlight-4.18
 ```
 
 Create a PR to merge the changes up to this point into the `main` branch.
 
 ```
-gh pr create --base main --head artifact-highlight-4.17 --assignee @me --title "Add artifact highlight-4.17" --fill
+gh pr create --base main --head artifact-highlight-4.18 --assignee @me --title "Add artifact highlight-4.18" --fill
 ```
 
 Then, merge a PR created by this command, after testing and other checks have been completed.
@@ -101,7 +101,7 @@ Then, merge a PR created by this command, after testing and other checks have be
 git fetch github --prune
 git switch main
 git pull github main
-git branch -d artifact-highlight-4.17
+git branch -d artifact-highlight-4.18
 ```
 
 ## Prepare for packaging and release
@@ -123,7 +123,7 @@ git diff src/Smdn.LibHighlightSharp.Bindings/CompatibilitySuppressions.xml
 Commit if there are any changes.
 
 ```
-git commit -m "add CompatibilitySuppressions entries for highlight >=4.17" -- src/Smdn.LibHighlightSharp.Bindings/CompatibilitySuppressions.xml
+git commit -m "add CompatibilitySuppressions entries for highlight >=4.18" -- src/Smdn.LibHighlightSharp.Bindings/CompatibilitySuppressions.xml
 ```
 
 ### Push changes made up to this point
@@ -140,19 +140,19 @@ If necessary, also run a test workflow.
 Set the tag and trigger the release workflow. When trigger the workflow, ensure that the Actions secrets are properly updated and not expired.
 
 ```
-git tag -m "new release" new-release/main/Smdn.LibHighlightSharp.LangDefs-4.17.0
-git tag -m "new release" new-release/main/Smdn.LibHighlightSharp.Themes-4.17.0
-git tag -m "new release" new-release/main/Smdn.LibHighlightSharp.Bindings-4.17.0
+git tag -m "new release" new-release/main/Smdn.LibHighlightSharp.LangDefs-4.18.0
+git tag -m "new release" new-release/main/Smdn.LibHighlightSharp.Themes-4.18.0
+git tag -m "new release" new-release/main/Smdn.LibHighlightSharp.Bindings-4.18.0
 
 git push github \
-  new-release/main/Smdn.LibHighlightSharp.LangDefs-4.17.0 \
-  new-release/main/Smdn.LibHighlightSharp.Themes-4.17.0 \
-  new-release/main/Smdn.LibHighlightSharp.Bindings-4.17.0
+  new-release/main/Smdn.LibHighlightSharp.LangDefs-4.18.0 \
+  new-release/main/Smdn.LibHighlightSharp.Themes-4.18.0 \
+  new-release/main/Smdn.LibHighlightSharp.Bindings-4.18.0
 
 git tag -d \
-  new-release/main/Smdn.LibHighlightSharp.LangDefs-4.17.0 \
-  new-release/main/Smdn.LibHighlightSharp.Themes-4.17.0 \
-  new-release/main/Smdn.LibHighlightSharp.Bindings-4.17.0
+  new-release/main/Smdn.LibHighlightSharp.LangDefs-4.18.0 \
+  new-release/main/Smdn.LibHighlightSharp.Themes-4.18.0 \
+  new-release/main/Smdn.LibHighlightSharp.Bindings-4.18.0
 ```
 
 ### Pull changes in the release
