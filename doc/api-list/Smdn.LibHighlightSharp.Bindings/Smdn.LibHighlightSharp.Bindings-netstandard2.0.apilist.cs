@@ -1,7 +1,7 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.16.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.17.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 4.16.0.0
-//   InformationalVersion: 4.16.0+83584bce8e1b51d9145bb69474793a26d978b0a7
+//   AssemblyVersion: 4.17.0.0
+//   InformationalVersion: 4.17.0+94d497f628c79e439bff503cd8cb78f2622a2d95
 //   TargetFramework: .NETStandard,Version=v2.0
 //   Configuration: Release
 //   Referenced assemblies:
@@ -121,7 +121,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getBaseFontSize() {}
     public bool getFragmentCode() {}
     public virtual string getHoverTagClose() {}
-    public virtual string getHoverTagOpen(string hoverText) {}
+    public virtual string getHoverTagOpen(string arg0) {}
     public bool getIsolateTags() {}
     public bool getKeepInjections() {}
     public int getLineNumberWidth() {}
