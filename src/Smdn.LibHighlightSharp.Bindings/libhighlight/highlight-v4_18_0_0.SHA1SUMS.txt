@@ -1,1 +1,3 @@
 106b76b6b535035fb1013268221a2d1147a3dd04 *../runtimes/ubuntu.22.04-x64/native/libhighlight-v4_18_0_0.so
+79932930bf1f073ee97cb1c941ba857286f10d1f *../runtimes/ubuntu.24.04-x64/native/libhighlight-v4_18_0_0.so
+63753fa9d08802f3801f4e9b08057cef2a0fb959 *../runtimes/win-x64/native/highlight-v4_18_0_0.dll
