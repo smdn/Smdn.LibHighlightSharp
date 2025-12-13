@@ -6,9 +6,9 @@ SPDX-License-Identifier: MIT
   <Import Project="$(MSBuildThisFileDirectory)TestReleasedPackage.targets" Condition=" '$(IsTestProject)' == 'true' " />
 
   <ItemGroup>
-    <PackageReference Update="NUnit.Analyzers" Version="4.9.1"/>
-    <PackageReference Update="Smdn.Test.NUnit.Constraints" Version="4.1.0" />
-    <PackageReference Update="Smdn.Test.NUnit.Utils" Version="4.1.0" />
+    <!-- <PackageReference Update="NUnit.Analyzers" Version="4.11.2"/> -->
+    <!-- <PackageReference Update="Smdn.Test.NUnit.Constraints" Version="4.1.0" /> -->
+    <!-- <PackageReference Update="Smdn.Test.NUnit.Utils" Version="4.1.0" /> -->
   </ItemGroup>
 
   <ImportGroup>
@@ -16,7 +16,6 @@ SPDX-License-Identifier: MIT
       Condition=" '$(IsTestProject)' == 'true' "
       Project="$(MSBuildThisFileDirectory)RuntimeDependencies.targets"
     />
-    <Import Project="Sdk.targets" Sdk="Smdn.MSBuild.ProjectAssets.Common" />
     <Import Project="Sdk.targets" Sdk="Smdn.MSBuild.ProjectAssets.Library" />
   </ImportGroup>
 </Project>

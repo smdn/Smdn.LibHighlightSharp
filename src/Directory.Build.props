@@ -3,7 +3,6 @@ SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 SPDX-License-Identifier: MIT
 -->
 <Project>
-  <Import Project="Sdk.props" Sdk="Smdn.MSBuild.ProjectAssets.Common" />
   <Import Project="Sdk.props" Sdk="Smdn.MSBuild.ProjectAssets.Library" />
   <Import Project="$(MSBuildThisFileDirectory)Highlight.Build.props" />
 
