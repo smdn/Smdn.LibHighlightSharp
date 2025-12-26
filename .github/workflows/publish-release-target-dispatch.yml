@@ -23,7 +23,7 @@ on:
 
 jobs:
   run-publish-release-target:
-    uses: smdn/Smdn.Fundamentals/.github/workflows/publish-release-target.yml@workflows/release-target/v1.12.1
+    uses: smdn/workflows-dotnet/.github/workflows/publish-release-target.yml@release-target/v1.13.1
     with:
       pr_number_request_for_release: ${{ fromJson(inputs.pr_number_request_for_release) }}
       pr_label_request_for_release:  'release-target'
