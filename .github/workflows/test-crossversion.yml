@@ -72,7 +72,7 @@ jobs:
         "verbose=$($verbose | ConvertTo-Json -Compress)" >> $Env:GITHUB_OUTPUT
 
   run-test:
-    uses: smdn/workflows-dotnet/.github/workflows/test.yml@test/v1.9.0
+    uses: smdn/workflows-dotnet/.github/workflows/test.yml@ea0a480137fc3227427d82f4c40614f298822025 # test/v1.9.1
     needs: prerequisites
     strategy:
       matrix:
