@@ -1,12 +1,12 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.19.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.20.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 4.19.0.0
-//   InformationalVersion: 4.19.0+3103d05d6b667b8cd84b7514e095ef0d9b8ea33c
+//   AssemblyVersion: 4.20.0.0
+//   InformationalVersion: 4.20.0+1e2a641ce33a639d3779cc960059a55f2cece12a
 //   TargetFramework: .NETStandard,Version=v2.0
 //   Configuration: Release
 //   Metadata: RepositoryUrl=https://github.com/smdn/Smdn.LibHighlightSharp
 //   Metadata: RepositoryBranch=main
-//   Metadata: RepositoryCommit=3103d05d6b667b8cd84b7514e095ef0d9b8ea33c
+//   Metadata: RepositoryCommit=1e2a641ce33a639d3779cc960059a55f2cece12a
 //   Referenced assemblies:
 //     netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51
 
@@ -278,12 +278,16 @@ namespace Smdn.LibHighlightSharp.Bindings {
     protected SWIGTYPE_p_highlight__LSPProfile() {}
   }
 
-  public class SWIGTYPE_p_std__mapT_std__string_int_std__lessT_std__string_t_t {
-    protected SWIGTYPE_p_std__mapT_std__string_int_std__lessT_std__string_t_t() {}
+  public class SWIGTYPE_p_std__mapT_std__string_int_std__lessT_t_t {
+    protected SWIGTYPE_p_std__mapT_std__string_int_std__lessT_t_t() {}
   }
 
   public class SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t {
     protected SWIGTYPE_p_std__mapT_std__string_std__string_std__lessT_std__string_t_t() {}
+  }
+
+  public class SWIGTYPE_p_std__string_view {
+    protected SWIGTYPE_p_std__string_view() {}
   }
 
   public class SWIGTYPE_p_std__vectorT_highlight__RegexElement_p_t {
@@ -309,11 +313,11 @@ namespace Smdn.LibHighlightSharp.Bindings {
     protected virtual void Dispose(bool disposing) {}
     public void Dispose() {}
     ~SyntaxReader() {}
-    public void addPersistentKeyword(uint groupID, string kw) {}
-    public void addPersistentStateRange(uint groupID, uint column, uint length, uint lineNumber, string fileName) {}
+    public void addPersistentKeyword(uint groupID, SWIGTYPE_p_std__string_view kw) {}
+    public void addPersistentStateRange(uint groupID, uint column, uint length, uint lineNumber, SWIGTYPE_p_std__string_view fileName) {}
     public void addUserChunk(SWIGTYPE_p_Diluculum__LuaFunction chunk) {}
     public bool allowNestedMLComments() {}
-    public bool allowsInnerSection(string langPath) {}
+    public bool allowsInnerSection(SWIGTYPE_p_std__string_view langPath) {}
     public bool assertDelimEqualLength() {}
     public void clearPersistentSnippets() {}
     public bool delimiterIsDistinct(int delimID) {}
@@ -335,13 +339,13 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public string getInputFileName() {}
     public SWIGTYPE_p_std__vectorT_std__string_t getKeywordClasses() {}
     public int getKeywordCount() {}
-    public int getKeywordListGroup(string s) {}
-    public SWIGTYPE_p_std__mapT_std__string_int_std__lessT_std__string_t_t getKeywords() {}
+    public int getKeywordListGroup(SWIGTYPE_p_std__string_view s) {}
+    public SWIGTYPE_p_std__mapT_std__string_int_std__lessT_t_t getKeywords() {}
     public string getLuaErrorText() {}
     public SWIGTYPE_p_Diluculum__LuaState getLuaState() {}
     public string getNewPath(string lang) {}
     public int getOpenDelimiterID(string token, State s) {}
-    public string getOverrideConfigVal(string name) {}
+    public string getOverrideConfigVal(SWIGTYPE_p_std__string_view name) {}
     public SWIGTYPE_p_std__vectorT_int_t getOverrideStyleAttributes() {}
     public string getPersistentHookConditions() {}
     public SWIGTYPE_p_std__vectorT_std__string_t getPersistentSnippets() {}
@@ -352,13 +356,13 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public bool highlightingDisabled() {}
     public bool highlightingEnabled() {}
     public bool isIgnoreCase() {}
-    public bool isKeyword(string s) {}
+    public bool isKeyword(SWIGTYPE_p_std__string_view s) {}
     public LoadResult load(string langDefPath, string pluginReadFilePath, OutputType outputType) {}
     public bool matchesOpenDelimiter(string token, State s, int openDelimId) {}
-    public bool needsReload(string langDefPath) {}
+    public bool needsReload(SWIGTYPE_p_std__string_view langDefPath) {}
     public bool requiresParamUpdate() {}
     public bool requiresTwoPassRun() {}
-    public void restoreLangEndDelim(string langPath) {}
+    public void restoreLangEndDelim(SWIGTYPE_p_std__string_view langPath) {}
     public void setInputFileName(string fn) {}
   }
 
