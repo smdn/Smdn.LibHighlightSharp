@@ -18,7 +18,7 @@ SPDX-License-Identifier: MIT
     <PackageTags>highlighting;highlighter;syntax-highlighting;SyntaxHighlighting</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup Label="repository properties" Condition="'$(GITHUB_ACTIONS)' != 'true'">
+  <PropertyGroup Label="repository properties">
     <RepositoryUrl>https://github.com/smdn/Smdn.LibHighlightSharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
