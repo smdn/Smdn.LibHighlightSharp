@@ -626,10 +626,10 @@ Unhandled exception. System.TypeInitializationException: The type initializer fo
  ---> System.DllNotFoundException: Unable to load shared library 'highlight-v4_4_0_0' or one of its dependencies. In order to help diagnose loading problems, consider setting the LD_DEBUG environment variable: libhighlight-v4_4_0_0: cannot open shared object file: No such file or directory
 ```
 
-First, make sure that the package `Smdn.LibHighlightSharp.NativeBinaries` has been added to your project correctly.
+First, make sure that the package `Smdn.LibHighlightSharp.Bindings` has been added to your project correctly.
 
 ```xml
-<PackageReference Include="Smdn.LibHighlightSharp.NativeBinaries" Version="4.4.0" />
+<PackageReference Include="Smdn.LibHighlightSharp.Bindings" Version="4.4.0" />
 ```
 
 For Linux or macOS, make sure **Lua 5.3** is installed on your system.
