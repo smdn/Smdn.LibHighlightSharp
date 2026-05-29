@@ -1,0 +1,16 @@
+﻿<!--
+SPDX-FileCopyrightText: 2026 smdn <smdn@smdn.jp>
+SPDX-License-Identifier: MIT
+-->
+<Solution>
+  <Project Path="console-output/console-output.csproj" />
+  <Project Path="guess-file-type/guess-file-type.csproj" />
+  <Project Path="list-syntaxes/list-syntaxes.csproj" />
+  <Project Path="list-themes/list-themes.csproj" />
+  <Project Path="nativeexception-loadlanguage-inittheme/nativeexception-loadlanguage-inittheme.csproj" />
+  <Project Path="specify-syntaxes-to-copy/specify-syntaxes-to-copy.csproj" />
+  <Project Path="specify-themes-to-copy/specify-themes-to-copy.csproj" />
+  <Project Path="version-info/version-info.csproj" />
+  <Project Path="xhtml-fragment-output/xhtml-fragment-output.csproj" />
+  <Project Path="xhtml-output/xhtml-output.csproj" />
+</Solution>
