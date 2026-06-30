@@ -73,7 +73,7 @@ on:
 jobs:
   run-test:
     name: Run tests
-    uses: smdn/workflows-dotnet/.github/workflows/test.yml@5b87da331d06ff17f725a397d4c8288111cf2fe6 # test/v1.10.0
+    uses: smdn/workflows-dotnet/.github/workflows/test.yml@7144c60e15cd292c33d720ea0ef963abfda49dab # test/v1.10.1
     with:
       project:                                ${{ inputs.project }}
       os:                                     ${{ inputs.os == '' && 'ubuntu-24.04, ubuntu-22.04, windows-latest' || inputs.os }}
