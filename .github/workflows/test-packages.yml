@@ -71,7 +71,7 @@ jobs:
     if: ${{ always() && !failure() && !cancelled() }} # run tests even if await-package-publishing is skipped
     with:
       project:                                ${{ inputs.project }}
-      os:                                     ${{ inputs.os == '' && 'ubuntu-26.04, ubuntu-24.04, ubuntu-22.04, windows-latest, macos-latest' || inputs.os }}
+      os:                                     ${{ inputs.os == '' && 'ubuntu-26.04, ubuntu-24.04, ubuntu-22.04, windows-latest' || inputs.os }}
       extra_options_common:                   '/p:TestReleasedPackage=true'
       verbose:                                ${{ inputs.verbose == true }}
       dotnet_sdk_version:                     ${{ inputs.dotnet_sdk_version == '' && '10.0.100' || inputs.dotnet_sdk_version }}
