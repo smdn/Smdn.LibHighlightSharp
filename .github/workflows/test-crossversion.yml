@@ -3,6 +3,8 @@
 
 name: Run tests for Smdn.LibHighlightSharp with various versions of Smdn.LibHighlightSharp.Bindings
 
+permissions: {}
+
 on:
   workflow_dispatch:
     inputs:
@@ -72,7 +74,9 @@ jobs:
         "verbose=$($verbose | ConvertTo-Json -Compress)" >> $Env:GITHUB_OUTPUT
 
   run-test:
-    uses: smdn/workflows-dotnet/.github/workflows/test.yml@7144c60e15cd292c33d720ea0ef963abfda49dab # test/v1.10.1
+    uses: smdn/workflows-dotnet/.github/workflows/test.yml@88a108da0f1b2d3fcc0fd7d73b2df430e325a5f5 # test/v1.10.3
+    permissions:
+      contents: read
     needs: prerequisites
     strategy:
       matrix:
