@@ -3,10 +3,7 @@
 
 name: Publish release target manual dispatcher
 
-permissions:
-  contents: write
-  packages: write
-  pull-requests: read
+permissions: {}
 
 on:
   workflow_dispatch:
@@ -24,6 +21,10 @@ on:
 jobs:
   run-publish-release-target:
     uses: smdn/workflows-dotnet/.github/workflows/publish-release-target.yml@071d93f091033126d1fac91fb8a63936233754c1 # release-target/v1.16.2
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: read
     with:
       pr_number_request_for_release: ${{ fromJson(inputs.pr_number_request_for_release) }}
       pr_label_request_for_release:  'release-target'
