@@ -74,7 +74,7 @@ jobs:
         "verbose=$($verbose | ConvertTo-Json -Compress)" >> $Env:GITHUB_OUTPUT
 
   run-test:
-    uses: smdn/workflows-dotnet/.github/workflows/test.yml@88a108da0f1b2d3fcc0fd7d73b2df430e325a5f5 # test/v1.10.3
+    uses: smdn/workflows-dotnet/.github/workflows/test.yml@9ec9f2dc7d5b039bbc9e22aae98cb00c84d806df # test/v1.10.4
     permissions:
       contents: read
     needs: prerequisites
