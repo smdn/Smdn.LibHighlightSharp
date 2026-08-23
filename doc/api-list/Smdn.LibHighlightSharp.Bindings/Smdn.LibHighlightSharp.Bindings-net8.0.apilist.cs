@@ -1,13 +1,13 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.20.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.21.0)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 4.20.0.0
-//   InformationalVersion: 4.20.0+1e2a641ce33a639d3779cc960059a55f2cece12a
+//   AssemblyVersion: 4.21.0.0
+//   InformationalVersion: 4.21.0+11c64904de593d1c0341430b8cc098cede387198
 //   TargetFramework: .NETCoreApp,Version=v8.0
 //   Configuration: Release
 //   Metadata: IsTrimmable=True
 //   Metadata: RepositoryUrl=https://github.com/smdn/Smdn.LibHighlightSharp
 //   Metadata: RepositoryBranch=main
-//   Metadata: RepositoryCommit=1e2a641ce33a639d3779cc960059a55f2cece12a
+//   Metadata: RepositoryCommit=11c64904de593d1c0341430b8cc098cede387198
 //   Referenced assemblies:
 //     System.Runtime, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
 //     System.Runtime.InteropServices, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
@@ -159,6 +159,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public bool initPluginScript(string script) {}
     public bool initTheme(string themePath) {}
     public bool initTheme(string themePath, bool loadSemanticStyles) {}
+    public void insertLineHead() {}
     public bool isHoverProvider() {}
     public bool isSemanticTokensProvider() {}
     public LoadResult loadLanguage(string langDefPath) {}
@@ -192,6 +193,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public virtual void setHTMLOrderedList(bool arg0) {}
     public virtual void setHTMLUseNonBreakingSpace(bool arg0) {}
     public void setIncludeStyle(bool flag) {}
+    public void setIndentGuides(bool b) {}
     public void setIsolateTags(bool flag) {}
     public void setKeepInjections(bool flag) {}
     public void setKeyWordCase(SWIGTYPE_p_StringTools__KeywordCase keyCase) {}
@@ -212,6 +214,7 @@ namespace Smdn.LibHighlightSharp.Bindings {
     public virtual void setRTFPageColor(bool arg0) {}
     public virtual void setRTFPageSize(string arg0) {}
     public virtual void setSVGSize(string arg0, string arg1) {}
+    public void setSkipLeadingCols(uint cols) {}
     public void setStartingInputLine(uint begin) {}
     public void setStyleCaching(bool flag) {}
     public void setStyleInputPath(string path) {}
