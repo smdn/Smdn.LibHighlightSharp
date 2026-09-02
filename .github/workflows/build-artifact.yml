@@ -3,6 +3,8 @@
 
 name: Build artifact libhighlight
 
+permissions: {}
+
 on:
   workflow_dispatch:
     inputs:
@@ -30,7 +32,7 @@ env:
 jobs:
   setup:
     name: Set up
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     outputs:
       runs-ons: ${{ steps.runs-on-os-list.outputs.runs-ons }}
       base-branch: ${{ steps.base-branch.outputs.base-branch }}
@@ -74,6 +76,9 @@ jobs:
     name: Build artifact on ${{ matrix.os }}
     needs: [setup]
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+      pull-requests: write
     strategy:
       fail-fast: false
       matrix:
@@ -103,10 +108,17 @@ jobs:
           "::notice::target RID: ${target_rid}"
         }
 
+    - name: Configure git
+      run: |
+        git config --global core.autocrlf input
+        git config --global core.safecrlf true
+        git config --global core.ignorecase false
+
     - name: Checkout repository
-      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        persist-credentials: false
 
     - name: Configure git identity
       shell: pwsh
