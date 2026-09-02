@@ -1,4 +1,4 @@
-<!--
+﻿<!--
 SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 SPDX-License-Identifier: MIT
 -->
@@ -31,9 +31,9 @@ SPDX-License-Identifier: MIT
     <Highlight_BindingsSourceDirectory>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\$(Highlight_BindingsNamespace)\$(Highlight_NameWithVersion)\</Highlight_BindingsSourceDirectory>
 
     <!--
-    <Highlight_NativeBinariesSupportedRuntimeIdentifiers>linux-x64;ubuntu.24.04-x64;ubuntu.22.04-x64;osx-x64;win-x64</Highlight_NativeBinariesSupportedRuntimeIdentifiers>
+    <Highlight_NativeBinariesSupportedRuntimeIdentifiers>linux-x64;ubuntu.26.04-x64;ubuntu.24.04-x64;ubuntu.22.04-x64;osx-x64;win-x64</Highlight_NativeBinariesSupportedRuntimeIdentifiers>
     -->
-    <Highlight_NativeBinariesSupportedRuntimeIdentifiers>linux-x64;ubuntu.24.04-x64;ubuntu.22.04-x64;win-x64</Highlight_NativeBinariesSupportedRuntimeIdentifiers>
+    <Highlight_NativeBinariesSupportedRuntimeIdentifiers>linux-x64;ubuntu.26.04-x64;ubuntu.24.04-x64;ubuntu.22.04-x64;win-x64</Highlight_NativeBinariesSupportedRuntimeIdentifiers>
     <Highlight_NativeBinariesBaseDirectory>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\runtimes\</Highlight_NativeBinariesBaseDirectory>
     <Highlight_NativeBinariesSHA1SumFile>$(MSBuildThisFileDirectory)Smdn.LibHighlightSharp.Bindings\libhighlight\$(Highlight_BindingsDllImportName).SHA1SUMS.txt</Highlight_NativeBinariesSHA1SumFile>
 
@@ -42,6 +42,7 @@ SPDX-License-Identifier: MIT
 
   <ItemGroup>
     <!-- Note: Must be synchronized with the RID of the property Highlight_NativeBinariesSupportedRuntimeIdentifiers -->
+    <Highlight_NativeBinaryFileRelativePath Include="ubuntu.26.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
     <Highlight_NativeBinaryFileRelativePath Include="ubuntu.24.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
     <Highlight_NativeBinaryFileRelativePath Include="ubuntu.22.04-x64\native\lib$(Highlight_BindingsDllImportName).so" ActualPath="%(Identity)" />
     <Highlight_NativeBinaryFileRelativePath Include="win-x64\native\$(Highlight_BindingsDllImportName).dll" ActualPath="%(Identity)" />

@@ -20,7 +20,8 @@ The following table shows the correspondence between the build platform (GitHub 
 
 |Runner image|Target platform (RID)|
 |-|-|
-|Ubuntu 24.04|`ubuntu.24.04-x64`<br/>`win-x64`|
+|Ubuntu 26.04|`ubuntu.26.04-x64`<br/>`win-x64`|
+|Ubuntu 24.04|`ubuntu.24.04-x64`|
 |Ubuntu 22.04|`ubuntu.22.04-x64`|
 
 Native binaries targeted to Windows are built using MinGW g++ on Ubuntu.
@@ -30,10 +31,10 @@ If you want to build on platforms other than the above or build for other target
 The toolset required to build or run native binaries can be installed by [/eng/dependencies/install-deps.mk](../eng/dependencies/install-deps.mk). (Excluding tools that are installed by default in GitHub Actions runner images like .NET SDK, g++, etc.)
 
 # Build dependencies
-APT package dependencies for build on Ubuntu 22.04.
+APT package dependencies for build on Ubuntu 26.04.
 
 - Smdn.LibHighlightSharp.* (.NET Assemblies)
-  - `dotnet-sdk-6.0`
+  - `dotnet-sdk-10.0`
 - Highlight shared library
   - `autoconf`
   - `automake`
@@ -52,5 +53,5 @@ APT package dependencies for build on Ubuntu 22.04.
     - `g++-multilib` *
     - `zip`
 
-\* Not installed in GitHub Actions' [ubuntu-22.04](https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md) runner image by default
+\* Not installed in GitHub Actions' [ubuntu-26.04](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2604-Readme.md) runner image by default
 
