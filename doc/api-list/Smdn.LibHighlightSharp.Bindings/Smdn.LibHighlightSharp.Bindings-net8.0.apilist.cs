@@ -1,13 +1,13 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.21.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.21.1)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 4.21.0.0
-//   InformationalVersion: 4.21.0+11c64904de593d1c0341430b8cc098cede387198
+//   AssemblyVersion: 4.21.1.0
+//   InformationalVersion: 4.21.1+cbc6d80440869c72557c3275eae6e5fb677418aa
 //   TargetFramework: .NETCoreApp,Version=v8.0
 //   Configuration: Release
 //   Metadata: IsTrimmable=True
 //   Metadata: RepositoryUrl=https://github.com/smdn/Smdn.LibHighlightSharp
 //   Metadata: RepositoryBranch=main
-//   Metadata: RepositoryCommit=11c64904de593d1c0341430b8cc098cede387198
+//   Metadata: RepositoryCommit=cbc6d80440869c72557c3275eae6e5fb677418aa
 //   Referenced assemblies:
 //     System.Runtime, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
 //     System.Runtime.InteropServices, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a

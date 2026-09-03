@@ -1,12 +1,12 @@
-// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.21.0)
+// Smdn.LibHighlightSharp.Bindings.dll (Smdn.LibHighlightSharp.Bindings-4.21.1)
 //   Name: Smdn.LibHighlightSharp.Bindings
-//   AssemblyVersion: 4.21.0.0
-//   InformationalVersion: 4.21.0+11c64904de593d1c0341430b8cc098cede387198
+//   AssemblyVersion: 4.21.1.0
+//   InformationalVersion: 4.21.1+cbc6d80440869c72557c3275eae6e5fb677418aa
 //   TargetFramework: .NETStandard,Version=v2.1
 //   Configuration: Release
 //   Metadata: RepositoryUrl=https://github.com/smdn/Smdn.LibHighlightSharp
 //   Metadata: RepositoryBranch=main
-//   Metadata: RepositoryCommit=11c64904de593d1c0341430b8cc098cede387198
+//   Metadata: RepositoryCommit=cbc6d80440869c72557c3275eae6e5fb677418aa
 //   Referenced assemblies:
 //     netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51
 
