@@ -193,8 +193,9 @@ partial class HighlightTests {
       var ex = Assert.Throws<HighlightThemeException>(Action)!;
 
       Assert.That(
-        ex.ThemeFilePath
-, Does.Contain(Path.Join("base16", ThemeName + ".theme")));
+        ex.ThemeFilePath,
+        Does.Contain(Path.Join("base16", ThemeName + ".theme"))
+      );
       Assert.That(ex.Reason, Is.Not.Empty);
     }
     else {
