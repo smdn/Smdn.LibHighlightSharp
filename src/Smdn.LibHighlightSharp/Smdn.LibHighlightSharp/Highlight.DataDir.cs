@@ -52,11 +52,9 @@ partial class Highlight {
 #else
       Path.Combine(
 #endif
-#pragma warning disable SA1114
         Path.GetDirectoryName(fileTypesConfPath),
         Path.GetFileNameWithoutExtension(fileTypesConfPath)
       );
-#pragma warning restore SA1114
 
     dynamic dataDir = DataDir;
 
