@@ -191,9 +191,11 @@ public partial class HighlightTests {
       => Assert.That(Highlight.GeneratorInformationalVersion, Is.Empty);
 
     // HACK: force reset backing field to null
-    var backingField = typeof(Highlight).GetField("generatorInformationalVersion", BindingFlags.Static | BindingFlags.NonPublic);
+    var setter = typeof(Highlight)
+      .GetProperty(nameof(Highlight.GeneratorInformationalVersion), BindingFlags.Static | BindingFlags.Public)
+      .GetSetMethod(nonPublic: true) ?? throw new InvalidOperationException("failed to get the set accessor");
 
-    backingField.SetValue(null, null);
+    setter.Invoke(obj: null, parameters: [null]);
 
     try {
       if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -206,7 +208,7 @@ public partial class HighlightTests {
         Assert.Ignore($"undefined platform: {RuntimeInformation.OSDescription}");
     }
     finally {
-      backingField.SetValue(null, null);
+      setter.Invoke(obj: null, parameters: [null]);
     }
   }
 
