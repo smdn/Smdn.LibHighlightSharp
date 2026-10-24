@@ -131,15 +131,15 @@ partial class Highlight {
     }
   }
 
-  private static string? generatorInformationalVersion;
-
   public static string? GeneratorInformationalVersion {
     get {
-      if (generatorInformationalVersion is null)
-        Interlocked.CompareExchange(ref generatorInformationalVersion, GetGeneratorInformationalVersion(), null);
+      if (field is null)
+        Interlocked.CompareExchange(ref field, GetGeneratorInformationalVersion(), null);
 
-      return generatorInformationalVersion;
+      return field;
     }
+
+    private set;
   }
 
   [Obsolete($"Use {nameof(GeneratorInformationalVersion)} instead.")]
