@@ -4,9 +4,7 @@ using System;
 
 namespace Smdn.LibHighlightSharp;
 
-#pragma warning disable IDE0040
 partial class Highlight {
-#pragma warning restore IDE0040
   /*
    * `.theme` methods
    */

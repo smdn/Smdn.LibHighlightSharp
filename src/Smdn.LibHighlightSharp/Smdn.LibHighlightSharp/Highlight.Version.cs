@@ -7,9 +7,7 @@ using System.Threading;
 
 namespace Smdn.LibHighlightSharp;
 
-#pragma warning disable IDE0040
 partial class Highlight {
-#pragma warning restore IDE0040
   // https://gitlab.com/saalen/highlight/-/blob/master/ChangeLog.adoc#user-content-highlight-3-44
   public static readonly Version MinimumVersionSupportingBase16Themes = new(3, 44);
 

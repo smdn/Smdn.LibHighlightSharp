@@ -6,9 +6,7 @@ using System.Xml.Linq;
 
 namespace Smdn.LibHighlightSharp.Xhtml;
 
-#pragma warning disable IDE0040
 partial class XhtmlHighlight {
-#pragma warning restore IDE0040
   protected static IEnumerable<(
     XElement HighlightedElement,
     HighlightHtmlClass HighlightClass

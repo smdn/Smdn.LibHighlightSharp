@@ -9,9 +9,7 @@ namespace Smdn.LibHighlightSharp;
 // ref: The CodeGenerator APIs as of highlight 3.0 beta
 //      https://gitlab.com/saalen/highlight/-/blob/3a106f48d988310418c8a00571076eef3f5b28de/highlight/src/include/codegenerator.h
 
-#pragma warning disable IDE0040
 partial class Highlight {
-#pragma warning restore IDE0040
   /// <summary>
   /// Gets or sets a value indicating whether the CodeGenerator prints the line numbers in output or not.
   /// This value is equivalent to the option '--line-numbers'.
