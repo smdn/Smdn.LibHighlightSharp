@@ -14,12 +14,15 @@ partial class HighlightTests {
   {
     using var hl = new Highlight();
 
-    Assert.DoesNotThrow(() => {
-      hl.PrintLineNumbers = true;
-      hl.PrintLineNumbers = false;
+    Assert.That(
+      () => {
+        hl.PrintLineNumbers = true;
+        hl.PrintLineNumbers = false;
 
-      Assert.That(hl.PrintLineNumbers, Is.False);
-    });
+        Assert.That(hl.PrintLineNumbers, Is.False);
+      },
+      Throws.Nothing
+    );
   }
 
   [Test]
@@ -27,12 +30,15 @@ partial class HighlightTests {
   {
     using var hl = new Highlight();
 
-    Assert.DoesNotThrow(() => {
-      hl.LineNumberZeroPadding = true;
-      hl.LineNumberZeroPadding = false;
+    Assert.That(
+      () => {
+        hl.LineNumberZeroPadding = true;
+        hl.LineNumberZeroPadding = false;
 
-      Assert.That(hl.LineNumberZeroPadding, Is.False);
-    });
+        Assert.That(hl.LineNumberZeroPadding, Is.False);
+      },
+      Throws.Nothing
+    );
   }
 
   [Test]
@@ -40,12 +46,15 @@ partial class HighlightTests {
   {
     using var hl = new Highlight();
 
-    Assert.DoesNotThrow(() => {
-      hl.Fragment = true;
-      hl.Fragment = false;
+    Assert.That(
+      () => {
+        hl.Fragment = true;
+        hl.Fragment = false;
 
-      Assert.That(hl.Fragment, Is.False);
-    });
+        Assert.That(hl.Fragment, Is.False);
+      },
+      Throws.Nothing
+    );
   }
 
   [Test]
@@ -53,12 +62,15 @@ partial class HighlightTests {
   {
     using var hl = new Highlight();
 
-    Assert.DoesNotThrow(() => {
-      hl.LineNumberWidth = 1;
-      hl.LineNumberWidth = 2;
+    Assert.That(
+      () => {
+        hl.LineNumberWidth = 1;
+        hl.LineNumberWidth = 2;
 
-      Assert.That(hl.LineNumberWidth, Is.EqualTo(2));
-    });
+        Assert.That(hl.LineNumberWidth, Is.EqualTo(2));
+      },
+      Throws.Nothing
+    );
   }
 
   [Test]
@@ -66,15 +78,17 @@ partial class HighlightTests {
   {
     using var hl = new Highlight();
 
-    Assert.DoesNotThrow(
+    Assert.That(
       () => {
         hl.OmitVersionComment = true;
         hl.OmitVersionComment = false;
       },
+      Throws.Nothing,
       $"set_{nameof(Highlight.OmitVersionComment)}"
     );
-    Assert.DoesNotThrow(
+    Assert.That(
       () => Assert.That(hl.OmitVersionComment, Is.False),
+      Throws.Nothing,
       $"get_{nameof(Highlight.OmitVersionComment)}"
     );
   }
@@ -85,15 +99,17 @@ partial class HighlightTests {
   {
     using var hl = new Highlight();
 
-    Assert.DoesNotThrow(
+    Assert.That(
       () => {
         hl.IsolateTags = true;
         hl.IsolateTags = false;
       },
+      Throws.Nothing,
       $"set_{nameof(Highlight.IsolateTags)}"
     );
-    Assert.DoesNotThrow(
+    Assert.That(
       () => Assert.That(hl.IsolateTags, Is.False),
+      Throws.Nothing,
       $"get_{nameof(Highlight.IsolateTags)}"
     );
   }
@@ -103,8 +119,9 @@ partial class HighlightTests {
   {
     using var hl = new Highlight();
 
-    Assert.DoesNotThrow(
+    Assert.That(
       () => EmptyMethodAcceptsNullableString(hl.LastSyntaxError),
+      Throws.Nothing,
       $"get_{nameof(Highlight.LastSyntaxError)}"
     );
   }
@@ -116,8 +133,9 @@ partial class HighlightTests {
 
     hl.SetSyntax("csharp");
 
-    Assert.DoesNotThrow(
+    Assert.That(
       () => EmptyMethodAcceptsNullableString(hl.SyntaxDescription),
+      Throws.Nothing,
       $"get_{nameof(Highlight.SyntaxDescription)}"
     );
   }
@@ -129,8 +147,9 @@ partial class HighlightTests {
 
     hl.SetSyntax("csharp");
 
-    Assert.DoesNotThrow(
+    Assert.That(
       () => EmptyMethodAcceptsNullableString(hl.SyntaxEncodingHint),
+      Throws.Nothing,
       $"get_{nameof(Highlight.SyntaxEncodingHint)}"
     );
   }
@@ -140,8 +159,9 @@ partial class HighlightTests {
   {
     using var hl = new Highlight();
 
-    Assert.DoesNotThrow(
+    Assert.That(
       () => EmptyMethodAcceptsNullableString(hl.ThemeDescription),
+      Throws.Nothing,
       $"get_{nameof(Highlight.ThemeDescription)}"
     );
   }
@@ -153,8 +173,9 @@ partial class HighlightTests {
 
     hl.SetSyntax("csharp");
 
-    Assert.DoesNotThrow(
+    Assert.That(
       () => EmptyMethodAcceptsNullableString(hl.SyntaxCategoryDescription),
+      Throws.Nothing,
       $"get_{nameof(Highlight.SyntaxCategoryDescription)}"
     );
   }
@@ -164,8 +185,9 @@ partial class HighlightTests {
   {
     using var hl = new Highlight();
 
-    Assert.DoesNotThrow(
+    Assert.That(
       () => EmptyMethodAcceptsNullableString(hl.ThemeCategoryDescription),
+      Throws.Nothing,
       $"get_{nameof(Highlight.ThemeCategoryDescription)}"
     );
   }
@@ -187,7 +209,7 @@ partial class HighlightTests {
   {
     using var hl = new Highlight();
 
-    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = eof);
+    Assert.That(() => hl.AdditionalEndOfFileChar = eof, Throws.Nothing);
 
     if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
       Assert.That(hl.AdditionalEndOfFileChar, Is.EqualTo(eof), nameof(hl.AdditionalEndOfFileChar));
@@ -203,9 +225,9 @@ partial class HighlightTests {
     using var hl = new Highlight();
     const char InitialEofChar = '\x00';
 
-    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = InitialEofChar);
+    Assert.That(() => hl.AdditionalEndOfFileChar = InitialEofChar, Throws.Nothing);
 
-    Assert.Throws<ArgumentOutOfRangeException>(() => hl.AdditionalEndOfFileChar = eof);
+    Assert.That(() => hl.AdditionalEndOfFileChar = eof, Throws.TypeOf<ArgumentOutOfRangeException>());
 
     if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
       Assert.That(hl.AdditionalEndOfFileChar, Is.EqualTo(InitialEofChar));
@@ -219,14 +241,14 @@ partial class HighlightTests {
     using var hl = new Highlight();
     const char InitialEofChar = '\x00';
 
-    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = InitialEofChar);
+    Assert.That(() => hl.AdditionalEndOfFileChar = InitialEofChar, Throws.Nothing);
 
     if (new Version(4, 6) <= VersionInformations.NativeLibraryVersion)
       Assert.That(hl.AdditionalEndOfFileChar, Is.EqualTo(InitialEofChar));
     else
       Assert.That(hl.AdditionalEndOfFileChar, Is.Null, nameof(hl.AdditionalEndOfFileChar));
 
-    Assert.DoesNotThrow(() => hl.AdditionalEndOfFileChar = null);
+    Assert.That(() => hl.AdditionalEndOfFileChar = null, Throws.Nothing);
 
     Assert.That(hl.AdditionalEndOfFileChar, Is.Null, nameof(hl.AdditionalEndOfFileChar));
   }

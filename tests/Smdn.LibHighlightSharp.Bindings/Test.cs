@@ -63,7 +63,7 @@ public class SwigBindingTests {
 #if SYSTEM_RUNTIME_INTEROPSERVICES_NATIVELIBRARY && SYSTEM_RUNTIME_INTEROPSERVICES_RUNTIMEINFORMATION_RUNTIMEIDENTIFIER
     var nativeLibraryHandle = IntPtr.Zero;
 
-    Assert.DoesNotThrow(() => nativeLibraryHandle = NativeLibrary.Load(nativeLibraryFilePath)); // maybe already loaded
+    Assert.That(() => nativeLibraryHandle = NativeLibrary.Load(nativeLibraryFilePath), Throws.Nothing); // maybe already loaded
 
     Assert.That(nativeLibraryHandle, Is.Not.EqualTo(IntPtr.Zero));
 #endif
@@ -137,10 +137,10 @@ public class SwigBindingTests {
     CodeGenerator? generator = null;
 
     try {
-      Assert.DoesNotThrow(() => generator = CodeGenerator.getInstance(OutputType.HTML));
+      Assert.That(() => generator = CodeGenerator.getInstance(OutputType.HTML), Throws.Nothing);
       Assert.That(generator, Is.Not.Null);
-      Assert.DoesNotThrow(() => generator!.getFragmentCode());
-      Assert.DoesNotThrow(() => generator!.Dispose());
+      Assert.That(() => generator!.getFragmentCode(), Throws.Nothing);
+      Assert.That(() => generator!.Dispose(), Throws.Nothing);
     }
     finally {
       if (generator is not null)

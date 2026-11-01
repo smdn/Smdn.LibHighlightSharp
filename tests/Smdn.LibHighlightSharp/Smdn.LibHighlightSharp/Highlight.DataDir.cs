@@ -71,9 +71,9 @@ using System;",
     );
 
     if (Highlight.MinimumVersionSupportingLoadFileTypesConfig <= VersionInformations.NativeLibraryVersion)
-      Assert.DoesNotThrow(Action);
+      Assert.That(Action, Throws.Nothing);
     else
-      Assert.Throws<NotSupportedException>(Action);
+      Assert.That(Action, Throws.TypeOf<NotSupportedException>());
   }
 
   [Test]
@@ -86,9 +86,9 @@ using System;",
     );
 
     if (Highlight.MinimumVersionSupportingLoadFileTypesConfig <= VersionInformations.NativeLibraryVersion)
-      Assert.Throws<InvalidOperationException>(Action);
+      Assert.That(Action, Throws.InvalidOperationException);
     else
-      Assert.Throws<NotSupportedException>(Action);
+      Assert.That(Action, Throws.TypeOf<NotSupportedException>());
   }
 
   [Test]
@@ -101,14 +101,14 @@ using System;",
     void Action() => fileType = hl.GuessFileType(Path.Combine(TestContext.CurrentContext.WorkDirectory, CSharpSourceWithExtensionFileName));
 
     if (Highlight.MinimumVersionSupportingGuessFileType <= VersionInformations.NativeLibraryVersion) {
-      Assert.DoesNotThrow(Action);
+      Assert.That(Action, Throws.Nothing);
 
       // file extension must be returned in this case
       Assert.That(fileType, Is.Not.Null);
       Assert.That(fileType!, Is.EqualTo("cs"));
     }
     else {
-      Assert.Throws<NotSupportedException>(Action);
+      Assert.That(Action, Throws.TypeOf<NotSupportedException>());
     }
   }
 
@@ -233,7 +233,10 @@ using System;",
     var ret = false;
     string? themeFilePath = null;
 
-    Assert.DoesNotThrow(() => ret = hl.TryFindThemeBase16File(name!, out themeFilePath));
+    Assert.That(
+      () => ret = hl.TryFindThemeBase16File(name!, out themeFilePath),
+      Throws.Nothing
+    );
 
     if (Highlight.MinimumVersionSupportingBase16Themes <= VersionInformations.NativeLibraryVersion) {
       Assert.That(expected, Is.EqualTo(ret));

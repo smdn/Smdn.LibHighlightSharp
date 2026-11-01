@@ -26,10 +26,10 @@ public partial class HighlightTests {
   {
     Highlight hl = null;
 
-    Assert.DoesNotThrow(() => hl = new Highlight());
+    Assert.That(() => hl = new Highlight(), Throws.Nothing);
     Assert.That(hl, Is.Not.Null);
     Assert.That(hl.OutputType, Is.EqualTo(GeneratorOutputType.Html), nameof(Highlight.OutputType));
-    Assert.DoesNotThrow(() => hl.Dispose());
+    Assert.That(() => hl.Dispose(), Throws.Nothing);
   }
 
   [TestCase(GeneratorOutputType.Html)]
@@ -38,24 +38,24 @@ public partial class HighlightTests {
   {
     Highlight hl = null;
 
-    Assert.DoesNotThrow(() => hl = new Highlight(outputType: outputType));
+    Assert.That(() => hl = new Highlight(outputType: outputType), Throws.Nothing);
     Assert.That(hl, Is.Not.Null);
     Assert.That(hl.OutputType, Is.EqualTo(outputType), nameof(Highlight.OutputType));
-    Assert.DoesNotThrow(() => hl.Dispose());
+    Assert.That(() => hl.Dispose(), Throws.Nothing);
   }
 
   [Test]
   public void Ctor_WithDataDir_NullString()
-    => Assert.Throws<ArgumentNullException>(() => new Highlight(dataDir: (string)null!));
+    => Assert.That(() => new Highlight(dataDir: (string)null!), Throws.ArgumentNullException);
 
   [Test]
   public void Ctor_WithDataDir_NullDataDir()
-    => Assert.Throws<ArgumentNullException>(() => new Highlight(dataDir: (Bindings.DataDir)null!));
+    => Assert.That(() => new Highlight(dataDir: (Bindings.DataDir)null!), Throws.ArgumentNullException);
 
   [TestCase(null, "")]
   [TestCase("", null)]
   public void Ctor_WithDataDirForEach_NullString(string? dataDirForSyntaxes, string? dataDirForThemes)
-    => Assert.Throws<ArgumentNullException>(() => new Highlight(dataDirForSyntaxes: dataDirForSyntaxes!, dataDirForThemes: dataDirForThemes!));
+    => Assert.That(() => new Highlight(dataDirForSyntaxes: dataDirForSyntaxes!, dataDirForThemes: dataDirForThemes!), Throws.ArgumentNullException);
 
   private static System.Collections.IEnumerable YieldTestCases_NullableDataDirPairs()
   {
@@ -65,7 +65,7 @@ public partial class HighlightTests {
 
   [TestCaseSource(nameof(YieldTestCases_NullableDataDirPairs))]
   public void Ctor_WithDataDirForEach_NullDataDir(Bindings.DataDir? dataDirForSyntaxes, Bindings.DataDir? dataDirForThemes)
-    => Assert.Throws<ArgumentNullException>(() => new Highlight(dataDirForSyntaxes: dataDirForSyntaxes!, dataDirForThemes: dataDirForThemes!, shouldDisposeDataDir: true));
+    => Assert.That(() => new Highlight(dataDirForSyntaxes: dataDirForSyntaxes!, dataDirForThemes: dataDirForThemes!, shouldDisposeDataDir: true), Throws.ArgumentNullException);
 
   private class DataDirEx : Bindings.DataDir {
     public bool OwnsSwigCMem => base.swigCMemOwn;
@@ -82,7 +82,7 @@ public partial class HighlightTests {
     using var dataDir = new DataDirEx();
     using var hl = new Highlight(dataDir: dataDir, shouldDisposeDataDir: shouldDisposeDataDir);
 
-    Assert.DoesNotThrow(hl.Dispose);
+    Assert.That(hl.Dispose, Throws.Nothing);
 
     Assert.That(dataDir.OwnsSwigCMem, Is.EqualTo(!shouldDisposeDataDir));
   }
@@ -94,7 +94,7 @@ public partial class HighlightTests {
     using var dataDirForThemes = new DataDirEx();
     using var hl = new Highlight(dataDirForSyntaxes: dataDirForSyntaxes, dataDirForThemes: dataDirForThemes, shouldDisposeDataDir: shouldDisposeDataDir);
 
-    Assert.DoesNotThrow(hl.Dispose);
+    Assert.That(hl.Dispose, Throws.Nothing);
 
     Assert.That(dataDirForSyntaxes.OwnsSwigCMem, Is.EqualTo(!shouldDisposeDataDir));
     Assert.That(dataDirForThemes.OwnsSwigCMem, Is.EqualTo(!shouldDisposeDataDir));
@@ -107,9 +107,9 @@ public partial class HighlightTests {
   {
     Highlight hl = null;
 
-    Assert.DoesNotThrow(() => hl = new Highlight(dataDir: dataDir));
+    Assert.That(() => hl = new Highlight(dataDir: dataDir), Throws.Nothing);
     Assert.That(hl, Is.Not.Null);
-    Assert.DoesNotThrow(() => hl.Dispose());
+    Assert.That(() => hl.Dispose(), Throws.Nothing);
   }
 
   [TestCase("", "")]
@@ -122,9 +122,12 @@ public partial class HighlightTests {
   {
     Highlight hl = null;
 
-    Assert.DoesNotThrow(() => hl = new Highlight(dataDirForSyntaxes: dataDirForSyntaxes, dataDirForThemes: dataDirForThemes));
+    Assert.That(
+      () => hl = new Highlight(dataDirForSyntaxes: dataDirForSyntaxes, dataDirForThemes: dataDirForThemes),
+      Throws.Nothing
+    );
     Assert.That(hl, Is.Not.Null);
-    Assert.DoesNotThrow(() => hl.Dispose());
+    Assert.That(() => hl.Dispose(), Throws.Nothing);
   }
 
   [Test]
@@ -132,20 +135,20 @@ public partial class HighlightTests {
   {
     var hl = new Highlight();
 
-    Assert.DoesNotThrow(() => hl.Title = string.Empty);
-    Assert.DoesNotThrow(() => hl.SetTheme("github"));
-    Assert.DoesNotThrow(() => hl.SetSyntax("csharp"));
-    Assert.DoesNotThrow(() => hl.Generate("using System;"));
+    Assert.That(() => hl.Title = string.Empty, Throws.Nothing);
+    Assert.That(() => hl.SetTheme("github"), Throws.Nothing);
+    Assert.That(() => hl.SetSyntax("csharp"), Throws.Nothing);
+    Assert.That(() => hl.Generate("using System;"), Throws.Nothing);
 
-    Assert.DoesNotThrow(hl.Dispose, "dispose #1");
-    Assert.DoesNotThrow(hl.Dispose, "dispose #2");
+    Assert.That(hl.Dispose, Throws.Nothing, "dispose #1");
+    Assert.That(hl.Dispose, Throws.Nothing, "dispose #2");
 
-    Assert.Throws<ObjectDisposedException>(() => hl.Title = string.Empty);
-    Assert.Throws<ObjectDisposedException>(() => hl.SetSyntax("csharp"));
-    Assert.Throws<ObjectDisposedException>(() => hl.SetTheme("github"));
-    Assert.Throws<ObjectDisposedException>(() => hl.Generate("using System;"));
-    Assert.Throws<ObjectDisposedException>(() => hl.Generate("non-existent.cs", "null-output.cs"));
-    Assert.Throws<ObjectDisposedException>(() => hl.GenerateFromFile("non-existent.cs"));
+    Assert.That(() => hl.Title = string.Empty, Throws.TypeOf<ObjectDisposedException>());
+    Assert.That(() => hl.SetSyntax("csharp"), Throws.TypeOf<ObjectDisposedException>());
+    Assert.That(() => hl.SetTheme("github"), Throws.TypeOf<ObjectDisposedException>());
+    Assert.That(() => hl.Generate("using System;"), Throws.TypeOf<ObjectDisposedException>());
+    Assert.That(() => hl.Generate("non-existent.cs", "null-output.cs"), Throws.TypeOf<ObjectDisposedException>());
+    Assert.That(() => hl.GenerateFromFile("non-existent.cs"), Throws.TypeOf<ObjectDisposedException>());
   }
 
   [Test]

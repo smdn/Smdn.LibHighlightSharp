@@ -13,9 +13,9 @@ public class CodeGeneratorTests {
   {
     CodeGenerator? gen = null;
 
-    Assert.DoesNotThrow(() => gen = CodeGenerator.getInstance(OutputType.HTML));
+    Assert.That(() => gen = CodeGenerator.getInstance(OutputType.HTML), Throws.Nothing);
     Assert.That(gen, Is.Not.Null);
-    Assert.DoesNotThrow(() => CodeGenerator.deleteInstance(gen!));
-    Assert.DoesNotThrow(() => gen!.Dispose());
+    Assert.That(() => CodeGenerator.deleteInstance(gen!), Throws.Nothing);
+    Assert.That(() => gen!.Dispose(), Throws.Nothing);
   }
 }

@@ -38,10 +38,10 @@ public partial class HighlightTests {
       RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
       RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
     ) {
-      Assert.DoesNotThrow(() => Assert.That(VersionInformations.NativeLibraryFileName, Is.Not.Null));
+      Assert.That(() => _ = VersionInformations.NativeLibraryFileName, Throws.Nothing);
     }
     else {
-      Assert.Throws<PlatformNotSupportedException>(() => Assert.That(VersionInformations.NativeLibraryFileName, Is.Not.Null));
+      Assert.That(() => Assert.That(VersionInformations.NativeLibraryFileName, Is.Not.Null), Throws.TypeOf<PlatformNotSupportedException>());
       return;
     }
 
