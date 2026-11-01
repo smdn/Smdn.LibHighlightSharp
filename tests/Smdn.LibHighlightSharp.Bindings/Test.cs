@@ -1,6 +1,5 @@
 // SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 // SPDX-License-Identifier: MIT
-using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -143,8 +142,7 @@ public class SwigBindingTests {
       Assert.That(() => generator!.Dispose(), Throws.Nothing);
     }
     finally {
-      if (generator is not null)
-        generator.Dispose();
+      generator?.Dispose();
     }
   }
 }

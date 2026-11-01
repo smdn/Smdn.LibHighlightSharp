@@ -9,8 +9,8 @@ using System.Text.Json;
 
 using NUnit.Framework;
 
-using Smdn.OperatingSystem;
 using Smdn.LibHighlightSharp;
+using Smdn.OperatingSystem;
 
 [TestFixture]
 public class AssemblyMetadataTests {
