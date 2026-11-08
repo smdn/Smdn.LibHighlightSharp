@@ -139,6 +139,7 @@ partial class Highlight {
       return field;
     }
 
+    // Do not delete this, as it is used for testing.
     private set;
   }
 

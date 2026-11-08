@@ -193,14 +193,26 @@ public partial class HighlightTests {
     static void TestAction()
       => Assert.That(Highlight.GeneratorInformationalVersion, Is.Empty);
 
-    // HACK: force reset backing field to null
-    var setter = typeof(Highlight)
-      .GetProperty(nameof(Highlight.GeneratorInformationalVersion), BindingFlags.Static | BindingFlags.Public)
-      .GetSetMethod(nonPublic: true) ?? throw new InvalidOperationException("failed to get the set accessor");
+    var prop = typeof(Highlight)
+      .GetProperty(nameof(Highlight.GeneratorInformationalVersion), BindingFlags.Static | BindingFlags.Public);
 
-    setter.Invoke(obj: null, parameters: [null]);
+    // HACK: force reset backing field to null
+    // Due to the changes in af3a85e7739c82f6620e3bfcabf950040212e98d, the backing
+    // field has been removed and replaced with a private setter, so retrieve either
+    // one and use it in the test.
+    var backingField = typeof(Highlight).GetField("generatorInformationalVersion", BindingFlags.Static | BindingFlags.NonPublic);
+    var setter = backingField is null
+      ? typeof(Highlight)
+        .GetProperty(nameof(Highlight.GeneratorInformationalVersion), BindingFlags.Static | BindingFlags.Public)
+        .GetSetMethod(nonPublic: true) ?? throw new InvalidOperationException("failed to get the set accessor")
+      : null;
 
     try {
+      if (backingField is { } f)
+        f.SetValue(null, null);
+      else
+        setter.Invoke(obj: null, parameters: [null]);
+
       if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         GeneratorInformationalVersion_FailedToLoadThemeOrSyntax_Windows(TestAction);
       else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
@@ -211,7 +223,10 @@ public partial class HighlightTests {
         Assert.Ignore($"undefined platform: {RuntimeInformation.OSDescription}");
     }
     finally {
-      setter.Invoke(obj: null, parameters: [null]);
+      if (backingField is { } f)
+        f.SetValue(null, null);
+      else
+        setter.Invoke(obj: null, parameters: [null]);
     }
   }
 
