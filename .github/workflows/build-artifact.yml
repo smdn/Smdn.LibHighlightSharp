@@ -40,6 +40,13 @@ jobs:
       RUNS_ON_OS_LIST_DEFAULT: "['ubuntu-26.04', 'ubuntu-24.04', 'ubuntu-22.04']"
 
     steps:
+    - name: Verify GitHub PAT
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN_BUILD_ARTIFACT }}
+      run: |
+        # Check token validity before proceeding to fail fast if the PAT has expired.
+        gh api user --jq '"Authenticated as: " + .login'
+
     - name: Determine OS list which run the build on
       id: runs-on-os-list
       shell: pwsh
