@@ -27,6 +27,7 @@ public class AssemblyMetadataTests {
       "..",
       "..",
       "..",
+      "..",
       ".."
     );
     var pathToToolProject = Path.GetFullPath(
