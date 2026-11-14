@@ -1,4 +1,4 @@
-<!--
+﻿<!--
 SPDX-FileCopyrightText: 2022 smdn <smdn@smdn.jp>
 SPDX-License-Identifier: MIT
 -->
@@ -31,9 +31,6 @@ SPDX-License-Identifier: MIT
     <!-- use only smaller RIDs to comply with the error NETSDK1083 -->
     <!--
     <LibraryProjectRuntimeIdentifiers Condition="
-      $(TargetFramework.StartsWith('net7')) or
-      $(TargetFramework.StartsWith('net6')) or
-      $(TargetFramework.StartsWith('net5')) or
       $(TargetFramework.StartsWith('netstandard'))
     ">$(Highlight_NativeBinariesSupportedRuntimeIdentifiers)</LibraryProjectRuntimeIdentifiers>
     -->

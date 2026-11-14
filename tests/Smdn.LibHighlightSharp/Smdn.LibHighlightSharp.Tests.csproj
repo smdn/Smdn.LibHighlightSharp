@@ -6,16 +6,7 @@ SPDX-License-Identifier: MIT
   <Import Project="$(MSBuildThisFileDirectory)..\..\src\Highlight.Build.props" />
 
   <PropertyGroup>
-    <!-- true if on .NET 8.0 or greater -->
-    <UseSimplifiedRIDModel Condition="!( $(TargetFramework.StartsWith('net6')) or $(TargetFramework.StartsWith('net7')) )">true</UseSimplifiedRIDModel>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <!-- specify RID 'linux-x64' on .NET 8.0 or greater -->
-    <RuntimeIdentifier Condition="
-      '$(IsTargetFrameworkNet8OrGreater)' == 'true' and
-      '$([System.Runtime.InteropServices.RuntimeInformation]::RuntimeIdentifier)' == 'linux-x64'
-    ">linux-x64</RuntimeIdentifier>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
     <RequireToInstallCIRuntimeDependencies>true</RequireToInstallCIRuntimeDependencies>
   </PropertyGroup>
 
