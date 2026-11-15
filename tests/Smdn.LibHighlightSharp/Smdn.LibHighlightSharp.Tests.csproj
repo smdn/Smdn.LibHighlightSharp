@@ -6,7 +6,8 @@ SPDX-License-Identifier: MIT
   <Import Project="$(MSBuildThisFileDirectory)..\..\src\Highlight.Build.props" />
 
   <PropertyGroup>
-    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="$([MSBuild]::IsOsPlatform('Windows'))">win-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="$([MSBuild]::IsOsPlatform('Linux'))">linux-x64</RuntimeIdentifier>
     <RequireToInstallCIRuntimeDependencies>true</RequireToInstallCIRuntimeDependencies>
   </PropertyGroup>
 
